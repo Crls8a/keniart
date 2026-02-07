@@ -44,7 +44,8 @@ export default defineType({
 
     // ============================================
     // IMÁGENES - Galería de la obra
-    // Alt obligatorio para accesibilidad y SEO
+    // Alt obligatorio solo en la primera imagen (portada)
+    // Las imágenes adicionales tienen alt opcional
     // ============================================
     defineField({
       name: 'images',
@@ -57,14 +58,32 @@ export default defineType({
           fields: [
             {
               name: 'alt',
-              title: 'Texto alternativo (descripción para SEO y accesibilidad)',
+              title: 'Texto alternativo',
               type: 'string',
-              validation: (Rule) => Rule.required(),
+              description:
+                'Obligatorio en la portada (primera imagen). Opcional en el resto.',
             },
           ],
         },
       ],
-      validation: (Rule) => Rule.min(1).required(),
+      validation: (Rule) =>
+        Rule.custom((images) => {
+          // La primera imagen debe tener alt
+          if (images && images.length > 0) {
+            const first = images[0]
+            if (!first.alt || first.alt.trim() === '') {
+              return {
+                message: 'La primera imagen (portada) debe tener texto alternativo.',
+                paths: [
+                  {
+                    path: ['0', 'alt'],
+                  },
+                ],
+              }
+            }
+          }
+          return true
+        }).min(1).required(),
     }),
 
     // ============================================
