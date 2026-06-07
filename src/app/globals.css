@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f5f1ea;
+  --foreground: #17130f;
+  --muted: #746d63;
+  --paper: #fffaf2;
+  --line: #ded6c9;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-paper: var(--paper);
+  --color-line: var(--line);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
+
+::selection {
+  background: #2a241d;
+  color: #fffaf2;
+}
+
+a,
+button {
+  text-underline-offset: 0.25rem;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .slow-zoom {
+    animation: slow-zoom 18s ease-in-out infinite alternate;
+  }
+
+  @keyframes slow-zoom {
+    from {
+      transform: scale(1);
+    }
+    to {
+      transform: scale(1.04);
+    }
+  }
+}
