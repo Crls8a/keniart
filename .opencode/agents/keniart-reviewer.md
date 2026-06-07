@@ -13,6 +13,7 @@ permission:
     "git diff*": allow
     "pnpm lint*": allow
     "pnpm build*": ask
+    "pnpm doctor:react*": ask
     "*": deny
   task:
     "*": deny
@@ -27,3 +28,5 @@ Required output:
 4. Risks and rollback
 
 Prioritize behavioral bugs, invalid opencode config shape, Next.js API mismatches, accessibility regressions, and missing validation.
+
+For frontend reviews, request or run `pnpm doctor:react --no-score --no-telemetry --blocking none` as an advisory React Doctor pass. Treat its output as evidence, not a substitute for reading the code.

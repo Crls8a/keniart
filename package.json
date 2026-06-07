@@ -8,6 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "doctor:react": "react-doctor",
     "optimize:images": "python scripts/optimize_images.py"
   },
   "dependencies": {
@@ -22,6 +23,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.7",
+    "react-doctor": "0.4.2",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

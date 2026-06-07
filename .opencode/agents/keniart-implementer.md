@@ -14,6 +14,7 @@ permission:
     "git diff*": allow
     "pnpm lint*": allow
     "pnpm build*": ask
+    "pnpm doctor:react*": ask
   task:
     "*": deny
   skill: allow
@@ -27,3 +28,4 @@ Rules:
 - Keep diffs small and verifiable.
 - Do not hardcode secrets or tokens.
 - Return files changed, validation run, validation not run, and rollback suggestion.
+- For frontend debt tasks, run or request `pnpm doctor:react --no-score --no-telemetry --blocking none` after `pnpm lint`/`pnpm build` when feasible.
