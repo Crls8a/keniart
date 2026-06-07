@@ -9,6 +9,7 @@ node --version
 pnpm --version
 pnpm lint
 pnpm build
+pnpm run doctor --no-score --no-telemetry --blocking none
 pnpm doctor:react --no-score --no-telemetry --blocking none
 ```
 
@@ -21,9 +22,9 @@ Versiones validadas en este entorno:
 
 ## Por qué usamos `pnpm doctor:react` y no `npx`
 
-El proyecto usa pnpm. Para mantener coherencia y reproducibilidad, `react-doctor@0.4.2` queda pineado como dev dependency y el script `doctor:react` ejecuta esa versión local.
+El proyecto usa pnpm. Para mantener coherencia y reproducibilidad, `react-doctor@0.4.2` queda pineado como dev dependency y los scripts `doctor` / `doctor:react` ejecutan esa versión local.
 
-No usamos un script llamado `doctor` porque pnpm ya tiene un comando propio `pnpm doctor`. Nombrarlo `doctor:react` evita ambigüedad.
+Ojo: pnpm ya tiene un comando propio `pnpm doctor`. Por eso, si querés usar el script corto, ejecutalo como `pnpm run doctor`; el comando sin ambigüedad para agentes es `pnpm doctor:react`.
 
 Si alguien necesita probar manualmente con npm, el equivalente conceptual sería `npx react-doctor@0.4.2`, pero el flujo oficial del repo es pnpm.
 
@@ -43,6 +44,12 @@ Comando recomendado:
 
 ```bash
 pnpm doctor:react --no-score --no-telemetry --blocking none
+```
+
+Alias equivalente:
+
+```bash
+pnpm run doctor --no-score --no-telemetry --blocking none
 ```
 
 

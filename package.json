@@ -8,6 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "doctor": "react-doctor",
     "doctor:react": "react-doctor",
     "optimize:images": "python scripts/optimize_images.py"
   },

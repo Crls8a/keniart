@@ -65,6 +65,7 @@ Antes de integrar una rama:
 ```bash
 pnpm lint
 pnpm build
+pnpm run doctor --no-score --no-telemetry --blocking none
 pnpm doctor:react --no-score --no-telemetry --blocking none
 git diff --stat main...HEAD
 ```
@@ -81,6 +82,7 @@ Si el resultado es razonable, integrar una rama por vez:
 git merge --no-ff <rama>
 pnpm lint
 pnpm build
+pnpm run doctor --no-score --no-telemetry --blocking none
 pnpm doctor:react --no-score --no-telemetry --blocking none
 ```
 
@@ -100,6 +102,7 @@ Si una rama supera unas 400 líneas cambiadas, dividirla antes de mezclarla. La 
 El proyecto expone React Doctor con:
 
 ```bash
+pnpm run doctor --no-score --no-telemetry --blocking none
 pnpm doctor:react --no-score --no-telemetry --blocking none
 ```
 
