@@ -15,6 +15,7 @@ permission:
     "git log*": allow
     "pnpm lint*": allow
     "pnpm build*": ask
+    "pnpm doctor:react*": ask
   task:
     "*": deny
     "keniart-explorer": allow
@@ -41,3 +42,8 @@ Recommended flow:
 4. Delegate validation to `keniart-test-runner`.
 5. Delegate quality review to `keniart-reviewer`.
 6. Close with `keniart-closer`, including validation evidence, risks, and rollback.
+
+Frontend debt gate:
+
+- For React/Next quality work, include a React Doctor pass when feasible: `pnpm doctor:react --no-score --no-telemetry --blocking none`.
+- React Doctor is advisory. Use it to guide review, then verify findings against code and Next.js docs.

@@ -16,6 +16,16 @@ Ejemplo para una tarea:
 git worktree add -b ace-101/seo-metadata ../keniart-worktrees/ace-101-seo-metadata main
 ```
 
+## pnpm en worktrees
+
+Cada worktree necesita ejecutar `pnpm install` al menos una vez para crear su propio `node_modules` local. Eso no significa duplicar todo el peso de dependencias: pnpm comparte el store global y reutiliza paquetes mediante enlaces, pero cada checkout aislado necesita sus enlaces locales para que comandos como `pnpm lint`, `pnpm build` y `pnpm doctor:react` funcionen.
+
+Comando recomendado después de crear un worktree:
+
+```bash
+pnpm install
+```
+
 ## Convención de ramas
 
 - `ace-<número>/<tema-corto>` para tareas de Linear.
@@ -55,6 +65,7 @@ Antes de integrar una rama:
 ```bash
 pnpm lint
 pnpm build
+pnpm doctor:react --no-score --no-telemetry --blocking none
 git diff --stat main...HEAD
 ```
 
@@ -70,6 +81,7 @@ Si el resultado es razonable, integrar una rama por vez:
 git merge --no-ff <rama>
 pnpm lint
 pnpm build
+pnpm doctor:react --no-score --no-telemetry --blocking none
 ```
 
 ## Regla de deuda técnica
@@ -82,3 +94,19 @@ Cada rama debe cerrar con evidencia mínima:
 - Cómo revertir si algo falla.
 
 Si una rama supera unas 400 líneas cambiadas, dividirla antes de mezclarla. La meta es que cada revisión tenga una intención clara, no un paquete gigante imposible de auditar.
+
+## React Doctor
+
+El proyecto expone React Doctor con:
+
+```bash
+pnpm doctor:react --no-score --no-telemetry --blocking none
+```
+
+Versión validada:
+
+- `react-doctor@0.4.2`
+- Node requerido por la herramienta: `^20.19.0 || >=22.12.0`
+- Node detectado en este entorno: `v22.22.0`
+
+Usarlo en tareas de frontend para revisar deuda de React/Next, accesibilidad, performance, arquitectura y código muerto. No reemplaza la revisión humana: si React Doctor marca algo, primero confirmar el hallazgo contra el código antes de cambiar.
