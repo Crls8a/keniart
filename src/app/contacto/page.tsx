@@ -14,6 +14,18 @@ function WhatsAppMark() {
   );
 }
 
+function InstagramMark() {
+  return (
+    <span aria-hidden="true" className="inline-flex size-6 items-center justify-center rounded-full border border-foreground">
+      <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="5" y="5" width="14" height="14" rx="4" />
+        <circle cx="12" cy="12" r="3" />
+        <path d="M16.5 7.5h.01" />
+      </svg>
+    </span>
+  );
+}
+
 export const metadata: Metadata = {
   title: "Contacto",
   description: "Consultas de obra, galerias, dossier y contacto directo con el estudio.",
@@ -37,6 +49,10 @@ export default async function ContactoPage({ searchParams }: Props) {
           <a href={whatsappUrl} className="inline-flex items-center gap-3 underline focus-visible:outline-offset-4" target="_blank" rel="noreferrer">
             <WhatsAppMark />
             WhatsApp directo
+          </a>
+          <a href={artist.instagram} className="inline-flex items-center gap-3 underline focus-visible:outline-offset-4" target="_blank" rel="noreferrer">
+            <InstagramMark />
+            Referencia en Instagram
           </a>
           <Link href="/dossier" className="underline focus-visible:outline-offset-4">Ver dossier web</Link>
         </div>

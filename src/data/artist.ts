@@ -3,7 +3,7 @@ export const artist = {
   location: "Mexico",
   email: "studio@keniart.example",
   whatsapp: "5210000000000",
-  instagram: "https://instagram.com/keniart",
+  instagram: "https://www.instagram.com/keniart_mb?igsh=MTB1N3VvZ2IwbGlhbw==",
   statement:
     "Mi obra busca construir una sala de silencio: superficies que no gritan, sino que invitan a permanecer frente a la materia, la luz y sus pequenas variaciones.",
   shortBio:
