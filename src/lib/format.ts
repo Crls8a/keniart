@@ -19,6 +19,8 @@ const priceFormatters: Record<NonNullable<Artwork["price"]>["currency"], Intl.Nu
 };
 
 export function formatDimensions(dimensions: Artwork["dimensions"]) {
+  if (dimensions.kind === "unknown") return dimensions.label ?? "Medidas a confirmar";
+
   const depth = dimensions.depthCm ? ` x ${dimensions.depthCm}` : "";
   return `${dimensions.heightCm} x ${dimensions.widthCm}${depth} cm`;
 }

@@ -1,221 +1,192 @@
-import type { Artwork } from "@/types/artwork";
+import type { Artwork, ArtworkImageAsset } from "@/types/artwork";
+import { PINTO_TU_MASCOTA_ASSET_BASE_PATH, PINTO_TU_MASCOTA_SERIES_SLUG } from "@/data/series";
 
-const demoWallPreviewImage = {
-  src: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1400&q=80",
-  alt: "Demo interior wall used only for artwork scale previews.",
+type PetPortraitImageInput = {
+  file: string;
+  width: number;
+  height: number;
 };
 
-export const artworks: Artwork[] = [
-  {
-    id: "aw-001",
-    slug: "umbral-de-cal",
-    title: "Umbral de cal",
+type PetPortraitArtworkInput = {
+  slug: string;
+  title: string;
+  folder: string;
+  files: PetPortraitImageInput[];
+  featured?: boolean;
+  dossierOrder: number;
+};
+
+function petPortraitImageVariants(folder: string, file: string) {
+  return {
+    main: `${PINTO_TU_MASCOTA_ASSET_BASE_PATH}/desktop/${folder}/${file}`,
+    desktop: `${PINTO_TU_MASCOTA_ASSET_BASE_PATH}/desktop/${folder}/${file}`,
+    tablet: `${PINTO_TU_MASCOTA_ASSET_BASE_PATH}/tablet/${folder}/${file}`,
+    mobile: `${PINTO_TU_MASCOTA_ASSET_BASE_PATH}/mobile/${folder}/${file}`,
+    thumb: `${PINTO_TU_MASCOTA_ASSET_BASE_PATH}/thumb/${folder}/${file}`,
+  };
+}
+
+function imageOrientation({ width, height }: PetPortraitImageInput) {
+  if (width === height) return "square";
+  return width > height ? "landscape" : "portrait";
+}
+
+function petPortraitImageAsset(folder: string, petName: string, image: PetPortraitImageInput): ArtworkImageAsset {
+  const variants = petPortraitImageVariants(folder, image.file);
+
+  return {
+    src: variants.main,
+    alt: `Retrato de ${petName} en la serie Pinto tu mascota.`,
+    variants,
+    width: image.width,
+    height: image.height,
+    aspectRatio: Number((image.width / image.height).toFixed(4)),
+    orientation: imageOrientation(image),
+  };
+}
+
+function createPetPortraitArtwork({ slug, title, folder, files, featured = false, dossierOrder }: PetPortraitArtworkInput): Artwork {
+  const petName = title.replace("Retrato de ", "");
+  const gallery = files.map((file) => petPortraitImageAsset(folder, petName, file));
+  const [mainImage, ...detailImages] = gallery;
+  const detailVariants = detailImages.flatMap((image) => (image.variants ? [image.variants] : []));
+
+  if (!mainImage) {
+    throw new Error(`Pinto tu mascota artwork ${slug} needs at least one image.`);
+  }
+
+  return {
+    id: `${PINTO_TU_MASCOTA_SERIES_SLUG}-${slug}`,
+    slug,
+    title,
     year: 2026,
-    seriesSlug: "silencios-minerales",
-    technique: "Acrilico y pigmento mineral",
-    support: "Lienzo",
-    dimensions: { heightCm: 120, widthCm: 90, depthCm: 4, aspectRatio: 0.75 },
-    price: { amount: 1800, currency: "USD", visibility: "on_request" },
-    status: "available",
-    images: {
-      main: "https://images.unsplash.com/photo-1547891654-e66ed7ebb968?auto=format&fit=crop&w=1400&q=80",
-      inRoom: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1400&q=80",
-    },
-    description:
-      "Una superficie contenida donde la materia parece respirar apenas antes de revelar su borde.",
-    tags: ["mineral", "textura", "luz"],
-    featured: true,
-    dossierSelected: true,
-    experience: {
-      heroCrop: { focus: "center", objectPosition: "50% 42%" },
-      dominantColor: "#8d8175",
-      textureImages: [
-        {
-          src: "https://images.unsplash.com/photo-1547891654-e66ed7ebb968?auto=format&fit=crop&w=900&q=80",
-          alt: "Demo close crop of mineral texture for Umbral de cal.",
-        },
-      ],
-      wallPreviewImage: demoWallPreviewImage,
-      animationPriority: "hero",
-      galleryNotes: "Demo hero candidate for the mineral series and presentation opener.",
-      dossierOrder: 1,
-      aspectRatio: 0.75,
-    },
-    createdAt: "2026-04-20",
-    updatedAt: "2026-06-07",
-  },
-  {
-    id: "aw-002",
-    slug: "jardin-nocturno",
-    title: "Jardin nocturno",
-    year: 2025,
-    seriesSlug: "botanica-interior",
-    technique: "Oleo",
-    support: "Lienzo preparado",
-    dimensions: { heightCm: 100, widthCm: 80, depthCm: 3, aspectRatio: 0.8 },
-    status: "reserved",
-    images: {
-      main: "https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?auto=format&fit=crop&w=1400&q=80",
-    },
-    description:
-      "Una pieza de pulso botanico que trabaja el contraste entre sombra densa y floracion tenue.",
-    tags: ["botanica", "oleo", "noche"],
-    featured: true,
-    dossierSelected: true,
-    experience: {
-      heroCrop: { focus: "top", objectPosition: "50% 38%" },
-      dominantColor: "#283328",
-      textureImages: [
-        {
-          src: "https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?auto=format&fit=crop&w=900&q=80",
-          alt: "Demo close crop of dark botanical brushwork for Jardin nocturno.",
-        },
-      ],
-      wallPreviewImage: demoWallPreviewImage,
-      animationPriority: "featured",
-      galleryNotes: "Reserved demo work; later UI should avoid presenting it as available inventory.",
-      dossierOrder: 2,
-      aspectRatio: 0.8,
-    },
-    createdAt: "2025-11-14",
-    updatedAt: "2026-06-07",
-  },
-  {
-    id: "aw-003",
-    slug: "respiracion-de-piedra",
-    title: "Respiracion de piedra",
-    year: 2026,
-    seriesSlug: "silencios-minerales",
-    technique: "Tecnica mixta",
-    support: "Algodon sobre bastidor",
-    dimensions: { heightCm: 150, widthCm: 110, depthCm: 4, aspectRatio: 0.73 },
-    status: "available",
-    images: {
-      main: "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=1400&q=80",
-    },
-    description:
-      "Campo vertical de capas veladas, pensado como una pausa larga frente a la obra.",
-    tags: ["gran formato", "materia", "vertical"],
-    dossierSelected: true,
-    experience: {
-      heroCrop: { focus: "center", objectPosition: "50% 48%" },
-      dominantColor: "#6f6b62",
-      textureImages: [
-        {
-          src: "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=900&q=80",
-          alt: "Demo detail crop for Respiracion de piedra.",
-        },
-      ],
-      wallPreviewImage: demoWallPreviewImage,
-      animationPriority: "featured",
-      galleryNotes: "Large-format demo candidate for wall preview scale checks.",
-      dossierOrder: 3,
-      aspectRatio: 0.73,
-    },
-    createdAt: "2026-02-09",
-    updatedAt: "2026-06-07",
-  },
-  {
-    id: "aw-004",
-    slug: "hoja-en-suspenso",
-    title: "Hoja en suspenso",
-    year: 2025,
-    seriesSlug: "botanica-interior",
-    technique: "Acrilico",
-    support: "Lienzo",
-    dimensions: { heightCm: 70, widthCm: 60, depthCm: 3, aspectRatio: 0.86 },
-    status: "sold",
-    images: {
-      main: "https://images.unsplash.com/photo-1580136579312-94651dfd596d?auto=format&fit=crop&w=1400&q=80",
-    },
-    description:
-      "Estudio de una forma organica detenida entre gesto, memoria y respiracion.",
-    tags: ["botanica", "pequeno formato", "gesto"],
-    experience: {
-      heroCrop: { focus: "center", objectPosition: "50% 44%" },
-      dominantColor: "#6e5a45",
-      textureImages: [
-        {
-          src: "https://images.unsplash.com/photo-1580136579312-94651dfd596d?auto=format&fit=crop&w=900&q=80",
-          alt: "Demo detail crop for Hoja en suspenso.",
-        },
-      ],
-      wallPreviewImage: demoWallPreviewImage,
-      animationPriority: "low",
-      galleryNotes: "Sold demo work retained for archive storytelling only.",
-      aspectRatio: 0.86,
-    },
-    createdAt: "2025-09-02",
-    updatedAt: "2026-06-07",
-  },
-  {
-    id: "aw-005",
-    slug: "corte-de-luz",
-    title: "Corte de luz",
-    year: 2024,
-    technique: "Oleo y grafito",
-    support: "Lino",
-    dimensions: { heightCm: 90, widthCm: 120, depthCm: 4, aspectRatio: 1.33 },
-    status: "available",
-    images: {
-      main: "https://images.unsplash.com/photo-1541961017774-22349e4a1262?auto=format&fit=crop&w=1400&q=80",
-    },
-    description:
-      "Composicion horizontal donde una linea clara ordena el peso del color y el silencio.",
-    tags: ["lino", "horizontal", "grafito"],
-    dossierSelected: true,
-    experience: {
-      heroCrop: { focus: "center", objectPosition: "50% 52%" },
-      dominantColor: "#a67a48",
-      textureImages: [
-        {
-          src: "https://images.unsplash.com/photo-1541961017774-22349e4a1262?auto=format&fit=crop&w=900&q=80",
-          alt: "Demo horizontal crop for Corte de luz.",
-        },
-      ],
-      wallPreviewImage: demoWallPreviewImage,
-      animationPriority: "standard",
-      galleryNotes: "Horizontal demo work for archive and wall-preview layout variation.",
-      dossierOrder: 4,
-      aspectRatio: 1.33,
-    },
-    createdAt: "2024-12-12",
-    updatedAt: "2026-06-07",
-  },
-  {
-    id: "aw-006",
-    slug: "archivo-del-aire",
-    title: "Archivo del aire",
-    year: 2026,
-    seriesSlug: "silencios-minerales",
-    technique: "Pigmento, acrilico y carbonilla",
-    support: "Lienzo",
-    dimensions: { heightCm: 80, widthCm: 80, depthCm: 3, aspectRatio: 1 },
+    seriesSlug: PINTO_TU_MASCOTA_SERIES_SLUG,
+    technique: "Óleo",
+    support: "Lienzo pintado",
+    dimensions: { kind: "unknown", label: "Medidas a confirmar" },
     status: "not_for_sale",
     images: {
-      main: "https://images.unsplash.com/photo-1577083288073-40892c0860a4?auto=format&fit=crop&w=1400&q=80",
+      main: mainImage.src,
+      variants: mainImage.variants,
+      thumbnail: mainImage.variants?.thumb,
+      details: detailImages.map((image) => image.src),
+      detailVariants,
+      gallery,
     },
-    description:
-      "Pieza cuadrada de archivo, conservada como referencia del cuerpo actual de trabajo.",
-    tags: ["archivo", "carbonilla", "cuadrado"],
+    description: `Óleo sobre lienzo pintado de ${petName}, parte de la serie Pinto tu mascota: retratos de compañía construidos desde el gesto, la mirada y la presencia singular de cada animal.`,
+    tags: ["mascotas", "retrato por encargo", "pinto tu mascota"],
+    featured,
+    dossierSelected: true,
     experience: {
-      heroCrop: { focus: "center", objectPosition: "50% 50%" },
-      dominantColor: "#505352",
-      textureImages: [
-        {
-          src: "https://images.unsplash.com/photo-1577083288073-40892c0860a4?auto=format&fit=crop&w=900&q=80",
-          alt: "Demo square crop for Archivo del aire.",
-        },
-      ],
-      wallPreviewImage: demoWallPreviewImage,
-      animationPriority: "low",
-      galleryNotes: "Archive-only demo reference; later UI should label it without purchase framing.",
-      aspectRatio: 1,
+      heroCrop: { focus: "center", objectPosition: "50% 45%" },
+      animationPriority: featured ? "hero" : "standard",
+      galleryNotes: "Óleo sobre lienzo pintado. Medidas finales pendientes de confirmación.",
+      dossierOrder,
+      aspectRatio: mainImage.aspectRatio,
     },
-    createdAt: "2026-01-18",
-    updatedAt: "2026-06-07",
-  },
+    createdAt: "2026-06-08",
+    updatedAt: "2026-06-08",
+  };
+}
+
+const petPortraitArtworks: Artwork[] = [
+  createPetPortraitArtwork({
+    slug: "bruno",
+    title: "Retrato de Bruno",
+    folder: "Bruno",
+    files: [
+      { file: "A8469144-86E8-43BA-AB17-62567E9B0643_1_105_c.webp", width: 772, height: 1018 },
+      { file: "A0F28944-0E4A-4E56-BB8B-966CB3FCF77F_1_105_c.webp", width: 768, height: 1024 },
+    ],
+    dossierOrder: 10,
+  }),
+  createPetPortraitArtwork({
+    slug: "chapa",
+    title: "Retrato de Chapa",
+    folder: "Chapa",
+    files: [
+      { file: "5025E593-A90C-44D7-93C3-CFC60487E34C_1_105_c.webp", width: 1024, height: 768 },
+      { file: "103FC6C2-53C6-42F5-829A-BF0476BA34FA_1_105_c.webp", width: 768, height: 1024 },
+    ],
+    dossierOrder: 11,
+  }),
+  createPetPortraitArtwork({
+    slug: "coco",
+    title: "Retrato de Coco",
+    folder: "Coco",
+    files: [{ file: "E46F0670-5080-49A0-A062-5B48E437821A_1_105_c.webp", width: 768, height: 1024 }],
+    dossierOrder: 12,
+  }),
+  createPetPortraitArtwork({
+    slug: "goliath",
+    title: "Retrato de Goliath",
+    folder: "Goliath",
+    files: [
+      { file: "97CA26BC-FEAE-4441-A2AE-B4417DF3AF34_1_105_c.webp", width: 768, height: 1024 },
+      { file: "4C864272-3C16-481B-9269-A67773000A14_1_105_c.webp", width: 768, height: 1024 },
+    ],
+    dossierOrder: 13,
+  }),
+  createPetPortraitArtwork({
+    slug: "gufis",
+    title: "Retrato de Gufis",
+    folder: "Gufis",
+    files: [{ file: "DE18B67F-A4EF-4CBD-882C-C525D64D5EFC_1_105_c.webp", width: 886, height: 886 }],
+    dossierOrder: 14,
+  }),
+  createPetPortraitArtwork({
+    slug: "jochito",
+    title: "Retrato de Jochito",
+    folder: "Jochito",
+    files: [
+      { file: "7598AA0D-C459-48F1-8F8B-0C2AF75D0538_1_105_c.webp", width: 768, height: 1024 },
+      { file: "20A6A447-F9C7-426E-9730-3E5DD3691882_1_105_c.webp", width: 768, height: 1024 },
+    ],
+    dossierOrder: 15,
+  }),
+  createPetPortraitArtwork({
+    slug: "kooper",
+    title: "Retrato de Kooper",
+    folder: "KOOPER",
+    files: [
+      { file: "B9970757-2B74-488E-B758-A088FF8093C5.webp", width: 744, height: 992 },
+      { file: "94BB8573-56BB-4743-9BDD-EE1C5794CE70_1_102_o.webp", width: 640, height: 1138 },
+      { file: "4502EABD-6263-4683-A2C4-4693F9BFC673_1_201_a.webp", width: 507, height: 562 },
+      { file: "377B4663-BE89-49E6-9B3C-690B2285307C_1_201_a.webp", width: 610, height: 562 },
+      { file: "1C57224E-D3F0-4E93-8599-ABC3B0F74F09_1_105_c.webp", width: 886, height: 886 },
+      { file: "1A5899DA-15BD-405E-886A-306D9EC6E30E.webp", width: 750, height: 898 },
+      { file: "178FAB41-B27B-40BB-A7F6-5BF18EBFBE76_1_105_c.webp", width: 886, height: 886 },
+    ],
+    featured: true,
+    dossierOrder: 1,
+  }),
+  createPetPortraitArtwork({
+    slug: "pato",
+    title: "Retrato de Pato",
+    folder: "PATO",
+    files: [
+      { file: "E8F1809B-043E-461F-AD6D-18E6374250B2_1_105_c.webp", width: 768, height: 1024 },
+      { file: "B0AB88B0-A63E-4B95-863D-75ED4201C7D8_1_105_c.webp", width: 735, height: 1068 },
+      { file: "74EF9F0E-92F4-44DB-8B55-D2C54350C3B2_1_106_c.webp", width: 720, height: 1280 },
+      { file: "3FC35F0B-7139-44FA-B144-E92861207AE6_1_105_c.webp", width: 886, height: 886 },
+      { file: "3FC35F0B-7139-44FA-B144-E92861207AE6_1_105_c(1).webp", width: 886, height: 886 },
+      { file: "322B6597-CB1A-488E-B2FE-9ACA1AE18AA8_1_105_c.webp", width: 886, height: 886 },
+    ],
+    dossierOrder: 16,
+  }),
+  createPetPortraitArtwork({
+    slug: "plutarco",
+    title: "Retrato de Plutarco",
+    folder: "Plutarco",
+    files: [
+      { file: "65CD9DBB-91E3-40D2-BF91-1852E416BCBE_1_105_c.webp", width: 768, height: 1024 },
+      { file: "448EDEF3-4E38-42E5-8A3D-4E02AF0695CF_1_105_c.webp", width: 768, height: 1024 },
+    ],
+    dossierOrder: 17,
+  }),
 ];
+
+export const artworks: Artwork[] = petPortraitArtworks;
 
 export const featuredArtwork = artworks.find((artwork) => artwork.featured) ?? artworks[0];
 

@@ -1,12 +1,48 @@
 export type ArtworkStatus = "available" | "reserved" | "sold" | "not_for_sale";
 
-export type GalleryMode = "archive" | "curated" | "detail" | "presentation" | "lightbox" | "wall_preview";
-
 export type ArtworkFilter = "all" | "featured" | "available" | "dossier" | string;
 
 export type ArtworkSort = "dossier_order" | "newest" | "title";
 
 export type ArtworkImageFocus = "center" | "top" | "bottom" | "left" | "right";
+
+export type ArtworkSeriesCategory = "collection" | "commission" | "study" | "archive";
+
+export type ArtworkSeriesStatus = "active" | "planned" | "archived";
+
+export type ArtworkImageVariants = {
+  main: string;
+  desktop?: string;
+  tablet?: string;
+  mobile?: string;
+  thumb?: string;
+};
+
+export type ArtworkImageOrientation = "portrait" | "landscape" | "square";
+
+export type ArtworkImageAsset = {
+  src: string;
+  alt: string;
+  variants?: ArtworkImageVariants;
+  width: number;
+  height: number;
+  aspectRatio: number;
+  orientation: ArtworkImageOrientation;
+};
+
+export type ArtworkDimensions =
+  | {
+      kind?: "known";
+      heightCm: number;
+      widthCm: number;
+      depthCm?: number;
+      aspectRatio?: number;
+    }
+  | {
+      kind: "unknown";
+      label?: string;
+      aspectRatio?: number;
+    };
 
 export type ArtworkExperienceImage = {
   src: string;
@@ -35,12 +71,7 @@ export type Artwork = {
   seriesSlug?: string;
   technique: string;
   support: string;
-  dimensions: {
-    heightCm: number;
-    widthCm: number;
-    depthCm?: number;
-    aspectRatio?: number;
-  };
+  dimensions: ArtworkDimensions;
   price?: {
     amount: number;
     currency: "MXN" | "USD" | "EUR";
@@ -49,7 +80,11 @@ export type Artwork = {
   status: ArtworkStatus;
   images: {
     main: string;
+    variants?: ArtworkImageVariants;
+    thumbnail?: string;
     details?: string[];
+    detailVariants?: ArtworkImageVariants[];
+    gallery?: ArtworkImageAsset[];
     inRoom?: string;
     back?: string;
   };
@@ -64,9 +99,17 @@ export type Artwork = {
 
 export type ArtworkSeries = {
   slug: string;
+  internalKey?: string;
   title: string;
   subtitle: string;
   description: string;
+  assetBasePath?: string;
   coverImage: string;
+  coverImageVariants?: ArtworkImageVariants;
   years: string;
+  category?: ArtworkSeriesCategory;
+  status?: ArtworkSeriesStatus;
+  featured?: boolean;
+  order?: number;
+  artworkSlugs?: string[];
 };

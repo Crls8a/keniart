@@ -15,6 +15,8 @@ const creatorSchema = {
 };
 
 export function visualArtworkSchema(artwork: Artwork) {
+  const size = formatDimensions(artwork.dimensions);
+
   return {
     "@context": "https://schema.org",
     "@type": "VisualArtwork",
@@ -24,7 +26,7 @@ export function visualArtworkSchema(artwork: Artwork) {
     dateCreated: artwork.year.toString(),
     artMedium: artwork.technique,
     artworkSurface: artwork.support,
-    size: formatDimensions(artwork.dimensions),
+    ...(artwork.dimensions.kind === "unknown" ? {} : { size }),
     image: absoluteUrl(artwork.images.main),
     url: absoluteUrl(`/obras/${artwork.slug}`),
     description: artwork.description,
