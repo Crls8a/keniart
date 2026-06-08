@@ -1,6 +1,6 @@
 # Keniart
 
-Initial MVP for an art portfolio/gallery website based on `docs/architecture/00_arquitectura_portafolio_arte.md`.
+Initial MVP for an art portfolio/gallery website based on `docs/architecture/00_arquitectura_portafolio_arte.md` and the gallery/animation extension in `docs/architecture/01_sistema_galeria_animaciones_portafolio_arte.md`.
 
 ## Stack
 
