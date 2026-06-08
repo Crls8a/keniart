@@ -9,6 +9,8 @@
 
 La página debe sentirse como una sala de exposición digital: elegante, silenciosa, rápida y centrada en la obra. El catálogo público puede mostrar todo el archivo, pero el modo galería/dossier debe mostrar una selección curada de 12–20 piezas.
 
+Este documento define la arquitectura base. El Documento 01 (`docs/architecture/01_sistema_galeria_animaciones_portafolio_arte.md`) extiende esta base con la arquitectura especifica de galeria, animaciones, lightbox, presentacion fullscreen y sala 2D.
+
 ## 2. Rutas principales
 
 | Pantalla | Ruta | Objetivo |
