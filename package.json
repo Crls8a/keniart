@@ -10,6 +10,8 @@
     "lint": "eslint",
     "doctor": "react-doctor",
     "doctor:react": "react-doctor",
+    "clean:next": "node scripts/clean_next_cache.cjs",
+    "dev:fresh": "pnpm clean:next && pnpm dev",
     "optimize:images": "python scripts/optimize_images.py",
     "validate:artworks": "node scripts/validate_artwork_images.cjs"
   },

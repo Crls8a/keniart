@@ -39,7 +39,7 @@ export function GalleryExperience({ artworks, content }: GalleryExperienceProps)
         <motion.article
           animate="show"
           className="grid overflow-hidden rounded-[2rem] bg-[#16120e] text-[#f7efe3] shadow-[0_28px_90px_rgba(22,18,14,0.18)] lg:grid-cols-[minmax(0,1fr)_24rem]"
-          initial={shouldReduceMotion ? false : "hidden"}
+          initial={false}
           variants={shouldReduceMotion ? undefined : galleryPanelVariants}
         >
           <Link href={`/obras/${heroArtwork.slug}`} className="group relative min-h-[58vh] bg-black/30 focus-visible:outline-offset-4 lg:min-h-[72vh]">

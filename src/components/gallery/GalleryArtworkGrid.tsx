@@ -46,7 +46,7 @@ export function GalleryArtworkGrid({ artworks, cardCta, shouldReduceMotion }: Ga
     <motion.div
       animate="show"
       className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
-      initial={shouldReduceMotion ? false : "hidden"}
+      initial={false}
       variants={shouldReduceMotion ? undefined : galleryListVariants}
     >
       {artworks.map((artwork, index) => (
