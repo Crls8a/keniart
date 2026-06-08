@@ -1,6 +1,7 @@
-import { siteConfig, whatsappUrl } from "@/lib/seo";
+import { whatsappUrl } from "@/lib/seo";
 
 const whatsappMessage = "Hola, quiero recibir información sobre una obra de Keniart.";
+const whatsappLabel = "Consultar por WhatsApp";
 
 function WhatsAppIcon() {
   return (
@@ -23,14 +24,14 @@ function WhatsAppIcon() {
 export function FloatingWhatsAppCta() {
   return (
     <a
-      aria-label={`Consultar por WhatsApp al ${siteConfig.contact.whatsappDisplay}`}
-      className="fixed right-5 bottom-5 z-40 inline-flex items-center gap-3 rounded-full border border-foreground/15 bg-foreground px-4 py-3 text-sm font-medium text-background shadow-lg shadow-foreground/10 transition hover:-translate-y-0.5 hover:bg-foreground/90 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-foreground sm:right-8 sm:bottom-8"
+      aria-label={whatsappLabel}
+      className="fixed right-5 bottom-5 z-40 inline-flex size-12 items-center justify-center rounded-full border border-foreground/15 bg-foreground text-background shadow-lg shadow-foreground/10 transition hover:-translate-y-0.5 hover:bg-foreground/90 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-foreground sm:right-8 sm:bottom-8"
       href={whatsappUrl(whatsappMessage)}
       rel="noreferrer"
       target="_blank"
+      title={whatsappLabel}
     >
       <WhatsAppIcon />
-      <span className="hidden sm:inline">WhatsApp {siteConfig.contact.whatsappDisplay}</span>
     </a>
   );
 }
