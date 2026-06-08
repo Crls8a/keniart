@@ -64,7 +64,6 @@ const seriesItems: ArtworkSeries[] = [
       "guardianes-de-la-luz-y-sabiduria",
       "renacer-interestelar-orbita-8",
       "trascender-viaje-espiritual",
-      "presentacion-en-galeria",
     ],
   },
 ];

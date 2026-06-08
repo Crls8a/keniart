@@ -431,26 +431,19 @@ const cartografiasArtworks: Artwork[] = [
     tags: ["trascender", "viaje espiritual", "tránsito"],
     dossierOrder: 30,
   }),
-  createCartografiasArtwork({
-    slug: "presentacion-en-galeria",
-    title: "Presentación en galería",
-    folder: "presentacion-en-galeria",
-    files: [
-      { file: "image-01.webp", width: 594, height: 1321 },
-      { file: "image-02.webp", width: 594, height: 1321 },
-      { file: "image-03.webp", width: 712, height: 1104 },
-      { file: "image-04.webp", width: 1800, height: 1350 },
-      { file: "image-05.webp", width: 768, height: 1024 },
-      { file: "image-06.webp", width: 768, height: 1024 },
-      { file: "image-07.webp", width: 1012, height: 1800 },
-      { file: "image-08.webp", width: 594, height: 1321 },
-      { file: "image-09.webp", width: 1350, height: 1800 },
-    ],
-    description: "Registro de obra en contexto de sala: una pausa documental para mirar la escala, el montaje y la conversación con el espacio.",
-    tags: ["galería", "presentación", "montaje"],
-    dossierOrder: 31,
-  }),
 ];
+
+export const cartografiasPresentationImages: ArtworkImageAsset[] = [
+  { file: "image-01.webp", width: 594, height: 1321 },
+  { file: "image-02.webp", width: 594, height: 1321 },
+  { file: "image-03.webp", width: 712, height: 1104 },
+  { file: "image-04.webp", width: 1800, height: 1350 },
+  { file: "image-05.webp", width: 768, height: 1024 },
+  { file: "image-06.webp", width: 768, height: 1024 },
+  { file: "image-07.webp", width: 1012, height: 1800 },
+  { file: "image-08.webp", width: 594, height: 1321 },
+  { file: "image-09.webp", width: 1350, height: 1800 },
+].map((image) => cartografiasImageAsset("presentacion-en-galeria", "Presentación en galería", image));
 
 export const artworks: Artwork[] = [...petPortraitArtworks, ...cartografiasArtworks];
 
