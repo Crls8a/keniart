@@ -31,7 +31,7 @@ const seriesItems: ArtworkSeries[] = [
   },
 ];
 
-export const series = seriesItems.toSorted((a, b) => (a.order ?? 99) - (b.order ?? 99));
+export const series = [...seriesItems].sort((a, b) => (a.order ?? 99) - (b.order ?? 99));
 
 export function getSeriesBySlug(slug: string) {
   return series.find((item) => item.slug === slug);

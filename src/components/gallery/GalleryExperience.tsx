@@ -29,7 +29,7 @@ type GalleryExperienceProps = {
 
 export function GalleryExperience({ artworks, content }: GalleryExperienceProps) {
   const shouldReduceMotion = useReducedMotionSafe();
-  const visibleArtworks = useMemo(() => artworks.toSorted((a, b) => (a.experience?.dossierOrder ?? 99) - (b.experience?.dossierOrder ?? 99)), [artworks]);
+  const visibleArtworks = useMemo(() => [...artworks].sort((a, b) => (a.experience?.dossierOrder ?? 99) - (b.experience?.dossierOrder ?? 99)), [artworks]);
   const heroArtwork = visibleArtworks[0];
 
   return (
