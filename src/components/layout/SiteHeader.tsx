@@ -5,7 +5,7 @@ import { headerContent, mainNavigation } from "@/content/navigation";
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-30 border-b border-line/70 bg-background/90 backdrop-blur">
+    <header className="sticky top-0 z-50 border-b border-line/70 bg-background/90 backdrop-blur">
       <PageContainer className="flex items-center justify-between gap-4 py-4">
         <Link href="/" className="font-serif text-xl tracking-[0.28em] uppercase focus-visible:outline-offset-4">
           Keniart

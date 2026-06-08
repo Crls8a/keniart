@@ -26,7 +26,7 @@ export function MobileNavigation({
     <details className="group md:hidden">
       <summary
         aria-label={`${menuLabel}. ${closeMenuLabel}`}
-        className="relative z-50 cursor-pointer list-none rounded-full border border-line px-4 py-2 text-xs uppercase tracking-[0.22em] text-foreground transition hover:border-foreground focus-visible:outline-offset-4 [&::-webkit-details-marker]:hidden"
+        className="relative z-50 inline-flex w-24 cursor-pointer list-none justify-center rounded-full border border-line px-4 py-2 text-xs uppercase tracking-[0.22em] text-foreground transition hover:border-foreground focus-visible:outline-offset-4 [&::-webkit-details-marker]:hidden"
       >
         <span className="group-open:hidden">{menuLabel}</span>
         <span className="hidden group-open:inline">{closeMenuLabel}</span>
