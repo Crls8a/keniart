@@ -23,7 +23,7 @@ type GalleryExperienceProps = {
 };
 
 export function GalleryExperience({ artworks, content }: GalleryExperienceProps) {
-  const visibleArtworks = [...artworks].sort((a, b) => (a.experience?.dossierOrder ?? 99) - (b.experience?.dossierOrder ?? 99));
+  const visibleArtworks = artworks.toSorted((a, b) => (a.experience?.dossierOrder ?? 99) - (b.experience?.dossierOrder ?? 99));
   const heroArtwork = visibleArtworks[0];
   const heroImage = heroArtwork?.images.gallery?.[0];
 

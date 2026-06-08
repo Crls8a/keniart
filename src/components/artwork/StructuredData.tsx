@@ -3,5 +3,5 @@ function serializeStructuredData(data: object) {
 }
 
 export function StructuredData({ data }: { data: object }) {
-  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeStructuredData(data) }} />;
+  return <script type="application/ld+json">{serializeStructuredData(data)}</script>;
 }

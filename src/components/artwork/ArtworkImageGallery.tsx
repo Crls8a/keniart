@@ -25,7 +25,7 @@ export function ArtworkImageGallery({ artwork }: { artwork: Artwork }) {
   return (
     <section aria-label={`Galería de imágenes de ${artwork.title}`} className="space-y-4">
       <div className="relative">
-        <div id={scrollerId} className="flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-2" tabIndex={hasMultipleImages ? 0 : undefined}>
+        <div id={scrollerId} className="flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-2">
           {images.map((image, index) => {
             const imageId = `${scrollerId}-image-${index + 1}`;
 
