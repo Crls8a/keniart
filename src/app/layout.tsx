@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { AppShell } from "@/components/layout/AppShell";
+import { siteConfig } from "@/lib/seo";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -14,18 +15,27 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://keniart.example"),
+  metadataBase: new URL(siteConfig.url),
   title: {
-    default: "Keniart | Portafolio de arte contemporaneo",
-    template: "%s | Keniart",
+    default: `${siteConfig.name} | Portafolio de arte contemporáneo`,
+    template: `%s | ${siteConfig.name}`,
   },
-  description:
-    "Galeria digital silenciosa para explorar lienzos, series y dossier profesional de Keniart.",
+  description: siteConfig.description,
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
-    title: "Keniart | Portafolio de arte contemporaneo",
-    description:
-      "Obra disponible, series curatoriales y dossier profesional para galerias.",
+    title: `${siteConfig.name} | Portafolio de arte contemporáneo`,
+    description: siteConfig.openGraphDescription,
+    url: "/",
+    siteName: siteConfig.name,
+    locale: siteConfig.locale,
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${siteConfig.name} | Portafolio de arte contemporáneo`,
+    description: siteConfig.openGraphDescription,
   },
 };
 
