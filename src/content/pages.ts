@@ -63,6 +63,12 @@ export const pageContent = {
       cardCta: "Ver ficha",
     },
   },
+  galleryPresence: {
+    eyebrow: "Presencia en galerías",
+    title: "Presentación en galería.",
+    description:
+      "Un registro silencioso de sala, encuentro y contexto expositivo: imágenes de presencia en galería, separadas del catálogo de obra.",
+  },
   dossier: {
     metadata: {
       title: "Dossier",
