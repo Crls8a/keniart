@@ -1,6 +1,6 @@
 export type ArtworkStatus = "available" | "reserved" | "sold" | "not_for_sale";
 
-export type GalleryMode = "archive" | "detail" | "presentation" | "lightbox" | "wall_preview";
+export type GalleryMode = "archive" | "curated" | "detail" | "presentation" | "lightbox" | "wall_preview";
 
 export type ArtworkFilter = "all" | "featured" | "available" | "dossier" | string;
 

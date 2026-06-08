@@ -35,6 +35,15 @@ export function ArtworkDetail({ artwork }: { artwork: Artwork }) {
             </div>
           ))}
         </dl>
+        <aside className="mt-8 rounded-[1.5rem] border border-line bg-paper p-5">
+          <p className="text-xs uppercase tracking-[0.25em] text-muted">Galería premium</p>
+          <p className="mt-3 text-sm leading-6 text-muted">
+            {artwork.experience?.galleryNotes ?? "Vista demo disponible en los modos de archivo, curaduría, muro 2D y presentación."}
+          </p>
+          <Link href="/galerias" className="mt-4 inline-flex text-sm uppercase tracking-[0.22em] underline">
+            Ver modos de galería
+          </Link>
+        </aside>
         <div className="mt-10 flex flex-col gap-4 sm:flex-row">
           <Link
             href={`/contacto?obra=${artwork.slug}`}

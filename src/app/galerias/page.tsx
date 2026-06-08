@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { GalleryMode } from "@/components/artwork/GalleryMode";
+import { GalleryExperience } from "@/components/gallery/GalleryExperience";
 import { dossierArtworks } from "@/data/artworks";
 
 export const metadata: Metadata = {
@@ -8,5 +8,9 @@ export const metadata: Metadata = {
 };
 
 export default function GaleriasPage() {
-  return <GalleryMode artworks={dossierArtworks} />;
+  return (
+    <section className="mx-auto max-w-7xl px-5 py-16 sm:px-8 lg:py-24">
+      <GalleryExperience artworks={dossierArtworks} defaultMode="curated" />
+    </section>
+  );
 }
