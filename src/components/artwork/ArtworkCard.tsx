@@ -5,23 +5,26 @@ import { formatDimensions } from "@/lib/format";
 import { AvailabilityBadge } from "@/components/artwork/AvailabilityBadge";
 
 export function ArtworkCard({ artwork, priority = false }: { artwork: Artwork; priority?: boolean }) {
+  const image = artwork.images.gallery?.[0];
+  const imagePadding = image?.orientation === "landscape" ? "p-3 sm:p-5" : "p-2 sm:p-3";
+
   return (
-    <Link href={`/obras/${artwork.slug}`} className="group block focus-visible:outline-offset-4">
-      <div className="relative aspect-[4/5] overflow-hidden bg-line">
+    <Link href={`/obras/${artwork.slug}`} className="group flex h-full flex-col focus-visible:outline-offset-4">
+      <div className="relative aspect-[4/5] overflow-hidden bg-[#17120e]">
         <Image
           src={artwork.images.main}
           alt={artwork.title}
           fill
           priority={priority}
           sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 100vw"
-          className="object-cover transition duration-700 motion-safe:group-hover:scale-[1.03] motion-safe:group-focus-visible:scale-[1.03]"
+          className={`object-contain transition duration-700 motion-safe:group-hover:scale-[1.03] motion-safe:group-focus-visible:scale-[1.03] ${imagePadding}`}
         />
         <div className="absolute inset-x-4 bottom-4 opacity-100 transition sm:opacity-0 sm:group-hover:opacity-100 sm:group-focus-visible:opacity-100">
           <AvailabilityBadge status={artwork.status} />
         </div>
       </div>
-      <div className="mt-4 flex items-start justify-between gap-4">
-        <div>
+      <div className="mt-4 flex min-h-[6.75rem] items-start justify-between gap-4">
+        <div className="min-w-0">
           <h3 className="text-lg font-medium">{artwork.title}</h3>
           <p className="mt-1 text-sm text-muted">
             {artwork.year} - {artwork.technique}

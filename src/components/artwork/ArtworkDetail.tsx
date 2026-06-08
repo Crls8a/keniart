@@ -1,21 +1,34 @@
-import Image from "next/image";
 import Link from "next/link";
 import type { Artwork } from "@/types/artwork";
 import { formatDimensions, formatPrice } from "@/lib/format";
 import { AvailabilityBadge } from "@/components/artwork/AvailabilityBadge";
+import { ArtworkImageGallery } from "@/components/artwork/ArtworkImageGallery";
+import { PageSection } from "@/components/layout/PageSection";
 
-export function ArtworkDetail({ artwork }: { artwork: Artwork }) {
+type ArtworkDetailContent = {
+  fields: {
+    year: string;
+    technique: string;
+    support: string;
+    dimensions: string;
+    price: string;
+  };
+  galleryAside: {
+    eyebrow: string;
+    fallbackNotes: string;
+    cta: string;
+  };
+  actions: {
+    inquire: string;
+    backToCatalog: string;
+  };
+};
+
+export function ArtworkDetail({ artwork, content }: { artwork: Artwork; content: ArtworkDetailContent }) {
   return (
-    <article className="mx-auto grid max-w-7xl gap-12 px-5 py-12 sm:px-8 lg:grid-cols-[1.15fr_0.85fr] lg:py-20">
-      <div className="relative aspect-[4/5] overflow-hidden bg-line lg:sticky lg:top-28">
-        <Image
-          src={artwork.images.main}
-          alt={artwork.title}
-          fill
-          priority
-          sizes="(min-width: 1024px) 55vw, 100vw"
-          className="object-cover"
-        />
+    <PageSection as="article" className="grid gap-12 py-12 lg:grid-cols-[1.15fr_0.85fr] lg:py-20">
+      <div className="lg:sticky lg:top-28">
+        <ArtworkImageGallery artwork={artwork} />
       </div>
       <div className="self-start">
         <AvailabilityBadge status={artwork.status} />
@@ -23,11 +36,11 @@ export function ArtworkDetail({ artwork }: { artwork: Artwork }) {
         <p className="mt-6 text-lg leading-8 text-muted">{artwork.description}</p>
         <dl className="mt-10 divide-y divide-line border-y border-line text-sm">
           {[
-            ["Ano", artwork.year],
-            ["Tecnica", artwork.technique],
-            ["Soporte", artwork.support],
-            ["Medidas", formatDimensions(artwork.dimensions)],
-            ["Precio", formatPrice(artwork.price)],
+            [content.fields.year, artwork.year],
+            [content.fields.technique, artwork.technique],
+            [content.fields.support, artwork.support],
+            [content.fields.dimensions, formatDimensions(artwork.dimensions)],
+            [content.fields.price, formatPrice(artwork.price)],
           ].map(([label, value]) => (
             <div key={label} className="grid grid-cols-[9rem_1fr] gap-4 py-4">
               <dt className="uppercase tracking-[0.22em] text-muted">{label}</dt>
@@ -36,12 +49,12 @@ export function ArtworkDetail({ artwork }: { artwork: Artwork }) {
           ))}
         </dl>
         <aside className="mt-8 rounded-[1.5rem] border border-line bg-paper p-5">
-          <p className="text-xs uppercase tracking-[0.25em] text-muted">Galería premium</p>
+          <p className="text-xs uppercase tracking-[0.25em] text-muted">{content.galleryAside.eyebrow}</p>
           <p className="mt-3 text-sm leading-6 text-muted">
-            {artwork.experience?.galleryNotes ?? "Vista demo disponible en los modos de archivo, curaduría, muro 2D y presentación."}
+            {artwork.experience?.galleryNotes ?? content.galleryAside.fallbackNotes}
           </p>
           <Link href="/galerias" className="mt-4 inline-flex text-sm uppercase tracking-[0.22em] underline">
-            Ver modos de galería
+            {content.galleryAside.cta}
           </Link>
         </aside>
         <div className="mt-10 flex flex-col gap-4 sm:flex-row">
@@ -49,16 +62,16 @@ export function ArtworkDetail({ artwork }: { artwork: Artwork }) {
             href={`/contacto?obra=${artwork.slug}`}
             className="rounded-full bg-foreground px-7 py-3 text-center text-sm uppercase tracking-[0.22em] text-background"
           >
-            Consultar obra
+            {content.actions.inquire}
           </Link>
           <Link
             href="/obras"
             className="rounded-full border border-foreground px-7 py-3 text-center text-sm uppercase tracking-[0.22em]"
           >
-            Volver al catalogo
+            {content.actions.backToCatalog}
           </Link>
         </div>
       </div>
-    </article>
+    </PageSection>
   );
 }

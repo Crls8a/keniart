@@ -1,5 +1,5 @@
 import type { Variants } from "motion/react";
-import { galleryMotionQuickTransition, galleryMotionTransition } from "@/components/motion/transitions";
+import { galleryMotionTransition } from "@/components/motion/transitions";
 
 export const galleryListVariants: Variants = {
   hidden: { opacity: 0 },
@@ -27,13 +27,5 @@ export const galleryPanelVariants: Variants = {
     opacity: 1,
     scale: 1,
     transition: galleryMotionTransition,
-  },
-};
-
-export const galleryModeOptionVariants: Variants = {
-  rest: { y: 0 },
-  hover: {
-    y: -2,
-    transition: galleryMotionQuickTransition,
   },
 };
