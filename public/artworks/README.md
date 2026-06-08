@@ -35,8 +35,10 @@ queda como detalle interno de implementación para no renombrar assets ya optimi
 La URL pública de la serie `Cartografías del alma` es
 `/series/cartografias-del-alma`. Sus assets viven en
 `public/artworks/optimized/cartografias-del-alma/{desktop,tablet,mobile,thumb}/`.
-La carpeta fuente `Sobre mi` contiene imágenes de artista/about y no forma parte
-del manifiesto de obras ni de esta serie.
+La curaduría vigente de la serie usa carpetas fuente numeradas solo para ordenar
+la carga; ese número no debe aparecer en títulos, slugs, textos alternativos ni
+rutas públicas. La carpeta fuente `Sobre mi` contiene imágenes de artista/about
+y no forma parte del manifiesto de obras ni de esta serie.
 
 Una imagen aprobada debe declararse desde `src/data/artworks.ts`, por ejemplo:
 

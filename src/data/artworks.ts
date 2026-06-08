@@ -29,9 +29,15 @@ type CartografiasArtworkInput = {
   folder: string;
   files: ArtworkImageInput[];
   description: string;
+  technique: string;
+  support: string;
+  dimensions: Artwork["dimensions"];
+  status: Artwork["status"];
+  price?: Artwork["price"];
   tags: string[];
   featured?: boolean;
   dossierOrder: number;
+  galleryNotes?: string;
 };
 
 function petPortraitImageVariants(folder: string, file: string) {
@@ -131,7 +137,22 @@ function cartografiasImageAsset(folder: string, title: string, image: ArtworkIma
   };
 }
 
-function createCartografiasArtwork({ slug, title, folder, files, description, tags, featured = false, dossierOrder }: CartografiasArtworkInput): Artwork {
+function createCartografiasArtwork({
+  slug,
+  title,
+  folder,
+  files,
+  description,
+  technique,
+  support,
+  dimensions,
+  status,
+  price,
+  tags,
+  featured = false,
+  dossierOrder,
+  galleryNotes,
+}: CartografiasArtworkInput): Artwork {
   const gallery = files.map((file) => cartografiasImageAsset(folder, title, file));
   const [mainImage, ...detailImages] = gallery;
   const detailVariants = detailImages.flatMap((image) => (image.variants ? [image.variants] : []));
@@ -146,10 +167,11 @@ function createCartografiasArtwork({ slug, title, folder, files, description, ta
     title,
     year: 2026,
     seriesSlug: CARTOGRAFIAS_DEL_ALMA_SERIES_SLUG,
-    technique: "Pintura",
-    support: "Soporte a confirmar",
-    dimensions: { kind: "unknown", label: "Medidas a confirmar" },
-    status: "not_for_sale",
+    technique,
+    support,
+    dimensions,
+    price,
+    status,
     images: {
       main: mainImage.src,
       variants: mainImage.variants,
@@ -165,7 +187,7 @@ function createCartografiasArtwork({ slug, title, folder, files, description, ta
     experience: {
       heroCrop: { focus: "center", objectPosition: "50% 45%" },
       animationPriority: featured ? "featured" : "standard",
-      galleryNotes: "Pintura. Medidas finales pendientes de confirmación.",
+      galleryNotes,
       dossierOrder,
       aspectRatio: mainImage.aspectRatio,
     },
@@ -273,56 +295,26 @@ const petPortraitArtworks: Artwork[] = [
 
 const cartografiasArtworks: Artwork[] = [
   createCartografiasArtwork({
-    slug: "retratos",
-    title: "Retratos",
-    folder: "retratos",
-    files: [{ file: "image-01.webp", width: 768, height: 1024 }],
-    description: "Una presencia frontal y silenciosa abre la serie desde el rostro: la mirada como territorio íntimo y umbral de memoria.",
-    tags: ["retrato", "mirada", "presencia"],
-    dossierOrder: 20,
-  }),
-  createCartografiasArtwork({
-    slug: "la-mirada-del-universo",
-    title: "La mirada del universo",
-    folder: "la-mirada-del-universo",
+    slug: "guardianes-de-la-luz-y-sabiduria",
+    title: "Guardianes de la luz y sabiduría",
+    folder: "guardianes-de-la-luz-y-sabiduria",
     files: [
-      { file: "image-01.webp", width: 1440, height: 1800 },
-      { file: "image-02.webp", width: 1182, height: 665 },
+      { file: "image-01.webp", width: 806, height: 974 },
+      { file: "image-02.webp", width: 806, height: 974 },
       { file: "image-03.webp", width: 806, height: 974 },
-      { file: "image-04.webp", width: 1490, height: 1800 },
+      { file: "image-04.webp", width: 806, height: 974 },
+      { file: "image-05.webp", width: 1182, height: 665 },
     ],
-    description: "Un conjunto de visiones cósmicas donde la imagen observa de vuelta: materia, cielo y conciencia reunidos en una misma respiración.",
-    tags: ["universo", "mirada", "cosmos"],
+    description: "Caminar juntos es recordar el origen. La fuerza habita en nuestras raíces y la luz, en quienes nos protegen en el silencio.",
+    technique: "Óleo",
+    support: "Lienzo",
+    dimensions: { heightCm: 80, widthCm: 120 },
+    status: "sold",
+    price: { amount: 50000, currency: "MXN", visibility: "public" },
+    tags: ["guardianes", "luz", "sabiduría"],
     featured: true,
-    dossierOrder: 21,
-  }),
-  createCartografiasArtwork({
-    slug: "cuba",
-    title: "Cuba",
-    folder: "cuba",
-    files: [
-      { file: "image-01.webp", width: 1350, height: 1800 },
-      { file: "image-02.webp", width: 1024, height: 768 },
-      { file: "image-03.webp", width: 1271, height: 1123 },
-      { file: "image-04.webp", width: 1271, height: 1123 },
-      { file: "image-05.webp", width: 1271, height: 1123 },
-      { file: "image-06.webp", width: 1271, height: 1123 },
-    ],
-    description: "Memoria de viaje y color: una cartografía afectiva donde el paisaje conserva el pulso de lo vivido.",
-    tags: ["viaje", "memoria", "paisaje"],
-    dossierOrder: 22,
-  }),
-  createCartografiasArtwork({
-    slug: "aurora-boreal",
-    title: "Aurora boreal",
-    folder: "aurora-boreal",
-    files: [
-      { file: "image-01.webp", width: 1350, height: 1800 },
-      { file: "image-02.webp", width: 1800, height: 1800 },
-    ],
-    description: "Luz suspendida sobre la superficie pictórica: un clima de tránsito, silencio y resplandor interior.",
-    tags: ["luz", "aurora", "paisaje interior"],
-    dossierOrder: 23,
+    dossierOrder: 1,
+    galleryNotes: "Óleo sobre lienzo. Exhibida en Galería Vértice, noviembre de 2025.",
   }),
   createCartografiasArtwork({
     slug: "arbol-de-vida",
@@ -331,75 +323,59 @@ const cartografiasArtworks: Artwork[] = [
     files: [
       { file: "image-01.webp", width: 1440, height: 1800 },
       { file: "image-02.webp", width: 1490, height: 1800 },
-      { file: "image-03.webp", width: 768, height: 1024 },
-      { file: "image-04.webp", width: 1012, height: 1800 },
-      { file: "image-05.webp", width: 807, height: 974 },
-      { file: "image-06.webp", width: 1490, height: 1800 },
+      { file: "image-03.webp", width: 1490, height: 1800 },
+      { file: "image-04.webp", width: 1800, height: 1800 },
     ],
-    description: "Raíz, cuerpo y expansión se encuentran en una imagen de crecimiento sereno, como una brújula vegetal del alma.",
+    description: "Raíces divinas en el árbol de la vida: florece el amor. En el canto del colibrí habita el abrazo que nos recuerda lo vital; el eterno retorno a la esencia del alma.",
+    technique: "Óleo",
+    support: "Lienzo",
+    dimensions: { heightCm: 100, widthCm: 150 },
+    status: "sold",
+    price: { amount: 60000, currency: "MXN", visibility: "public" },
     tags: ["árbol", "vida", "naturaleza"],
-    dossierOrder: 24,
+    dossierOrder: 2,
+    galleryNotes: "Óleo sobre lienzo.",
   }),
   createCartografiasArtwork({
-    slug: "peces-dorados",
-    title: "Peces dorados",
-    folder: "peces-dorados",
+    slug: "trascender-viaje-espiritual",
+    title: "Trascender (viaje espiritual)",
+    folder: "trascender-viaje-espiritual",
     files: [
-      { file: "image-01.webp", width: 1800, height: 1800 },
-      { file: "image-02.webp", width: 1350, height: 1800 },
+      { file: "image-01.webp", width: 1350, height: 1800 },
+      { file: "image-02.webp", width: 807, height: 974 },
       { file: "image-03.webp", width: 1350, height: 1800 },
+      { file: "image-04.webp", width: 1350, height: 1800 },
     ],
-    description: "Formas acuáticas y doradas flotan como señales de abundancia, calma y movimiento sutil.",
-    tags: ["peces", "agua", "dorado"],
-    dossierOrder: 25,
+    description: "Madre que respiras en el silencio, en el brote de lo tierno y en la raíz antigua, habitas dentro como un latido incesante. Desde las alturas, el águila blanca vigila el alma como mensajera de lo místico y símbolo de absoluta claridad.",
+    technique: "Óleo",
+    support: "Lienzo",
+    dimensions: { heightCm: 100, widthCm: 150 },
+    status: "sold",
+    price: { amount: 60000, currency: "MXN", visibility: "public" },
+    tags: ["trascender", "viaje espiritual", "tránsito"],
+    dossierOrder: 3,
+    galleryNotes: "Óleo sobre lienzo.",
   }),
   createCartografiasArtwork({
     slug: "venus-el-origen-suave-del-amor",
     title: "Venus (el origen suave del amor)",
     folder: "venus-el-origen-suave-del-amor",
     files: [
-      { file: "image-01.webp", width: 768, height: 1024 },
-      { file: "image-02.webp", width: 1024, height: 768 },
+      { file: "image-01.webp", width: 1350, height: 1800 },
+      { file: "image-02.webp", width: 1350, height: 1800 },
       { file: "image-03.webp", width: 806, height: 974 },
-      { file: "image-04.webp", width: 768, height: 1024 },
-      { file: "image-05.webp", width: 806, height: 974 },
-      { file: "image-06.webp", width: 806, height: 974 },
-      { file: "image-07.webp", width: 665, height: 1182 },
-      { file: "image-08.webp", width: 806, height: 974 },
-      { file: "image-09.webp", width: 768, height: 1024 },
-      { file: "image-10.webp", width: 1182, height: 665 },
+      { file: "image-04.webp", width: 1350, height: 1800 },
+      { file: "image-05.webp", width: 1800, height: 1800 },
     ],
-    description: "Una secuencia dedicada a la suavidad del origen: cuerpos, símbolos y gestos que piensan el amor desde una quietud luminosa.",
+    description: "Una danza de nácar y oro sobre el lienzo del océano. El mar se vuelve cuna y la brisa, abrazo; tres fuerzas, un solo instante: el suspiro que empuja, la belleza que transita y la tierra que recibe.",
+    technique: "Óleo",
+    support: "Lienzo",
+    dimensions: { heightCm: 90, widthCm: 80 },
+    status: "available",
+    price: { amount: 50000, currency: "MXN", visibility: "public" },
     tags: ["venus", "amor", "origen"],
-    dossierOrder: 26,
-  }),
-  createCartografiasArtwork({
-    slug: "tortuga",
-    title: "Tortuga",
-    folder: "tortuga",
-    files: [
-      { file: "image-01.webp", width: 1490, height: 1800 },
-      { file: "image-02.webp", width: 1490, height: 1800 },
-      { file: "image-03.webp", width: 1490, height: 1800 },
-    ],
-    description: "La tortuga aparece como guardiana de tiempo lento: protección, trayecto y sabiduría antigua.",
-    tags: ["tortuga", "tiempo", "sabiduría"],
-    dossierOrder: 27,
-  }),
-  createCartografiasArtwork({
-    slug: "guardianes-de-la-luz-y-sabiduria",
-    title: "Guardianes de la luz y sabiduría",
-    folder: "guardianes-de-la-luz-y-sabiduria",
-    files: [
-      { file: "image-01.webp", width: 806, height: 974 },
-      { file: "image-02.webp", width: 806, height: 974 },
-      { file: "image-03.webp", width: 806, height: 974 },
-      { file: "image-04.webp", width: 1182, height: 665 },
-      { file: "image-05.webp", width: 806, height: 974 },
-    ],
-    description: "Figuras de resguardo y claridad acompañan la mirada; la luz se vuelve guía, símbolo y presencia.",
-    tags: ["guardianes", "luz", "sabiduría"],
-    dossierOrder: 28,
+    dossierOrder: 4,
+    galleryNotes: "Óleo sobre lienzo. Exhibida en Galería Espacio Libre, diciembre de 2024.",
   }),
   createCartografiasArtwork({
     slug: "renacer-interestelar-orbita-8",
@@ -408,42 +384,42 @@ const cartografiasArtworks: Artwork[] = [
     files: [
       { file: "image-01.webp", width: 806, height: 974 },
       { file: "image-02.webp", width: 806, height: 974 },
-      { file: "image-03.webp", width: 1182, height: 665 },
+      { file: "image-03.webp", width: 806, height: 974 },
       { file: "image-04.webp", width: 806, height: 974 },
-      { file: "image-05.webp", width: 806, height: 974 },
+      { file: "image-05.webp", width: 1182, height: 665 },
     ],
-    description: "Un renacimiento en clave orbital: desplazamiento, expansión y regreso a una energía nueva.",
+    description: "El ciclo infinito del reencuentro entre dos conciencias que se aman desde otras galaxias. Órbita 8 abre una edición limitada de ocho reproducciones seriadas en alta fidelidad.",
+    technique: "Impresión Giclée",
+    support: "Lienzo de algodón",
+    dimensions: { kind: "unknown", label: "80 x 120 cm o 50 x 40 cm" },
+    status: "available",
+    price: { amount: 3500, currency: "MXN", visibility: "public" },
     tags: ["renacer", "órbita", "interestelar"],
-    dossierOrder: 29,
+    dossierOrder: 5,
+    galleryNotes: "Edición especial limitada de 8 ejemplares, numerados y firmados al reverso.",
   }),
   createCartografiasArtwork({
-    slug: "trascender-viaje-espiritual",
-    title: "Trascender (viaje espiritual)",
-    folder: "trascender-viaje-espiritual",
+    slug: "habana-cuba",
+    title: "Habana, Cuba",
+    folder: "habana-cuba",
     files: [
-      { file: "image-01.webp", width: 807, height: 974 },
+      { file: "image-01.webp", width: 1350, height: 1800 },
       { file: "image-02.webp", width: 1350, height: 1800 },
-      { file: "image-03.webp", width: 886, height: 886 },
+      { file: "image-03.webp", width: 1350, height: 1800 },
       { file: "image-04.webp", width: 1350, height: 1800 },
-      { file: "image-05.webp", width: 1350, height: 1800 },
+      { file: "image-05.webp", width: 1800, height: 1800 },
     ],
-    description: "Una ruta espiritual hecha de capas, signos y pasajes: la pintura como tránsito hacia otra forma de atención.",
-    tags: ["trascender", "viaje espiritual", "tránsito"],
-    dossierOrder: 30,
+    description: "Este lienzo nació de los contrastes, la luz y la calidez de La Habana. La ciudad se vuelve un latido constante: testimonio visual de un viaje que transformó la memoria en presencia.",
+    technique: "Impresión Giclée",
+    support: "Lienzo texturizado",
+    dimensions: { heightCm: 50, widthCm: 40 },
+    status: "available",
+    price: { amount: 6000, currency: "MXN", visibility: "public" },
+    tags: ["habana", "cuba", "memoria"],
+    dossierOrder: 6,
+    galleryNotes: "Edición limitada de 3 ejemplares. Reproducción digital autorizada del óleo original de 2022.",
   }),
 ];
-
-export const cartografiasPresentationImages: ArtworkImageAsset[] = [
-  { file: "image-01.webp", width: 594, height: 1321 },
-  { file: "image-02.webp", width: 594, height: 1321 },
-  { file: "image-03.webp", width: 712, height: 1104 },
-  { file: "image-04.webp", width: 1800, height: 1350 },
-  { file: "image-05.webp", width: 768, height: 1024 },
-  { file: "image-06.webp", width: 768, height: 1024 },
-  { file: "image-07.webp", width: 1012, height: 1800 },
-  { file: "image-08.webp", width: 594, height: 1321 },
-  { file: "image-09.webp", width: 1350, height: 1800 },
-].map((image) => cartografiasImageAsset("presentacion-en-galeria", "Presentación en galería", image));
 
 export const artworks: Artwork[] = [...petPortraitArtworks, ...cartografiasArtworks];
 
