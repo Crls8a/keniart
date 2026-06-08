@@ -29,6 +29,7 @@ type CartografiasArtworkInput = {
   folder: string;
   files: ArtworkImageInput[];
   description: string;
+  year: number;
   technique: string;
   support: string;
   dimensions: Artwork["dimensions"];
@@ -143,6 +144,7 @@ function createCartografiasArtwork({
   folder,
   files,
   description,
+  year,
   technique,
   support,
   dimensions,
@@ -165,7 +167,7 @@ function createCartografiasArtwork({
     id: `${CARTOGRAFIAS_DEL_ALMA_SERIES_SLUG}-${slug}`,
     slug,
     title,
-    year: 2026,
+    year,
     seriesSlug: CARTOGRAFIAS_DEL_ALMA_SERIES_SLUG,
     technique,
     support,
@@ -306,6 +308,7 @@ const cartografiasArtworks: Artwork[] = [
       { file: "image-05.webp", width: 1182, height: 665 },
     ],
     description: "Caminar juntos es recordar el origen. La fuerza habita en nuestras raíces y la luz, en quienes nos protegen en el silencio.",
+    year: 2025,
     technique: "Óleo",
     support: "Lienzo",
     dimensions: { heightCm: 80, widthCm: 120 },
@@ -327,6 +330,7 @@ const cartografiasArtworks: Artwork[] = [
       { file: "image-04.webp", width: 1800, height: 1800 },
     ],
     description: "Raíces divinas en el árbol de la vida: florece el amor. En el canto del colibrí habita el abrazo que nos recuerda lo vital; el eterno retorno a la esencia del alma.",
+    year: 2024,
     technique: "Óleo",
     support: "Lienzo",
     dimensions: { heightCm: 100, widthCm: 150 },
@@ -347,6 +351,7 @@ const cartografiasArtworks: Artwork[] = [
       { file: "image-04.webp", width: 1350, height: 1800 },
     ],
     description: "Madre que respiras en el silencio, en el brote de lo tierno y en la raíz antigua, habitas dentro como un latido incesante. Desde las alturas, el águila blanca vigila el alma como mensajera de lo místico y símbolo de absoluta claridad.",
+    year: 2025,
     technique: "Óleo",
     support: "Lienzo",
     dimensions: { heightCm: 100, widthCm: 150 },
@@ -361,13 +366,13 @@ const cartografiasArtworks: Artwork[] = [
     title: "Venus (el origen suave del amor)",
     folder: "venus-el-origen-suave-del-amor",
     files: [
-      { file: "image-01.webp", width: 1350, height: 1800 },
       { file: "image-02.webp", width: 1350, height: 1800 },
       { file: "image-03.webp", width: 806, height: 974 },
       { file: "image-04.webp", width: 1350, height: 1800 },
       { file: "image-05.webp", width: 1800, height: 1800 },
     ],
     description: "Una danza de nácar y oro sobre el lienzo del océano. El mar se vuelve cuna y la brisa, abrazo; tres fuerzas, un solo instante: el suspiro que empuja, la belleza que transita y la tierra que recibe.",
+    year: 2024,
     technique: "Óleo",
     support: "Lienzo",
     dimensions: { heightCm: 90, widthCm: 80 },
@@ -389,6 +394,7 @@ const cartografiasArtworks: Artwork[] = [
       { file: "image-05.webp", width: 1182, height: 665 },
     ],
     description: "El ciclo infinito del reencuentro entre dos conciencias que se aman desde otras galaxias. Órbita 8 abre una edición limitada de ocho reproducciones seriadas en alta fidelidad.",
+    year: 2025,
     technique: "Impresión Giclée",
     support: "Lienzo de algodón",
     dimensions: { kind: "unknown", label: "80 x 120 cm o 50 x 40 cm" },
@@ -410,6 +416,7 @@ const cartografiasArtworks: Artwork[] = [
       { file: "image-05.webp", width: 1800, height: 1800 },
     ],
     description: "Este lienzo nació de los contrastes, la luz y la calidez de La Habana. La ciudad se vuelve un latido constante: testimonio visual de un viaje que transformó la memoria en presencia.",
+    year: 2022,
     technique: "Impresión Giclée",
     support: "Lienzo texturizado",
     dimensions: { heightCm: 50, widthCm: 40 },
