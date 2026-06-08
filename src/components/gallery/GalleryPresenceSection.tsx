@@ -1,5 +1,6 @@
 import Image from "next/image";
 
+import { PageSection } from "@/components/layout/PageSection";
 import type { GalleryPresenceImage } from "@/data/galleryPresence";
 
 type GalleryPresenceSectionProps = {
@@ -34,22 +35,24 @@ export function GalleryPresenceSection({ images, content }: GalleryPresenceSecti
   if (!images.length) return null;
 
   return (
-    <section className="space-y-8 border-t border-line pt-14" aria-labelledby="gallery-presence-title">
-      <div className="grid gap-8 lg:grid-cols-[minmax(0,0.7fr)_minmax(0,1fr)] lg:items-end">
-        <div>
-          <p className="text-xs uppercase tracking-[0.35em] text-muted">{content.eyebrow}</p>
-          <h2 id="gallery-presence-title" className="mt-4 font-serif text-4xl tracking-[-0.04em] sm:text-5xl">
-            {content.title}
-          </h2>
+    <PageSection className="py-16 lg:py-24">
+      <section className="space-y-8" aria-labelledby="gallery-presence-title">
+        <div className="grid gap-8 lg:grid-cols-[minmax(0,0.7fr)_minmax(0,1fr)] lg:items-end">
+          <div>
+            <p className="text-xs uppercase tracking-[0.35em] text-muted">{content.eyebrow}</p>
+            <h2 id="gallery-presence-title" className="mt-4 font-serif text-4xl tracking-[-0.04em] sm:text-5xl">
+              {content.title}
+            </h2>
+          </div>
+          <p className="max-w-2xl text-muted lg:justify-self-end">{content.description}</p>
         </div>
-        <p className="max-w-2xl text-muted lg:justify-self-end">{content.description}</p>
-      </div>
 
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        {images.map((image, index) => (
-          <GalleryPresenceCard key={image.id} image={image} priority={index < 2} />
-        ))}
-      </div>
-    </section>
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {images.map((image, index) => (
+            <GalleryPresenceCard key={image.id} image={image} priority={index < 2} />
+          ))}
+        </div>
+      </section>
+    </PageSection>
   );
 }

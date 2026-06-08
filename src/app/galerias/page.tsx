@@ -13,9 +13,11 @@ export const metadata: Metadata = {
 
 export default function GaleriasPage() {
   return (
-    <PageSection className="space-y-16 py-16 lg:space-y-24 lg:py-24">
-      <GalleryExperience artworks={dossierArtworks} content={pageContent.galleryExperience} />
+    <>
       <GalleryPresenceSection images={galleryPresenceImages} content={pageContent.galleryPresence} />
-    </PageSection>
+      <PageSection className="pb-16 pt-12 lg:pb-24 lg:pt-16">
+        <GalleryExperience artworks={dossierArtworks} content={pageContent.galleryExperience} />
+      </PageSection>
+    </>
   );
 }
