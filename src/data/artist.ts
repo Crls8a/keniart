@@ -1,7 +1,6 @@
 export const artist = {
   name: "Keniart",
   location: "Mexico",
-  email: "studio@keniart.example",
   whatsapp: "5215548378481",
   whatsappDisplay: "+52 1 55 4837 8481",
   instagram: "https://www.instagram.com/keniart_mb?igsh=MTB1N3VvZ2IwbGlhbw==",

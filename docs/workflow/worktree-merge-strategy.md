@@ -37,7 +37,7 @@ Ejemplos:
 ```txt
 ace-94/real-artwork-inventory
 ace-91/production-artwork-images
-ace-92/inquiry-form-email
+ace-92/inquiry-form-whatsapp
 techdebt/react-doctor-a11y
 ```
 
