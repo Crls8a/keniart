@@ -48,7 +48,7 @@ export default async function ContactoPage({ searchParams }: Props) {
         <div className="mt-8 grid gap-3 text-sm">
           <a href={whatsappUrl} className="inline-flex items-center gap-3 underline focus-visible:outline-offset-4" target="_blank" rel="noreferrer">
             <WhatsAppMark />
-            WhatsApp directo
+            WhatsApp directo: {artist.whatsappDisplay}
           </a>
           <a href={artist.instagram} className="inline-flex items-center gap-3 underline focus-visible:outline-offset-4" target="_blank" rel="noreferrer">
             <InstagramMark />
