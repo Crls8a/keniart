@@ -2,10 +2,13 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "motion/react";
 import { useMemo, useState } from "react";
 import type { Artwork, GalleryMode } from "@/types/artwork";
 import { formatDimensions } from "@/lib/format";
 import { GalleryModeSwitch } from "@/components/gallery/GalleryModeSwitch";
+import { galleryCardVariants, galleryListVariants, galleryPanelVariants } from "@/components/motion/variants";
+import { useReducedMotionSafe } from "@/components/motion/useReducedMotionSafe";
 
 type GalleryExperienceProps = {
   artworks: Artwork[];
@@ -14,6 +17,7 @@ type GalleryExperienceProps = {
 
 export function GalleryExperience({ artworks, defaultMode = "archive" }: GalleryExperienceProps) {
   const [activeMode, setActiveMode] = useState<GalleryMode>(defaultMode);
+  const shouldReduceMotion = useReducedMotionSafe();
   const curatedArtworks = useMemo(
     () => artworks.filter((artwork) => artwork.dossierSelected).sort((a, b) => (a.experience?.dossierOrder ?? 99) - (b.experience?.dossierOrder ?? 99)),
     [artworks],
@@ -36,7 +40,12 @@ export function GalleryExperience({ artworks, defaultMode = "archive" }: Gallery
       <GalleryModeSwitch activeMode={activeMode} onModeChange={setActiveMode} />
 
       {activeMode === "presentation" && heroArtwork ? (
-        <article className="grid min-h-[70vh] overflow-hidden rounded-[2rem] bg-[#16120e] text-[#f7efe3] lg:grid-cols-[1fr_22rem]">
+        <motion.article
+          animate="show"
+          className="grid min-h-[70vh] overflow-hidden rounded-[2rem] bg-[#16120e] text-[#f7efe3] lg:grid-cols-[1fr_22rem]"
+          initial={shouldReduceMotion ? false : "hidden"}
+          variants={shouldReduceMotion ? undefined : galleryPanelVariants}
+        >
           <Link href={`/obras/${heroArtwork.slug}`} className="relative min-h-[55vh] bg-black/30">
             <Image
               alt={heroArtwork.title}
@@ -52,11 +61,17 @@ export function GalleryExperience({ artworks, defaultMode = "archive" }: Gallery
             <h3 className="mt-5 font-serif text-4xl tracking-[-0.04em]">{heroArtwork.title}</h3>
             <p className="mt-4 leading-7 text-[#cfc2b1]">{heroArtwork.description}</p>
           </div>
-        </article>
+        </motion.article>
       ) : (
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <motion.div
+          animate="show"
+          className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+          initial={shouldReduceMotion ? false : "hidden"}
+          key={activeMode}
+          variants={shouldReduceMotion ? undefined : galleryListVariants}
+        >
           {visibleArtworks.map((artwork, index) => (
-            <article className="overflow-hidden rounded-[1.75rem] border border-line bg-paper" key={artwork.id}>
+            <motion.article className="overflow-hidden rounded-[1.75rem] border border-line bg-paper" key={artwork.id} variants={shouldReduceMotion ? undefined : galleryCardVariants}>
               <Link href={`/obras/${artwork.slug}`} className="group block focus-visible:outline-offset-4">
                 <div className="relative aspect-[4/5] bg-line">
                   <Image
@@ -76,9 +91,9 @@ export function GalleryExperience({ artworks, defaultMode = "archive" }: Gallery
                 <h3 className="font-serif text-2xl tracking-[-0.03em]">{artwork.title}</h3>
                 <p className="text-sm leading-6 text-muted">{artwork.experience?.galleryNotes ?? artwork.description}</p>
               </div>
-            </article>
+            </motion.article>
           ))}
-        </div>
+        </motion.div>
       )}
     </section>
   );
