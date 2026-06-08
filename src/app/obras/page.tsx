@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { ArtworkGrid } from "@/components/artwork/ArtworkGrid";
 import { StructuredData } from "@/components/artwork/StructuredData";
+import { GalleryExperience } from "@/components/gallery/GalleryExperience";
 import { artworks } from "@/data/artworks";
 import { collectionSchema } from "@/lib/schema";
 
@@ -18,7 +18,7 @@ export default function ObrasPage() {
         <h1 className="mt-5 font-serif text-5xl tracking-[-0.04em] sm:text-6xl">Obras</h1>
         <p className="mt-6 text-lg leading-8 text-muted">Lienzos organizados como archivo publico del estudio. Los estados indican disponibilidad inicial para consulta.</p>
       </div>
-      <ArtworkGrid artworks={artworks} />
+      <GalleryExperience artworks={artworks} />
     </section>
   );
 }
