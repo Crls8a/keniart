@@ -1,11 +1,12 @@
 import Link from "next/link";
 import { MobileNavigation } from "@/components/layout/MobileNavigation";
 import { PageContainer } from "@/components/layout/PageContainer";
+import { siteHeaderContractClassName } from "@/components/layout/siteHeaderContract";
 import { headerContent, mainNavigation } from "@/content/navigation";
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-50 border-b border-line/70 bg-background/90 backdrop-blur">
+    <header className={`sticky top-0 z-50 border-b border-line/70 bg-background/90 backdrop-blur ${siteHeaderContractClassName}`}>
       <PageContainer className="flex items-center justify-between gap-4 py-4">
         <Link href="/" className="font-serif text-xl tracking-[0.28em] uppercase focus-visible:outline-offset-4">
           Keniart

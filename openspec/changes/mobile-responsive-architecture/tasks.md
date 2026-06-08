@@ -26,11 +26,11 @@ Chain strategy: feature-branch-chain
 
 ## Phase 1: Layout and media foundation
 
-- [ ] 1.1 Create `src/components/artwork/ArtworkMediaFrame.tsx` with server-safe `relative`, sizing, background, overflow, and orientation padding variants.
-- [ ] 1.2 Update `src/components/artwork/ResponsiveArtworkImage.tsx` comments/types to state the parent sizing contract without changing SSR `<picture>` behavior.
-- [ ] 1.3 Update `src/components/layout/SiteHeader.tsx` to publish a shared header-height CSS variable/class contract.
-- [ ] 1.4 Update `src/components/layout/MobileNavigation.tsx` to use the shared offset instead of `top-[65px]`; keep native `<details>` links focusable.
-- [ ] 1.5 Update `src/components/artwork/ArtworkDetail.tsx` sticky offsets to use the same header contract.
+- [x] 1.1 Create `src/components/artwork/ArtworkMediaFrame.tsx` with server-safe `relative`, sizing, background, overflow, and orientation padding variants.
+- [x] 1.2 Update `src/components/artwork/ResponsiveArtworkImage.tsx` comments/types to state the parent sizing contract without changing SSR `<picture>` behavior.
+- [x] 1.3 Update `src/components/layout/SiteHeader.tsx` to publish a shared header-height CSS variable/class contract.
+- [x] 1.4 Update `src/components/layout/MobileNavigation.tsx` to use the shared offset instead of `top-[65px]`; keep native `<details>` links focusable.
+- [x] 1.5 Update `src/components/artwork/ArtworkDetail.tsx` sticky offsets to use the same header contract.
 
 ## Phase 2: SSR gallery catalogs
 

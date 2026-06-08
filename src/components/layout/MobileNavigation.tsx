@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { siteHeaderOffsetClassName } from "@/components/layout/siteHeaderContract";
 
 type NavigationItem = {
   label: string;
@@ -31,7 +32,7 @@ export function MobileNavigation({
         <span className="group-open:hidden">{menuLabel}</span>
         <span className="hidden group-open:inline">{closeMenuLabel}</span>
       </summary>
-      <div className="fixed inset-x-0 top-[65px] z-40 bg-foreground/20 px-5 pb-5 pt-0 backdrop-blur-sm">
+      <div className={`fixed inset-x-0 z-40 bg-foreground/20 px-5 pb-5 pt-0 backdrop-blur-sm ${siteHeaderOffsetClassName}`}>
         <nav aria-label={navigationLabel} className="rounded-b-[2rem] border border-line bg-paper p-6 shadow-2xl shadow-foreground/10">
           <div className="flex flex-col gap-2 text-sm uppercase tracking-[0.24em] text-muted">
             {items.map(({ label, href }) => (

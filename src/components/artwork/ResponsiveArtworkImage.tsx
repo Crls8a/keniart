@@ -1,6 +1,12 @@
 import type { ArtworkImageAsset } from "@/types/artwork";
 
 type ResponsiveArtworkImageProps = {
+  /**
+   * Parent contract: render inside an SSR-sized `relative` frame such as
+   * `ArtworkMediaFrame`. This component intentionally remains absolute so the
+   * frame, not hydration, owns aspect ratio, minimum height, overflow, and
+   * responsive layout stability.
+   */
   image: ArtworkImageAsset;
   alt: string;
   className?: string;

@@ -4,6 +4,7 @@ import { formatDimensions, formatPrice } from "@/lib/format";
 import { AvailabilityBadge } from "@/components/artwork/AvailabilityBadge";
 import { ArtworkImageGallery } from "@/components/artwork/ArtworkImageGallery";
 import { PageSection } from "@/components/layout/PageSection";
+import { siteHeaderContractClassName, siteHeaderStickyOffsetClassName } from "@/components/layout/siteHeaderContract";
 
 type ArtworkDetailContent = {
   fields: {
@@ -26,8 +27,8 @@ type ArtworkDetailContent = {
 
 export function ArtworkDetail({ artwork, content }: { artwork: Artwork; content: ArtworkDetailContent }) {
   return (
-    <PageSection as="article" className="grid gap-12 py-12 lg:grid-cols-[1.15fr_0.85fr] lg:py-20">
-      <div className="lg:sticky lg:top-28">
+    <PageSection as="article" className={`grid gap-12 py-12 lg:grid-cols-[1.15fr_0.85fr] lg:py-20 ${siteHeaderContractClassName}`}>
+      <div className={`lg:sticky ${siteHeaderStickyOffsetClassName}`}>
         <ArtworkImageGallery artwork={artwork} />
       </div>
       <div className="self-start">
