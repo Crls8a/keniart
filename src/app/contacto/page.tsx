@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { InquiryForm } from "@/components/forms/InquiryForm";
-import { artist } from "@/data/artist";
+import { siteConfig, whatsappUrl } from "@/lib/seo";
 
 function WhatsAppMark() {
   return (
@@ -28,7 +28,7 @@ function InstagramMark() {
 
 export const metadata: Metadata = {
   title: "Contacto",
-  description: "Consultas de obra, galerias, dossier y contacto directo con el estudio.",
+  description: "Consultas de obra, galerías, dossier y contacto directo por WhatsApp.",
 };
 
 type Props = {
@@ -37,7 +37,7 @@ type Props = {
 
 export default async function ContactoPage({ searchParams }: Props) {
   const { obra } = await searchParams;
-  const whatsappUrl = `https://wa.me/${artist.whatsapp}?text=${encodeURIComponent("Hola, quiero consultar una obra de Keniart.")}`;
+  const directWhatsAppUrl = whatsappUrl("Hola, quiero consultar una obra de Keniart.");
 
   return (
     <section className="mx-auto grid max-w-7xl gap-12 px-5 py-16 sm:px-8 lg:grid-cols-[0.8fr_1.2fr] lg:py-24">
@@ -46,18 +46,18 @@ export default async function ContactoPage({ searchParams }: Props) {
         <h1 className="mt-5 font-serif text-5xl tracking-[-0.04em] sm:text-6xl">Consultas y galerias</h1>
         <p className="mt-6 text-lg leading-8 text-muted">Para disponibilidad, reservas, dossier o propuestas curatoriales, escribí al estudio por WhatsApp.</p>
         <div className="mt-8 grid gap-3 text-sm">
-          <a href={whatsappUrl} className="inline-flex items-center gap-3 underline focus-visible:outline-offset-4" target="_blank" rel="noreferrer">
+          <a href={directWhatsAppUrl} className="inline-flex items-center gap-3 underline focus-visible:outline-offset-4" target="_blank" rel="noreferrer">
             <WhatsAppMark />
-            WhatsApp directo: {artist.whatsappDisplay}
+            WhatsApp directo: {siteConfig.contact.whatsappDisplay}
           </a>
-          <a href={artist.instagram} className="inline-flex items-center gap-3 underline focus-visible:outline-offset-4" target="_blank" rel="noreferrer">
+          <a href={siteConfig.contact.instagram} className="inline-flex items-center gap-3 underline focus-visible:outline-offset-4" target="_blank" rel="noreferrer">
             <InstagramMark />
             Referencia en Instagram
           </a>
           <Link href="/dossier" className="underline focus-visible:outline-offset-4">Ver dossier web</Link>
         </div>
       </div>
-      <InquiryForm selectedArtworkSlug={obra} whatsapp={artist.whatsapp} />
+      <InquiryForm selectedArtworkSlug={obra} whatsapp={siteConfig.contact.whatsapp} />
     </section>
   );
 }
