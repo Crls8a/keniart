@@ -23,14 +23,14 @@ export function ArtworkCard({ artwork, priority = false }: { artwork: Artwork; p
           <AvailabilityBadge status={artwork.status} />
         </div>
       </div>
-      <div className="mt-4 flex min-h-[6.75rem] items-start justify-between gap-4">
+      <div className="mt-4 flex min-h-[6.75rem] flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
         <div className="min-w-0">
           <h3 className="text-lg font-medium">{artwork.title}</h3>
           <p className="mt-1 text-sm text-muted">
             {artwork.year} - {artwork.technique}
           </p>
         </div>
-        <p className="shrink-0 text-right text-xs uppercase tracking-[0.2em] text-muted">
+        <p className="text-xs uppercase tracking-[0.2em] text-muted sm:shrink-0 sm:text-right">
           {formatDimensions(artwork.dimensions)}
         </p>
       </div>
