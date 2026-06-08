@@ -1,9 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { motion } from "motion/react";
 import { useMemo } from "react";
+import { ResponsiveArtworkImage } from "@/components/artwork/ResponsiveArtworkImage";
 import { galleryPanelVariants } from "@/components/motion/variants";
 import { useReducedMotionSafe } from "@/components/motion/useReducedMotionSafe";
 import { GalleryArtworkGrid } from "@/components/gallery/GalleryArtworkGrid";
@@ -31,6 +31,7 @@ export function GalleryExperience({ artworks, content }: GalleryExperienceProps)
   const shouldReduceMotion = useReducedMotionSafe();
   const visibleArtworks = useMemo(() => [...artworks].sort((a, b) => (a.experience?.dossierOrder ?? 99) - (b.experience?.dossierOrder ?? 99)), [artworks]);
   const heroArtwork = visibleArtworks[0];
+  const heroImage = heroArtwork?.images.gallery?.[0];
 
   return (
     <section className="space-y-12" aria-labelledby="gallery-experience-title">
@@ -42,14 +43,7 @@ export function GalleryExperience({ artworks, content }: GalleryExperienceProps)
           variants={shouldReduceMotion ? undefined : galleryPanelVariants}
         >
           <Link href={`/obras/${heroArtwork.slug}`} className="group relative min-h-[58vh] bg-black/30 focus-visible:outline-offset-4 lg:min-h-[72vh]">
-            <Image
-              alt={heroArtwork.title}
-              className="object-contain p-3 transition duration-1000 motion-safe:group-hover:scale-[1.015] motion-safe:group-focus-visible:scale-[1.015] sm:p-6"
-              fill
-              priority
-              sizes="(min-width: 1024px) 65vw, 100vw"
-              src={heroArtwork.images.main}
-            />
+            {heroImage ? <ResponsiveArtworkImage image={heroImage} alt={heroArtwork.title} priority className="object-contain p-3 transition duration-1000 motion-safe:group-hover:scale-[1.015] motion-safe:group-focus-visible:scale-[1.015] sm:p-6" /> : null}
           </Link>
           <div className="flex flex-col justify-end p-8 lg:p-10">
             <p className="text-xs uppercase tracking-[0.3em] text-[#b8aa98]">{content.hero.eyebrow}</p>

@@ -1,8 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { motion } from "motion/react";
+import { ResponsiveArtworkImage } from "@/components/artwork/ResponsiveArtworkImage";
 import { galleryCardVariants, galleryListVariants } from "@/components/motion/variants";
 import { formatDimensions } from "@/lib/format";
 import type { Artwork, ArtworkImageAsset } from "@/types/artwork";
@@ -18,18 +18,13 @@ function artworkImagePadding(image?: ArtworkImageAsset) {
 }
 
 function GalleryArtworkCard({ artwork, cardCta, priority }: { artwork: Artwork; cardCta: string; priority: boolean }) {
+  const image = artwork.images.gallery?.[0];
+
   return (
     <motion.article className="flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-line bg-paper" variants={galleryCardVariants}>
       <Link href={`/obras/${artwork.slug}`} className="group block focus-visible:outline-offset-4">
         <div className="relative aspect-[4/5] bg-[#17120e]">
-          <Image
-            alt={artwork.title}
-            className={`object-contain transition duration-700 motion-safe:group-hover:scale-[1.03] motion-safe:group-focus-visible:scale-[1.03] ${artworkImagePadding(artwork.images.gallery?.[0])}`}
-            fill
-            priority={priority}
-            sizes="(min-width: 1024px) 28vw, (min-width: 640px) 45vw, 100vw"
-            src={artwork.images.main}
-          />
+          {image ? <ResponsiveArtworkImage image={image} alt={artwork.title} priority={priority} className={`object-contain transition duration-700 motion-safe:group-hover:scale-[1.03] motion-safe:group-focus-visible:scale-[1.03] ${artworkImagePadding(image)}`} /> : null}
         </div>
       </Link>
       <div className="flex flex-1 flex-col p-5">
