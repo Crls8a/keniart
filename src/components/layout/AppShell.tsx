@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { FloatingWhatsAppCta } from "@/components/layout/FloatingWhatsAppCta";
 
 const navItems = [
   ["Obras", "/obras"],
@@ -32,6 +33,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         </nav>
       </header>
       <main>{children}</main>
+      <FloatingWhatsAppCta />
       <footer className="border-t border-line px-5 py-10 text-sm text-muted sm:px-8">
         <div className="mx-auto flex max-w-7xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <p>Keniart - Portafolio de arte contemporaneo</p>
