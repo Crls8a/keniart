@@ -1,11 +1,6 @@
-"use client";
-
 import Link from "next/link";
-import { motion } from "motion/react";
-import { useMemo } from "react";
+import { ArtworkMediaFrame } from "@/components/artwork/ArtworkMediaFrame";
 import { ResponsiveArtworkImage } from "@/components/artwork/ResponsiveArtworkImage";
-import { galleryPanelVariants } from "@/components/motion/variants";
-import { useReducedMotionSafe } from "@/components/motion/useReducedMotionSafe";
 import { GalleryArtworkGrid } from "@/components/gallery/GalleryArtworkGrid";
 import type { Artwork } from "@/types/artwork";
 
@@ -28,22 +23,18 @@ type GalleryExperienceProps = {
 };
 
 export function GalleryExperience({ artworks, content }: GalleryExperienceProps) {
-  const shouldReduceMotion = useReducedMotionSafe();
-  const visibleArtworks = useMemo(() => [...artworks].sort((a, b) => (a.experience?.dossierOrder ?? 99) - (b.experience?.dossierOrder ?? 99)), [artworks]);
+  const visibleArtworks = [...artworks].sort((a, b) => (a.experience?.dossierOrder ?? 99) - (b.experience?.dossierOrder ?? 99));
   const heroArtwork = visibleArtworks[0];
   const heroImage = heroArtwork?.images.gallery?.[0];
 
   return (
     <section className="space-y-12" aria-labelledby="gallery-experience-title">
       {heroArtwork ? (
-        <motion.article
-          animate="show"
-          className="grid overflow-hidden rounded-[2rem] bg-[#16120e] text-[#f7efe3] shadow-[0_28px_90px_rgba(22,18,14,0.18)] lg:grid-cols-[minmax(0,1fr)_24rem]"
-          initial={false}
-          variants={shouldReduceMotion ? undefined : galleryPanelVariants}
-        >
-          <Link href={`/obras/${heroArtwork.slug}`} className="group relative min-h-[58vh] bg-black/30 focus-visible:outline-offset-4 lg:min-h-[72vh]">
-            {heroImage ? <ResponsiveArtworkImage image={heroImage} alt={heroArtwork.title} priority className="object-contain p-3 transition duration-1000 motion-safe:group-hover:scale-[1.015] motion-safe:group-focus-visible:scale-[1.015] sm:p-6" /> : null}
+        <article className="grid overflow-hidden rounded-[2rem] bg-[#16120e] text-[#f7efe3] shadow-[0_28px_90px_rgba(22,18,14,0.18)] lg:grid-cols-[minmax(0,1fr)_24rem]">
+          <Link href={`/obras/${heroArtwork.slug}`} className="group block focus-visible:outline-offset-4">
+            <ArtworkMediaFrame image={heroImage} size="hero" className="min-h-[58vh] bg-black/30 lg:min-h-[72vh]">
+              {heroImage ? <ResponsiveArtworkImage image={heroImage} alt={heroArtwork.title} priority className="object-contain transition duration-1000 motion-safe:group-hover:scale-[1.015] motion-safe:group-focus-visible:scale-[1.015]" /> : null}
+            </ArtworkMediaFrame>
           </Link>
           <div className="flex flex-col justify-end p-8 lg:p-10">
             <p className="text-xs uppercase tracking-[0.3em] text-[#b8aa98]">{content.hero.eyebrow}</p>
@@ -58,7 +49,7 @@ export function GalleryExperience({ artworks, content }: GalleryExperienceProps)
               {content.hero.ctaPrefix} {heroArtwork.title.replace("Retrato de ", "")}
             </Link>
           </div>
-        </motion.article>
+        </article>
       ) : null}
 
       <div className="max-w-3xl">
@@ -67,7 +58,7 @@ export function GalleryExperience({ artworks, content }: GalleryExperienceProps)
         <p className="mt-5 text-muted">{content.list.description}</p>
       </div>
 
-      <GalleryArtworkGrid artworks={visibleArtworks} cardCta={content.list.cardCta} shouldReduceMotion={shouldReduceMotion} />
+      <GalleryArtworkGrid artworks={visibleArtworks} cardCta={content.list.cardCta} />
     </section>
   );
 }

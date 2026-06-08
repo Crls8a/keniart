@@ -34,9 +34,9 @@ Chain strategy: feature-branch-chain
 
 ## Phase 2: SSR gallery catalogs
 
-- [ ] 2.1 Convert `src/components/gallery/GalleryExperience.tsx` to a server component: remove `use client`, Motion, hooks, and sort before render.
-- [ ] 2.2 Convert `src/components/gallery/GalleryArtworkGrid.tsx` to server card markup with CSS `motion-safe:*` transitions and `ArtworkMediaFrame`.
-- [ ] 2.3 Verify `src/app/obras/page.tsx` and `src/app/galerias/page.tsx` pass ordered data and render catalog links/titles/images before hydration.
+- [x] 2.1 Convert `src/components/gallery/GalleryExperience.tsx` to a server component: remove `use client`, Motion, hooks, and sort before render.
+- [x] 2.2 Convert `src/components/gallery/GalleryArtworkGrid.tsx` to server card markup with CSS `motion-safe:*` transitions and `ArtworkMediaFrame`.
+- [x] 2.3 Verify `src/app/obras/page.tsx` and `src/app/galerias/page.tsx` pass ordered data and render catalog links/titles/images before hydration.
 
 ## Phase 3: Detail carousel baseline
 
