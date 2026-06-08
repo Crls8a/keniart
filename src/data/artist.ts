@@ -10,10 +10,6 @@ export const artist = {
   extendedBio:
     "Los animales y la naturaleza no son solo mis temas, son maestros de sabiduría silenciosa que me recuerdan la energía que nos une a todos. A través del óleo, cada obra se convierte en un acto de devoción, un intento de tocar fibras invisibles, crear un puente entre el espectador y la tierra, y honrar la pureza de todo lo que nos rodea.",
   aboutMedia: {
-    eyebrow: "Sobre mí",
-    title: "El estudio como espacio de escucha.",
-    description:
-      "Imágenes del proceso íntimo detrás de la obra: la artista, la materia y el silencio que acompañan cada pintura antes de llegar al lienzo.",
     images: [
       {
         id: "artist-at-studio",
