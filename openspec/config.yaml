@@ -1,0 +1,95 @@
+schema: spec-driven
+
+project: keniart
+artifact_store: both
+detected_at: 2026-06-08
+
+context: |
+  Tech stack: Next.js 16.2.7 App Router, React 19.2.4, TypeScript 5, Tailwind CSS 4, Motion 12, pnpm 10.12.1.
+  Architecture: src/app routes with src/components, src/data, src/content, src/lib, and src/types; path alias @/* -> ./src/*.
+  Testing: no unit/integration/e2e test runner script detected; validation uses lint/build/typecheck plus custom asset checks.
+  Style: strict TypeScript enabled, ESLint 9 with next/core-web-vitals and next/typescript, no formatter script detected.
+  Project rule: read node_modules/next/dist/docs/ before changing Next.js APIs because this Next.js version may differ from trained assumptions.
+
+review:
+  budget_changed_lines: 400
+  chained_pr_strategy: auto-forecast
+
+models:
+  default: openai/gpt-5.5
+  phase_explicit: false
+  implementer: openai/gpt-5.3-codex-spark
+
+strict_tdd: false
+
+testing:
+  strict_tdd: false
+  strict_tdd_reason: "No explicit strict TDD marker/config and no test runner script was detected."
+  runner:
+    available: false
+    framework: null
+    command: null
+  layers:
+    unit:
+      available: false
+      tool: null
+    integration:
+      available: false
+      tool: null
+    e2e:
+      available: false
+      tool: null
+  coverage:
+    available: false
+    command: null
+  quality:
+    linter:
+      available: true
+      command: "pnpm lint"
+    type_checker:
+      available: true
+      command: "pnpm exec tsc --noEmit"
+    formatter:
+      available: false
+      command: null
+    build:
+      available: true
+      command: "pnpm build"
+    react_doctor:
+      available: true
+      command: "pnpm doctor:react --no-score --no-telemetry --blocking none"
+    artwork_validation:
+      available: true
+      command: "pnpm validate:artworks"
+    image_optimization:
+      available: true
+      command: "pnpm optimize:images"
+
+rules:
+  proposal:
+    - Include scope, non-goals, risk, and rollback plan for risky changes.
+    - Forecast whether the change is likely to exceed the 400-line review budget and recommend chained PRs when needed.
+  specs:
+    - Use RFC 2119 keywords for requirements.
+    - Use Given/When/Then scenarios for observable behavior.
+  design:
+    - Document architecture decisions with rationale and tradeoffs.
+    - For Next.js API or routing changes, cite the local Next.js docs consulted under node_modules/next/dist/docs/.
+  tasks:
+    - Group implementation steps into reviewable work units that fit the 400-line budget when possible.
+    - Keep validation tasks adjacent to the behavior or config they verify.
+  apply:
+    tdd: false
+    test_command: "pnpm lint"
+    instructions:
+      - Follow existing src/app, src/components, src/data, src/content, src/lib, and src/types patterns.
+      - Do not use git add .; stage only intended files.
+  verify:
+    test_command: "pnpm lint"
+    build_command: "pnpm build"
+    coverage_threshold: 0
+    instructions:
+      - Report PASS / FAIL / NOT RUN evidence for each relevant command.
+      - Run pnpm doctor:react --no-score --no-telemetry --blocking none for React/Next debt reviews when relevant.
+  archive:
+    - Preserve archived changes as audit trail; do not delete or rewrite archive contents.
