@@ -1,17 +1,35 @@
 import type { Artwork, ArtworkImageAsset } from "@/types/artwork";
-import { PINTO_TU_MASCOTA_ASSET_BASE_PATH, PINTO_TU_MASCOTA_SERIES_SLUG } from "@/data/series";
+import {
+  CARTOGRAFIAS_DEL_ALMA_ASSET_BASE_PATH,
+  CARTOGRAFIAS_DEL_ALMA_SERIES_SLUG,
+  PINTO_TU_MASCOTA_ASSET_BASE_PATH,
+  PINTO_TU_MASCOTA_SERIES_SLUG,
+} from "@/data/series";
 
-type PetPortraitImageInput = {
+type ArtworkImageInput = {
   file: string;
   width: number;
   height: number;
 };
+
+type PetPortraitImageInput = ArtworkImageInput;
 
 type PetPortraitArtworkInput = {
   slug: string;
   title: string;
   folder: string;
   files: PetPortraitImageInput[];
+  featured?: boolean;
+  dossierOrder: number;
+};
+
+type CartografiasArtworkInput = {
+  slug: string;
+  title: string;
+  folder: string;
+  files: ArtworkImageInput[];
+  description: string;
+  tags: string[];
   featured?: boolean;
   dossierOrder: number;
 };
@@ -81,6 +99,73 @@ function createPetPortraitArtwork({ slug, title, folder, files, featured = false
       heroCrop: { focus: "center", objectPosition: "50% 45%" },
       animationPriority: featured ? "hero" : "standard",
       galleryNotes: "Óleo sobre lienzo pintado. Medidas finales pendientes de confirmación.",
+      dossierOrder,
+      aspectRatio: mainImage.aspectRatio,
+    },
+    createdAt: "2026-06-08",
+    updatedAt: "2026-06-08",
+  };
+}
+
+function cartografiasImageVariants(folder: string, file: string) {
+  return {
+    main: `${CARTOGRAFIAS_DEL_ALMA_ASSET_BASE_PATH}/desktop/${folder}/${file}`,
+    desktop: `${CARTOGRAFIAS_DEL_ALMA_ASSET_BASE_PATH}/desktop/${folder}/${file}`,
+    tablet: `${CARTOGRAFIAS_DEL_ALMA_ASSET_BASE_PATH}/tablet/${folder}/${file}`,
+    mobile: `${CARTOGRAFIAS_DEL_ALMA_ASSET_BASE_PATH}/mobile/${folder}/${file}`,
+    thumb: `${CARTOGRAFIAS_DEL_ALMA_ASSET_BASE_PATH}/thumb/${folder}/${file}`,
+  };
+}
+
+function cartografiasImageAsset(folder: string, title: string, image: ArtworkImageInput): ArtworkImageAsset {
+  const variants = cartografiasImageVariants(folder, image.file);
+
+  return {
+    src: variants.main,
+    alt: `${title}, serie Cartografías del alma.`,
+    variants,
+    width: image.width,
+    height: image.height,
+    aspectRatio: Number((image.width / image.height).toFixed(4)),
+    orientation: imageOrientation(image),
+  };
+}
+
+function createCartografiasArtwork({ slug, title, folder, files, description, tags, featured = false, dossierOrder }: CartografiasArtworkInput): Artwork {
+  const gallery = files.map((file) => cartografiasImageAsset(folder, title, file));
+  const [mainImage, ...detailImages] = gallery;
+  const detailVariants = detailImages.flatMap((image) => (image.variants ? [image.variants] : []));
+
+  if (!mainImage) {
+    throw new Error(`Cartografías del alma artwork ${slug} needs at least one image.`);
+  }
+
+  return {
+    id: `${CARTOGRAFIAS_DEL_ALMA_SERIES_SLUG}-${slug}`,
+    slug,
+    title,
+    year: 2026,
+    seriesSlug: CARTOGRAFIAS_DEL_ALMA_SERIES_SLUG,
+    technique: "Pintura",
+    support: "Soporte a confirmar",
+    dimensions: { kind: "unknown", label: "Medidas a confirmar" },
+    status: "not_for_sale",
+    images: {
+      main: mainImage.src,
+      variants: mainImage.variants,
+      thumbnail: mainImage.variants?.thumb,
+      details: detailImages.map((image) => image.src),
+      detailVariants,
+      gallery,
+    },
+    description,
+    tags: ["cartografías del alma", ...tags],
+    featured,
+    dossierSelected: true,
+    experience: {
+      heroCrop: { focus: "center", objectPosition: "50% 45%" },
+      animationPriority: featured ? "featured" : "standard",
+      galleryNotes: "Pintura. Medidas finales pendientes de confirmación.",
       dossierOrder,
       aspectRatio: mainImage.aspectRatio,
     },
@@ -186,7 +271,188 @@ const petPortraitArtworks: Artwork[] = [
   }),
 ];
 
-export const artworks: Artwork[] = petPortraitArtworks;
+const cartografiasArtworks: Artwork[] = [
+  createCartografiasArtwork({
+    slug: "retratos",
+    title: "Retratos",
+    folder: "retratos",
+    files: [{ file: "image-01.webp", width: 768, height: 1024 }],
+    description: "Una presencia frontal y silenciosa abre la serie desde el rostro: la mirada como territorio íntimo y umbral de memoria.",
+    tags: ["retrato", "mirada", "presencia"],
+    dossierOrder: 20,
+  }),
+  createCartografiasArtwork({
+    slug: "la-mirada-del-universo",
+    title: "La mirada del universo",
+    folder: "la-mirada-del-universo",
+    files: [
+      { file: "image-01.webp", width: 1440, height: 1800 },
+      { file: "image-02.webp", width: 1182, height: 665 },
+      { file: "image-03.webp", width: 806, height: 974 },
+      { file: "image-04.webp", width: 1490, height: 1800 },
+    ],
+    description: "Un conjunto de visiones cósmicas donde la imagen observa de vuelta: materia, cielo y conciencia reunidos en una misma respiración.",
+    tags: ["universo", "mirada", "cosmos"],
+    featured: true,
+    dossierOrder: 21,
+  }),
+  createCartografiasArtwork({
+    slug: "cuba",
+    title: "Cuba",
+    folder: "cuba",
+    files: [
+      { file: "image-01.webp", width: 1350, height: 1800 },
+      { file: "image-02.webp", width: 1024, height: 768 },
+      { file: "image-03.webp", width: 1271, height: 1123 },
+      { file: "image-04.webp", width: 1271, height: 1123 },
+      { file: "image-05.webp", width: 1271, height: 1123 },
+      { file: "image-06.webp", width: 1271, height: 1123 },
+    ],
+    description: "Memoria de viaje y color: una cartografía afectiva donde el paisaje conserva el pulso de lo vivido.",
+    tags: ["viaje", "memoria", "paisaje"],
+    dossierOrder: 22,
+  }),
+  createCartografiasArtwork({
+    slug: "aurora-boreal",
+    title: "Aurora boreal",
+    folder: "aurora-boreal",
+    files: [
+      { file: "image-01.webp", width: 1350, height: 1800 },
+      { file: "image-02.webp", width: 1800, height: 1800 },
+    ],
+    description: "Luz suspendida sobre la superficie pictórica: un clima de tránsito, silencio y resplandor interior.",
+    tags: ["luz", "aurora", "paisaje interior"],
+    dossierOrder: 23,
+  }),
+  createCartografiasArtwork({
+    slug: "arbol-de-vida",
+    title: "Árbol de vida",
+    folder: "arbol-de-vida",
+    files: [
+      { file: "image-01.webp", width: 1440, height: 1800 },
+      { file: "image-02.webp", width: 1490, height: 1800 },
+      { file: "image-03.webp", width: 768, height: 1024 },
+      { file: "image-04.webp", width: 1012, height: 1800 },
+      { file: "image-05.webp", width: 807, height: 974 },
+      { file: "image-06.webp", width: 1490, height: 1800 },
+    ],
+    description: "Raíz, cuerpo y expansión se encuentran en una imagen de crecimiento sereno, como una brújula vegetal del alma.",
+    tags: ["árbol", "vida", "naturaleza"],
+    dossierOrder: 24,
+  }),
+  createCartografiasArtwork({
+    slug: "peces-dorados",
+    title: "Peces dorados",
+    folder: "peces-dorados",
+    files: [
+      { file: "image-01.webp", width: 1800, height: 1800 },
+      { file: "image-02.webp", width: 1350, height: 1800 },
+      { file: "image-03.webp", width: 1350, height: 1800 },
+    ],
+    description: "Formas acuáticas y doradas flotan como señales de abundancia, calma y movimiento sutil.",
+    tags: ["peces", "agua", "dorado"],
+    dossierOrder: 25,
+  }),
+  createCartografiasArtwork({
+    slug: "venus-el-origen-suave-del-amor",
+    title: "Venus (el origen suave del amor)",
+    folder: "venus-el-origen-suave-del-amor",
+    files: [
+      { file: "image-01.webp", width: 768, height: 1024 },
+      { file: "image-02.webp", width: 1024, height: 768 },
+      { file: "image-03.webp", width: 806, height: 974 },
+      { file: "image-04.webp", width: 768, height: 1024 },
+      { file: "image-05.webp", width: 806, height: 974 },
+      { file: "image-06.webp", width: 806, height: 974 },
+      { file: "image-07.webp", width: 665, height: 1182 },
+      { file: "image-08.webp", width: 806, height: 974 },
+      { file: "image-09.webp", width: 768, height: 1024 },
+      { file: "image-10.webp", width: 1182, height: 665 },
+    ],
+    description: "Una secuencia dedicada a la suavidad del origen: cuerpos, símbolos y gestos que piensan el amor desde una quietud luminosa.",
+    tags: ["venus", "amor", "origen"],
+    dossierOrder: 26,
+  }),
+  createCartografiasArtwork({
+    slug: "tortuga",
+    title: "Tortuga",
+    folder: "tortuga",
+    files: [
+      { file: "image-01.webp", width: 1490, height: 1800 },
+      { file: "image-02.webp", width: 1490, height: 1800 },
+      { file: "image-03.webp", width: 1490, height: 1800 },
+    ],
+    description: "La tortuga aparece como guardiana de tiempo lento: protección, trayecto y sabiduría antigua.",
+    tags: ["tortuga", "tiempo", "sabiduría"],
+    dossierOrder: 27,
+  }),
+  createCartografiasArtwork({
+    slug: "guardianes-de-la-luz-y-sabiduria",
+    title: "Guardianes de la luz y sabiduría",
+    folder: "guardianes-de-la-luz-y-sabiduria",
+    files: [
+      { file: "image-01.webp", width: 806, height: 974 },
+      { file: "image-02.webp", width: 806, height: 974 },
+      { file: "image-03.webp", width: 806, height: 974 },
+      { file: "image-04.webp", width: 1182, height: 665 },
+      { file: "image-05.webp", width: 806, height: 974 },
+    ],
+    description: "Figuras de resguardo y claridad acompañan la mirada; la luz se vuelve guía, símbolo y presencia.",
+    tags: ["guardianes", "luz", "sabiduría"],
+    dossierOrder: 28,
+  }),
+  createCartografiasArtwork({
+    slug: "renacer-interestelar-orbita-8",
+    title: "Renacer interestelar (Órbita 8)",
+    folder: "renacer-interestelar-orbita-8",
+    files: [
+      { file: "image-01.webp", width: 806, height: 974 },
+      { file: "image-02.webp", width: 806, height: 974 },
+      { file: "image-03.webp", width: 1182, height: 665 },
+      { file: "image-04.webp", width: 806, height: 974 },
+      { file: "image-05.webp", width: 806, height: 974 },
+    ],
+    description: "Un renacimiento en clave orbital: desplazamiento, expansión y regreso a una energía nueva.",
+    tags: ["renacer", "órbita", "interestelar"],
+    dossierOrder: 29,
+  }),
+  createCartografiasArtwork({
+    slug: "trascender-viaje-espiritual",
+    title: "Trascender (viaje espiritual)",
+    folder: "trascender-viaje-espiritual",
+    files: [
+      { file: "image-01.webp", width: 807, height: 974 },
+      { file: "image-02.webp", width: 1350, height: 1800 },
+      { file: "image-03.webp", width: 886, height: 886 },
+      { file: "image-04.webp", width: 1350, height: 1800 },
+      { file: "image-05.webp", width: 1350, height: 1800 },
+    ],
+    description: "Una ruta espiritual hecha de capas, signos y pasajes: la pintura como tránsito hacia otra forma de atención.",
+    tags: ["trascender", "viaje espiritual", "tránsito"],
+    dossierOrder: 30,
+  }),
+  createCartografiasArtwork({
+    slug: "presentacion-en-galeria",
+    title: "Presentación en galería",
+    folder: "presentacion-en-galeria",
+    files: [
+      { file: "image-01.webp", width: 594, height: 1321 },
+      { file: "image-02.webp", width: 594, height: 1321 },
+      { file: "image-03.webp", width: 712, height: 1104 },
+      { file: "image-04.webp", width: 1800, height: 1350 },
+      { file: "image-05.webp", width: 768, height: 1024 },
+      { file: "image-06.webp", width: 768, height: 1024 },
+      { file: "image-07.webp", width: 1012, height: 1800 },
+      { file: "image-08.webp", width: 594, height: 1321 },
+      { file: "image-09.webp", width: 1350, height: 1800 },
+    ],
+    description: "Registro de obra en contexto de sala: una pausa documental para mirar la escala, el montaje y la conversación con el espacio.",
+    tags: ["galería", "presentación", "montaje"],
+    dossierOrder: 31,
+  }),
+];
+
+export const artworks: Artwork[] = [...petPortraitArtworks, ...cartografiasArtworks];
 
 export const featuredArtwork = artworks.find((artwork) => artwork.featured) ?? artworks[0];
 

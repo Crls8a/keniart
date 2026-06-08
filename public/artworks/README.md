@@ -1,8 +1,8 @@
 # Assets de obras
 
-Esta carpeta guarda los assets publicos optimizados que consume el portafolio.
-La fuente de verdad de la galeria es `src/data/artworks.ts`: cada obra declara sus
-imagenes, variantes responsive, dimensiones de pixel, aspect ratio y orientacion.
+Esta carpeta guarda los assets públicos optimizados que consume el portafolio.
+La fuente de verdad de la galería es `src/data/artworks.ts`: cada obra declara sus
+imágenes, variantes responsive, dimensiones de pixel, aspect ratio y orientación.
 
 ## Estructura actual
 
@@ -23,10 +23,20 @@ public/artworks/
       thumb/
         Nombre/
           imagen.webp
+    cartografias-del-alma/   # assets de la serie Cartografías del alma
+      desktop|tablet|mobile|thumb/
+        slug-de-obra/
+          image-01.webp
 ```
 
-La URL publica de la serie es `/series/pinto-tu-mascota`. La carpeta `lomitos`
-queda como detalle interno de implementacion para no renombrar assets ya optimizados.
+La URL pública de la serie es `/series/pinto-tu-mascota`. La carpeta `lomitos`
+queda como detalle interno de implementación para no renombrar assets ya optimizados.
+
+La URL pública de la serie `Cartografías del alma` es
+`/series/cartografias-del-alma`. Sus assets viven en
+`public/artworks/optimized/cartografias-del-alma/{desktop,tablet,mobile,thumb}/`.
+La carpeta fuente `Sobre mi` contiene imágenes de artista/about y no forma parte
+del manifiesto de obras ni de esta serie.
 
 Una imagen aprobada debe declararse desde `src/data/artworks.ts`, por ejemplo:
 
@@ -44,11 +54,11 @@ images: {
 ```
 
 No subir originales pesados sin revisar. Primero dejarlos en `public/artworks/incoming/`,
-optimizar las salidas responsive y declarar solo las rutas publicas necesarias.
+optimizar las salidas responsive y declarar solo las rutas públicas necesarias.
 
-## Optimizar imagenes localmente
+## Optimizar imágenes localmente
 
-El flujo local usa `scripts/optimize_images.py` con Pillow para convertir fotos pesadas a assets web livianos. Por defecto lee desde `public/artworks/incoming/`, genera WebP en `public/artworks/optimized/`, limita el lado mas largo a 2200 px, usa calidad 84, elimina metadata y nunca agranda imagenes chicas.
+El flujo local usa `scripts/optimize_images.py` con Pillow para convertir fotos pesadas a assets web livianos. Por defecto lee desde `public/artworks/incoming/`, genera WebP en `public/artworks/optimized/`, limita el lado más largo a 2200 px, usa calidad 84, elimina metadata y nunca agranda imágenes chicas.
 
 ```bash
 pnpm optimize:images -- --dry-run
@@ -63,16 +73,16 @@ Formatos de entrada soportados: `.jpg`, `.jpeg`, `.png`, `.webp`, `.tif` y `.tif
 
 ## Validar referencias
 
-Antes de commitear cambios de imagenes o datos, ejecutar:
+Antes de commitear cambios de imágenes o datos, ejecutar:
 
 ```bash
 pnpm validate:artworks
 ```
 
-La validacion carga `src/data/artworks.ts` como manifiesto y revisa:
+La validación carga `src/data/artworks.ts` como manifiesto y revisa:
 
 - existencia de `main`, `desktop`, `tablet`, `mobile` y `thumb`;
 - rutas bajo `public/artworks/optimized/{serie}/{desktop,tablet,mobile,thumb}/{carpeta}/{archivo}`;
 - archivos `.webp` reales;
-- dimensiones, aspect ratio y orientacion;
+- dimensiones, aspect ratio y orientación;
 - coherencia entre `gallery`, `details` y `detailVariants`.

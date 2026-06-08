@@ -2,8 +2,11 @@ import type { ArtworkSeries } from "@/types/artwork";
 
 export const PINTO_TU_MASCOTA_SERIES_SLUG = "pinto-tu-mascota";
 export const PINTO_TU_MASCOTA_ASSET_BASE_PATH = "/artworks/optimized/lomitos";
+export const CARTOGRAFIAS_DEL_ALMA_SERIES_SLUG = "cartografias-del-alma";
+export const CARTOGRAFIAS_DEL_ALMA_ASSET_BASE_PATH = "/artworks/optimized/cartografias-del-alma";
 
 const kooperCoverImage = `${PINTO_TU_MASCOTA_ASSET_BASE_PATH}/desktop/KOOPER/B9970757-2B74-488E-B758-A088FF8093C5.webp`;
+const cartografiasCoverImage = `${CARTOGRAFIAS_DEL_ALMA_ASSET_BASE_PATH}/desktop/la-mirada-del-universo/image-01.webp`;
 
 const seriesItems: ArtworkSeries[] = [
   {
@@ -28,6 +31,41 @@ const seriesItems: ArtworkSeries[] = [
     featured: true,
     order: 1,
     artworkSlugs: ["bruno", "chapa", "coco", "goliath", "gufis", "jochito", "kooper", "pato", "plutarco"],
+  },
+  {
+    slug: CARTOGRAFIAS_DEL_ALMA_SERIES_SLUG,
+    internalKey: "cartografias-del-alma-assets",
+    title: "Cartografías del alma",
+    subtitle: "Paisajes interiores, viaje y memoria",
+    description:
+      "Serie de pinturas reunidas como mapas sensibles: miradas, criaturas, órbitas y territorios íntimos que trazan una geografía serena del mundo interior.",
+    assetBasePath: CARTOGRAFIAS_DEL_ALMA_ASSET_BASE_PATH,
+    coverImage: cartografiasCoverImage,
+    coverImageVariants: {
+      main: cartografiasCoverImage,
+      desktop: cartografiasCoverImage,
+      tablet: `${CARTOGRAFIAS_DEL_ALMA_ASSET_BASE_PATH}/tablet/la-mirada-del-universo/image-01.webp`,
+      mobile: `${CARTOGRAFIAS_DEL_ALMA_ASSET_BASE_PATH}/mobile/la-mirada-del-universo/image-01.webp`,
+      thumb: `${CARTOGRAFIAS_DEL_ALMA_ASSET_BASE_PATH}/thumb/la-mirada-del-universo/image-01.webp`,
+    },
+    years: "2026",
+    category: "collection",
+    status: "active",
+    order: 2,
+    artworkSlugs: [
+      "retratos",
+      "la-mirada-del-universo",
+      "cuba",
+      "aurora-boreal",
+      "arbol-de-vida",
+      "peces-dorados",
+      "venus-el-origen-suave-del-amor",
+      "tortuga",
+      "guardianes-de-la-luz-y-sabiduria",
+      "renacer-interestelar-orbita-8",
+      "trascender-viaje-espiritual",
+      "presentacion-en-galeria",
+    ],
   },
 ];
 
