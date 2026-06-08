@@ -23,7 +23,7 @@ Este documento define la arquitectura base. El Documento 01 (`docs/architecture/
 | Para galerías | `/galerias` | Presentación fullscreen curada |
 | Dossier | `/dossier` | PDF descargable y press kit |
 | Artista | `/artista` | Bio, statement, proceso, CV |
-| Contacto | `/contacto` | Formulario, WhatsApp, email y redes |
+| Contacto | `/contacto` | Formulario por WhatsApp y redes |
 | Admin futuro | `/admin` | Gestión de obras e inventario |
 
 ## 3. Stack recomendado
@@ -36,7 +36,6 @@ Este documento define la arquitectura base. El Documento 01 (`docs/architecture/
 - **Embla Carousel** para modo galería y slides.
 - **Cloudinary + next/image** para optimizar imágenes.
 - **React Hook Form + Zod** para formularios.
-- **Resend** para enviar consultas por email.
 - **WhatsApp click-to-chat** para contacto directo.
 - **Stripe Checkout/Payment Links** para pagos confirmados en fase 2.
 - **JSON/MDX en MVP; Sanity en fase 2** para contenido editable.
@@ -195,7 +194,6 @@ Orden recomendado del PDF:
 - PhotoSwipe React Gallery: https://photoswipe.com/react-image-gallery/
 - Embla Carousel React: https://www.embla-carousel.com/docs/get-started/react
 - Lenis: https://lenis.dev/
-- Resend with Next.js: https://resend.com/docs/send-with-nextjs
 - Stripe Checkout: https://docs.stripe.com/payments/checkout
 - WhatsApp click to chat: https://faq.whatsapp.com/5913398998672934
 - Sanity + Next.js: https://www.sanity.io/plugins/next-sanity

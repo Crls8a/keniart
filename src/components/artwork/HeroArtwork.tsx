@@ -19,20 +19,20 @@ export function HeroArtwork({ artwork }: { artwork: Artwork }) {
           <div className="mt-10 flex flex-col gap-4 sm:flex-row">
             <Link
               href="/obras"
-              className="rounded-full bg-foreground px-7 py-3 text-center text-sm uppercase tracking-[0.22em] text-background transition hover:opacity-85"
+              className="rounded-full bg-foreground px-7 py-3 text-center text-sm uppercase tracking-[0.22em] text-background transition hover:opacity-85 focus-visible:outline-offset-4"
             >
               Ver obras
             </Link>
             <Link
               href="/galerias"
-              className="rounded-full border border-foreground px-7 py-3 text-center text-sm uppercase tracking-[0.22em] transition hover:bg-foreground hover:text-background"
+              className="rounded-full border border-foreground px-7 py-3 text-center text-sm uppercase tracking-[0.22em] transition hover:bg-foreground hover:text-background focus-visible:bg-foreground focus-visible:text-background focus-visible:outline-offset-4"
             >
               Modo galeria
             </Link>
           </div>
         </div>
       </div>
-      <Link href={`/obras/${artwork.slug}`} className="group relative min-h-[70vh] overflow-hidden bg-line">
+      <Link href={`/obras/${artwork.slug}`} className="group relative min-h-[70vh] overflow-hidden bg-line focus-visible:outline-offset-4">
         <Image
           src={artwork.images.main}
           alt={artwork.title}

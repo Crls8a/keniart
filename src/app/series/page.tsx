@@ -17,9 +17,9 @@ export default function SeriesPage() {
       </div>
       <div className="grid gap-10 lg:grid-cols-2">
         {series.map((item) => (
-          <Link key={item.slug} href={`/series/${item.slug}`} className="group block">
+          <Link key={item.slug} href={`/series/${item.slug}`} className="group block focus-visible:outline-offset-4">
             <div className="relative aspect-[5/4] overflow-hidden bg-line">
-              <Image src={item.coverImage} alt={item.title} fill sizes="(min-width: 1024px) 45vw, 100vw" className="object-cover transition duration-700 group-hover:scale-[1.03]" />
+              <Image src={item.coverImage} alt={item.title} fill sizes="(min-width: 1024px) 45vw, 100vw" className="object-cover transition duration-700 motion-safe:group-hover:scale-[1.03] motion-safe:group-focus-visible:scale-[1.03]" />
             </div>
             <p className="mt-6 text-xs uppercase tracking-[0.3em] text-muted">{item.years}</p>
             <h2 className="mt-3 font-serif text-4xl tracking-[-0.04em]">{item.title}</h2>
