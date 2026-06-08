@@ -10,7 +10,8 @@
     "lint": "eslint",
     "doctor": "react-doctor",
     "doctor:react": "react-doctor",
-    "optimize:images": "python scripts/optimize_images.py"
+    "optimize:images": "python scripts/optimize_images.py",
+    "validate:artworks": "node scripts/validate_artwork_images.cjs"
   },
   "dependencies": {
     "motion": "^12.40.0",
