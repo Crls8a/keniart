@@ -38,10 +38,6 @@ export function absoluteUrl(path = "/") {
   return new URL(path, siteConfig.url).toString();
 }
 
-export function pageTitle(title: string) {
-  return `${title} | ${siteConfig.name}`;
-}
-
 export function whatsappUrl(message: string) {
   return `https://wa.me/${siteConfig.contact.whatsapp}?text=${encodeURIComponent(message)}`;
 }

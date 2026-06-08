@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ArtworkGrid } from "@/components/artwork/ArtworkGrid";
 import { HeroArtwork } from "@/components/artwork/HeroArtwork";
@@ -6,6 +7,20 @@ import { DossierDownload } from "@/components/dossier/DossierDownload";
 import { artworks, featuredArtwork } from "@/data/artworks";
 import { series } from "@/data/series";
 import { collectionSchema } from "@/lib/schema";
+import { siteConfig } from "@/lib/seo";
+
+export const metadata: Metadata = {
+  title: "Inicio",
+  description: siteConfig.description,
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: `${siteConfig.name} | Portafolio de arte contemporáneo`,
+    description: siteConfig.openGraphDescription,
+    url: "/",
+  },
+};
 
 export default function Home() {
   return (
