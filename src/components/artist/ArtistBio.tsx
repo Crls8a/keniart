@@ -1,10 +1,22 @@
-import { artist } from "@/data/artist";
+import { PageSection } from "@/components/layout/PageSection";
 
-export function ArtistBio() {
+type ArtistBioProps = {
+  artist: {
+    name: string;
+    statement: string;
+    shortBio: string;
+    extendedBio: string;
+  };
+  content: {
+    eyebrow: string;
+  };
+};
+
+export function ArtistBio({ artist, content }: ArtistBioProps) {
   return (
-    <section className="mx-auto grid max-w-7xl gap-10 px-5 py-16 sm:px-8 lg:grid-cols-[0.8fr_1.2fr] lg:py-24">
+    <PageSection className="grid gap-10 py-16 lg:grid-cols-[0.8fr_1.2fr] lg:py-24">
       <div>
-        <p className="text-xs uppercase tracking-[0.35em] text-muted">Artista</p>
+        <p className="text-xs uppercase tracking-[0.35em] text-muted">{content.eyebrow}</p>
         <h1 className="mt-5 font-serif text-5xl tracking-[-0.04em] sm:text-6xl">{artist.name}</h1>
       </div>
       <div className="space-y-7 text-lg leading-8 text-muted">
@@ -12,6 +24,6 @@ export function ArtistBio() {
         <p>{artist.shortBio}</p>
         <p>{artist.extendedBio}</p>
       </div>
-    </section>
+    </PageSection>
   );
 }

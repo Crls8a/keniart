@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { InquiryForm } from "@/components/forms/InquiryForm";
+import { PageSection } from "@/components/layout/PageSection";
+import { pageContent } from "@/content/pages";
 import { siteConfig, whatsappUrl } from "@/lib/seo";
 
 function WhatsAppMark() {
@@ -27,8 +29,8 @@ function InstagramMark() {
 }
 
 export const metadata: Metadata = {
-  title: "Contacto",
-  description: "Consultas de obra, galerías, dossier y contacto directo por WhatsApp.",
+  title: pageContent.contact.metadata.title,
+  description: pageContent.contact.metadata.description,
 };
 
 type Props = {
@@ -37,27 +39,27 @@ type Props = {
 
 export default async function ContactoPage({ searchParams }: Props) {
   const { obra } = await searchParams;
-  const directWhatsAppUrl = whatsappUrl("Hola, quiero consultar una obra de Keniart.");
+  const directWhatsAppUrl = whatsappUrl(pageContent.contact.header.whatsappMessage);
 
   return (
-    <section className="mx-auto grid max-w-7xl gap-12 px-5 py-16 sm:px-8 lg:grid-cols-[0.8fr_1.2fr] lg:py-24">
+    <PageSection className="grid gap-12 py-16 lg:grid-cols-[0.8fr_1.2fr] lg:py-24">
       <div>
-        <p className="text-xs uppercase tracking-[0.35em] text-muted">Contacto</p>
-        <h1 className="mt-5 font-serif text-5xl tracking-[-0.04em] sm:text-6xl">Consultas y galerias</h1>
-        <p className="mt-6 text-lg leading-8 text-muted">Para disponibilidad, reservas, dossier o propuestas curatoriales, escribí al estudio por WhatsApp.</p>
+        <p className="text-xs uppercase tracking-[0.35em] text-muted">{pageContent.contact.header.eyebrow}</p>
+        <h1 className="mt-5 font-serif text-5xl tracking-[-0.04em] sm:text-6xl">{pageContent.contact.header.title}</h1>
+        <p className="mt-6 text-lg leading-8 text-muted">{pageContent.contact.header.description}</p>
         <div className="mt-8 grid gap-3 text-sm">
           <a href={directWhatsAppUrl} className="inline-flex items-center gap-3 underline focus-visible:outline-offset-4" target="_blank" rel="noreferrer">
             <WhatsAppMark />
-            WhatsApp directo: {siteConfig.contact.whatsappDisplay}
+            {pageContent.contact.header.whatsappLabel}: {siteConfig.contact.whatsappDisplay}
           </a>
           <a href={siteConfig.contact.instagram} className="inline-flex items-center gap-3 underline focus-visible:outline-offset-4" target="_blank" rel="noreferrer">
             <InstagramMark />
-            Referencia en Instagram
+            {pageContent.contact.header.instagramLabel}
           </a>
-          <Link href="/dossier" className="underline focus-visible:outline-offset-4">Ver dossier web</Link>
+          <Link href="/dossier" className="underline focus-visible:outline-offset-4">{pageContent.contact.header.dossierLink}</Link>
         </div>
       </div>
       <InquiryForm selectedArtworkSlug={obra} whatsapp={siteConfig.contact.whatsapp} />
-    </section>
+    </PageSection>
   );
 }

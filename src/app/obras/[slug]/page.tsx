@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ArtworkDetail } from "@/components/artwork/ArtworkDetail";
 import { StructuredData } from "@/components/artwork/StructuredData";
+import { pageContent } from "@/content/pages";
 import { artworks, getArtworkBySlug } from "@/data/artworks";
 import { visualArtworkSchema } from "@/lib/schema";
 
@@ -37,7 +38,7 @@ export default async function ArtworkPage({ params }: Props) {
   return (
     <>
       <StructuredData data={visualArtworkSchema(artwork)} />
-      <ArtworkDetail artwork={artwork} />
+      <ArtworkDetail artwork={artwork} content={pageContent.artworkDetail} />
     </>
   );
 }
