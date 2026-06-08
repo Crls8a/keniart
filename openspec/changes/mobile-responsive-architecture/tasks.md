@@ -40,12 +40,12 @@ Chain strategy: feature-branch-chain
 
 ## Phase 3: Detail carousel baseline
 
-- [ ] 3.1 Convert `src/components/artwork/ArtworkImageGallery.tsx` to server-render scroll-snap figures with ids, anchor thumbnails, and stable `ArtworkMediaFrame` sizing.
-- [ ] 3.2 Create `src/components/artwork/ArtworkCarouselControls.tsx` as the only client island for previous/next and smooth-scroll enhancement.
-- [ ] 3.3 Verify `src/app/obras/[slug]/page.tsx`, especially `/obras/kooper`, keeps all media reachable without JS controls.
+- [x] 3.1 Convert `src/components/artwork/ArtworkImageGallery.tsx` to server-render scroll-snap figures with ids, anchor thumbnails, and stable `ArtworkMediaFrame` sizing.
+- [x] 3.2 Create `src/components/artwork/ArtworkCarouselControls.tsx` as the only client island for previous/next and smooth-scroll enhancement.
+- [x] 3.3 Verify `src/app/obras/[slug]/page.tsx`, especially `/obras/kooper`, keeps all media reachable without JS controls.
 
 ## Phase 4: Route and validation evidence
 
 - [ ] 4.1 Inspect `/`, `/series`, `/series/[slug]`, `/artista`, `/contacto`, and `/dossier` for SSR content and avoid copy/taxonomy changes.
-- [ ] 4.2 Run/report `pnpm lint`, `pnpm exec tsc --noEmit`, `pnpm validate:artworks`, `pnpm build`, and `pnpm doctor:react --no-score --no-telemetry --blocking none`.
+- [x] 4.2 Run/report `pnpm lint`, `pnpm exec tsc --noEmit`, `pnpm validate:artworks`, `pnpm build`, and `pnpm doctor:react --no-score --no-telemetry --blocking none`.
 - [ ] 4.3 Manually inspect mobile/tablet/desktop plus disabled-JS catalog/carousel baseline; record PASS/FAIL/NOT RUN evidence.
