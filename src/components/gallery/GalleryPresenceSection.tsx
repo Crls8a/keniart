@@ -16,14 +16,14 @@ type GalleryPresenceSectionProps = {
 function GalleryPresenceCard({ image, priority }: { image: GalleryPresenceImage; priority: boolean }) {
   return (
     <figure className="min-w-full snap-center">
-      <div className="relative aspect-[2/3] overflow-hidden bg-[#17120e]">
+      <div className="relative aspect-[3/4] overflow-hidden bg-[#17120e]">
         <Image
           alt={image.alt}
           className="h-full w-full object-cover"
           height={image.height}
           priority={priority}
           quality={92}
-          sizes="(min-width: 1024px) 38vw, 100vw"
+          sizes="(min-width: 1024px) 34vw, 100vw"
           src={image.src}
           width={image.width}
         />
@@ -39,7 +39,7 @@ export function GalleryPresenceSection({ images, content }: GalleryPresenceSecti
   const hasMultipleImages = images.length > 1;
 
   return (
-    <PageSection className="py-16 lg:py-24">
+    <PageSection className="py-12 lg:py-16">
       <section className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center" aria-labelledby="gallery-presence-title">
         <div className="relative order-2 lg:order-1">
           <div id={scrollerId} className="flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-2">
