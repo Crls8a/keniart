@@ -15,6 +15,7 @@ type HeroArtworkContent = {
 
 export function HeroArtwork({ artwork, content }: { artwork: Artwork; content: HeroArtworkContent }) {
   const image = artwork.images.gallery?.[0];
+  const seriesHref = artwork.seriesSlug ? `/series/${artwork.seriesSlug}` : "/series";
 
   return (
     <section className="grid min-h-[calc(100vh-73px)] grid-cols-1 lg:grid-cols-[0.9fr_1.1fr]">
@@ -33,7 +34,7 @@ export function HeroArtwork({ artwork, content }: { artwork: Artwork; content: H
               {content.primaryCta}
             </Link>
             <Link
-              href="/galerias"
+              href={seriesHref}
               className="rounded-full border border-foreground px-7 py-3 text-center text-sm uppercase tracking-[0.22em] transition hover:bg-foreground hover:text-background focus-visible:bg-foreground focus-visible:text-background focus-visible:outline-offset-4"
             >
               {content.secondaryCta}

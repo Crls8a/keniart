@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { ArtworkDetail } from "@/components/artwork/ArtworkDetail";
 import { StructuredData } from "@/components/artwork/StructuredData";
 import { pageContent } from "@/content/pages";
-import { artworks, getArtworkBySlug } from "@/data/artworks";
+import { catalogArtworks, getCatalogArtworkBySlug } from "@/data/artworks";
 import { visualArtworkSchema } from "@/lib/schema";
 
 type Props = {
@@ -11,12 +11,12 @@ type Props = {
 };
 
 export function generateStaticParams() {
-  return artworks.map((artwork) => ({ slug: artwork.slug }));
+  return catalogArtworks.map((artwork) => ({ slug: artwork.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const artwork = getArtworkBySlug(slug);
+  const artwork = getCatalogArtworkBySlug(slug);
   if (!artwork) return { title: "Obra no encontrada" };
 
   return {
@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ArtworkPage({ params }: Props) {
   const { slug } = await params;
-  const artwork = getArtworkBySlug(slug);
+  const artwork = getCatalogArtworkBySlug(slug);
   if (!artwork) notFound();
 
   return (

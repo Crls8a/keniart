@@ -48,7 +48,7 @@ const seriesItems: ArtworkSeries[] = [
       mobile: `${CARTOGRAFIAS_DEL_ALMA_ASSET_BASE_PATH}/mobile/guardianes-de-la-luz-y-sabiduria/image-01.webp`,
       thumb: `${CARTOGRAFIAS_DEL_ALMA_ASSET_BASE_PATH}/thumb/guardianes-de-la-luz-y-sabiduria/image-01.webp`,
     },
-    years: "2026",
+    years: "2023–2026",
     category: "collection",
     status: "active",
     order: 2,

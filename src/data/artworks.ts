@@ -544,12 +544,28 @@ const cartografiasArtworks: Artwork[] = [
   }),
 ];
 
+export const catalogArtworks: Artwork[] = cartografiasArtworks;
+
 export const artworks: Artwork[] = [...petPortraitArtworks, ...cartografiasArtworks];
 
-export const featuredArtwork = artworks.find((artwork) => artwork.featured) ?? artworks[0];
+const catalogArtworkSlugs = new Set(catalogArtworks.map((artwork) => artwork.slug));
+
+export const featuredArtwork = catalogArtworks.find((artwork) => artwork.featured) ?? catalogArtworks[0];
 
 export function getArtworkBySlug(slug: string) {
   return artworks.find((artwork) => artwork.slug === slug);
+}
+
+export function getCatalogArtworkBySlug(slug: string) {
+  return catalogArtworks.find((artwork) => artwork.slug === slug);
+}
+
+export function isCatalogArtwork(artwork: Artwork) {
+  return catalogArtworkSlugs.has(artwork.slug);
+}
+
+export function getCatalogArtworkHref(artwork: Artwork) {
+  return isCatalogArtwork(artwork) ? `/obras/${artwork.slug}` : undefined;
 }
 
 export function getArtworksBySeries(seriesSlug: string) {

@@ -4,7 +4,7 @@ import { ArtworkGrid } from "@/components/artwork/ArtworkGrid";
 import { PageSection } from "@/components/layout/PageSection";
 import { SeriesHero } from "@/components/series/SeriesHero";
 import { pageContent } from "@/content/pages";
-import { getArtworksBySeries } from "@/data/artworks";
+import { getArtworksBySeries, getCatalogArtworkHref } from "@/data/artworks";
 import { getSeriesBySlug, series } from "@/data/series";
 
 type Props = {
@@ -36,7 +36,7 @@ export default async function SeriesDetailPage({ params }: Props) {
     <>
       <SeriesHero item={item} />
       <PageSection className="py-16 lg:py-24">
-        <ArtworkGrid artworks={seriesArtworks} />
+        <ArtworkGrid artworks={seriesArtworks} getArtworkHref={getCatalogArtworkHref} />
       </PageSection>
     </>
   );

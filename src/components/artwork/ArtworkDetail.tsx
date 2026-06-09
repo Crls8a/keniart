@@ -26,6 +26,8 @@ type ArtworkDetailContent = {
 };
 
 export function ArtworkDetail({ artwork, content }: { artwork: Artwork; content: ArtworkDetailContent }) {
+  const seriesHref = artwork.seriesSlug ? `/series/${artwork.seriesSlug}` : "/series";
+
   return (
     <PageSection as="article" className={`grid gap-12 py-12 lg:grid-cols-[1.15fr_0.85fr] lg:py-20 ${siteHeaderContractClassName}`}>
       <div className={`lg:sticky ${siteHeaderStickyOffsetClassName}`}>
@@ -54,7 +56,7 @@ export function ArtworkDetail({ artwork, content }: { artwork: Artwork; content:
           <p className="mt-3 text-sm leading-6 text-muted">
             {artwork.experience?.galleryNotes ?? content.galleryAside.fallbackNotes}
           </p>
-          <Link href="/galerias" className="mt-4 inline-flex text-sm uppercase tracking-[0.22em] underline">
+          <Link href={seriesHref} className="mt-4 inline-flex text-sm uppercase tracking-[0.22em] underline">
             {content.galleryAside.cta}
           </Link>
         </aside>

@@ -6,8 +6,8 @@ export const pageContent = {
     },
     hero: {
       eyebrow: "Galería digital",
-      title: "Retratos de compañía en óleo sobre lienzo pintado.",
-      description: "Pinto tu mascota: presencia, gesto y mirada de cada animal en una lectura pictórica cercana.",
+      title: "Cartografías del alma: paisajes interiores, viaje y memoria.",
+      description: "Una serie de pinturas reunidas como mapas sensibles: territorios íntimos, luz, naturaleza y presencia simbólica.",
       primaryCta: "Ver obras",
       secondaryCta: "Entrar a la serie",
       featuredLabel: "Obra destacada",
@@ -21,13 +21,13 @@ export const pageContent = {
   artworks: {
     metadata: {
       title: "Obras",
-      description: "Catálogo de óleos sobre lienzo pintado de la serie Pinto tu mascota.",
+      description: "Catálogo de obras de la serie Cartografías del alma.",
     },
     header: {
       eyebrow: "Catálogo",
       title: "Obras",
       description:
-        "Retratos de compañía organizados como archivo público del estudio. Las medidas finales se mantienen pendientes hasta contar con ficha confirmada.",
+        "Obras de Cartografías del alma reunidas como un recorrido de paisajes interiores, viaje, memoria y símbolos de transformación.",
     },
     collectionSchemaName: "Catálogo de obras Keniart",
   },
@@ -50,16 +50,16 @@ export const pageContent = {
   },
   galleryExperience: {
     hero: {
-      eyebrow: "Serie Pinto tu mascota",
+      eyebrow: "Serie Cartografías del alma",
       title: "Entrar a la serie actual.",
       description:
-        "Retratos de compañía reunidos en una lectura silenciosa. Cada obra abre su ficha para observar imágenes, presencia y datos disponibles.",
+        "Pinturas reunidas en una lectura silenciosa. Cada obra abre su ficha para observar imágenes, presencia y datos disponibles.",
       ctaPrefix: "Comenzar por",
     },
     list: {
       eyebrow: "Recorrido",
       title: "La serie completa queda a la vista.",
-      description: "Abrí cada retrato para ver su ficha y, cuando existan, sus imágenes adicionales.",
+      description: "Abrí cada obra para ver su ficha y, cuando existan, sus imágenes adicionales.",
       cardCta: "Ver ficha",
     },
   },
@@ -114,7 +114,6 @@ export const pageContent = {
     bio: {
       eyebrow: "Artista",
     },
-    cvTitle: "CV breve",
   },
   artworkDetail: {
     fields: {

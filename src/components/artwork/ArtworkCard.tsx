@@ -4,12 +4,17 @@ import { formatDimensions } from "@/lib/format";
 import { AvailabilityBadge } from "@/components/artwork/AvailabilityBadge";
 import { ResponsiveArtworkImage } from "@/components/artwork/ResponsiveArtworkImage";
 
-export function ArtworkCard({ artwork, priority = false }: { artwork: Artwork; priority?: boolean }) {
+type ArtworkCardProps = {
+  artwork: Artwork;
+  href?: string;
+  priority?: boolean;
+};
+
+export function ArtworkCard({ artwork, href, priority = false }: ArtworkCardProps) {
   const image = artwork.images.gallery?.[0];
   const imagePadding = image?.orientation === "landscape" ? "p-3 sm:p-5" : "p-2 sm:p-3";
-
-  return (
-    <Link href={`/obras/${artwork.slug}`} className="group flex h-full flex-col focus-visible:outline-offset-4">
+  const cardContent = (
+    <>
       <div className="relative aspect-[4/5] overflow-hidden bg-[#17120e]">
         {image ? <ResponsiveArtworkImage image={image} alt={artwork.title} priority={priority} className={`object-contain transition duration-700 motion-safe:group-hover:scale-[1.03] motion-safe:group-focus-visible:scale-[1.03] ${imagePadding}`} /> : null}
         <div className="absolute inset-x-4 bottom-4 opacity-100 transition sm:opacity-0 sm:group-hover:opacity-100 sm:group-focus-visible:opacity-100">
@@ -27,6 +32,16 @@ export function ArtworkCard({ artwork, priority = false }: { artwork: Artwork; p
           {formatDimensions(artwork.dimensions)}
         </p>
       </div>
+    </>
+  );
+
+  if (!href) {
+    return <article className="group flex h-full flex-col">{cardContent}</article>;
+  }
+
+  return (
+    <Link href={href} className="group flex h-full flex-col focus-visible:outline-offset-4">
+      {cardContent}
     </Link>
   );
 }

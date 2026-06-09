@@ -7,7 +7,7 @@ import { DossierDownload } from "@/components/dossier/DossierDownload";
 import { PageContainer } from "@/components/layout/PageContainer";
 import { PageSection } from "@/components/layout/PageSection";
 import { pageContent } from "@/content/pages";
-import { artworks, featuredArtwork } from "@/data/artworks";
+import { catalogArtworks, featuredArtwork } from "@/data/artworks";
 import { series } from "@/data/series";
 import { collectionSchema } from "@/lib/schema";
 import { siteConfig } from "@/lib/seo";
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
-      <StructuredData data={collectionSchema("Keniart - selección destacada", artworks)} />
+      <StructuredData data={collectionSchema("Keniart - selección destacada", catalogArtworks)} />
       <HeroArtwork artwork={featuredArtwork} content={pageContent.home.hero} />
       <PageSection className="py-20">
         <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
@@ -40,7 +40,7 @@ export default function Home() {
             {pageContent.home.recentWorks.cta}
           </Link>
         </div>
-        <ArtworkGrid artworks={artworks.slice(0, 3)} />
+        <ArtworkGrid artworks={catalogArtworks.slice(0, 3)} />
       </PageSection>
       <section className="border-y border-line bg-paper/60 py-20">
         <PageContainer className="grid gap-8 lg:grid-cols-2">
