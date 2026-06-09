@@ -16,14 +16,14 @@ type GalleryPresenceSectionProps = {
 function GalleryPresenceCard({ image, priority }: { image: GalleryPresenceImage; priority: boolean }) {
   return (
     <figure className="group min-w-full snap-center overflow-hidden rounded-[1.75rem] border border-line bg-paper">
-      <div className="relative aspect-[4/5] overflow-hidden bg-[#17120e] sm:aspect-[16/10] lg:aspect-[16/9]">
+      <div className="relative aspect-[4/5] overflow-hidden bg-[#17120e]">
         <Image
           alt={image.alt}
           className="h-full w-full object-cover transition duration-700 motion-safe:group-hover:scale-[1.025]"
           height={image.height}
           priority={priority}
           quality={92}
-          sizes="(min-width: 1280px) 560px, (min-width: 1024px) 46vw, calc(100vw - 2rem)"
+          sizes="(min-width: 1280px) 520px, (min-width: 1024px) 44vw, calc(100vw - 2rem)"
           src={image.src}
           width={image.width}
         />
