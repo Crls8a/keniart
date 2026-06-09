@@ -68,6 +68,9 @@ export type Artwork = {
   slug: string;
   title: string;
   year: number;
+  originalYear?: number;
+  editionYear?: number;
+  yearLabel?: string;
   seriesSlug?: string;
   technique: string;
   support: string;

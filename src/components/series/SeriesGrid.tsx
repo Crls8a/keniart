@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { ArtworkSeries } from "@/types/artwork";
+import { routes } from "@/lib/routes";
 
 type SeriesGridProps = {
   items: ArtworkSeries[];
@@ -8,7 +9,7 @@ type SeriesGridProps = {
 
 function SeriesCard({ item }: { item: ArtworkSeries }) {
   return (
-    <Link key={item.slug} href={`/series/${item.slug}`} className="group block focus-visible:outline-offset-4">
+    <Link key={item.slug} href={routes.series.detail(item.slug)} className="group block focus-visible:outline-offset-4">
       <div className="relative aspect-[5/4] overflow-hidden bg-[#17120e]">
         <Image
           src={item.coverImage}

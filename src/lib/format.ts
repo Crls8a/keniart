@@ -25,6 +25,16 @@ export function formatDimensions(dimensions: Artwork["dimensions"]) {
   return `${dimensions.heightCm} x ${dimensions.widthCm}${depth} cm`;
 }
 
+export function formatArtworkYear(artwork: Artwork) {
+  if (artwork.yearLabel) return artwork.yearLabel;
+
+  if (artwork.originalYear && artwork.editionYear && artwork.originalYear !== artwork.editionYear) {
+    return `${artwork.editionYear} (original de ${artwork.originalYear})`;
+  }
+
+  return artwork.year.toString();
+}
+
 export function formatPrice(price: Artwork["price"]) {
   if (!price || price.visibility !== "public") return "Precio a consulta";
 

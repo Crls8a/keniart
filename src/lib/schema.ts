@@ -1,5 +1,6 @@
 import type { Artwork } from "@/types/artwork";
 import { formatDimensions } from "@/lib/format";
+import { routes } from "@/lib/routes";
 import { absoluteUrl, siteConfig } from "@/lib/seo";
 
 const creatorSchema = {
@@ -28,7 +29,7 @@ export function visualArtworkSchema(artwork: Artwork) {
     artworkSurface: artwork.support,
     ...(artwork.dimensions.kind === "unknown" ? {} : { size }),
     image: absoluteUrl(artwork.images.main),
-    url: absoluteUrl(`/obras/${artwork.slug}`),
+    url: absoluteUrl(routes.obras.detail(artwork.slug)),
     description: artwork.description,
   };
 }

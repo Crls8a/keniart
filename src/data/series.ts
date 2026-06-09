@@ -8,8 +8,8 @@ export const CARTOGRAFIAS_DEL_ALMA_ASSET_BASE_PATH = "/artworks/optimized/cartog
 const kooperCoverImage = `${PINTO_TU_MASCOTA_ASSET_BASE_PATH}/desktop/KOOPER/B9970757-2B74-488E-B758-A088FF8093C5.webp`;
 const cartografiasCoverImage = `${CARTOGRAFIAS_DEL_ALMA_ASSET_BASE_PATH}/desktop/guardianes-de-la-luz-y-sabiduria/image-01.webp`;
 
-const seriesItems: ArtworkSeries[] = [
-  {
+export const seriesBySlug: Record<string, ArtworkSeries> = {
+  [PINTO_TU_MASCOTA_SERIES_SLUG]: {
     slug: PINTO_TU_MASCOTA_SERIES_SLUG,
     internalKey: "lomitos-assets",
     title: "Pinto tu mascota",
@@ -32,7 +32,7 @@ const seriesItems: ArtworkSeries[] = [
     order: 1,
     artworkSlugs: ["bruno", "chapa", "coco", "goliath", "gufis", "jochito", "kooper", "pato", "plutarco"],
   },
-  {
+  [CARTOGRAFIAS_DEL_ALMA_SERIES_SLUG]: {
     slug: CARTOGRAFIAS_DEL_ALMA_SERIES_SLUG,
     internalKey: "cartografias-del-alma-assets",
     title: "Cartografías del alma",
@@ -67,10 +67,12 @@ const seriesItems: ArtworkSeries[] = [
       "herencia-de-sol-y-fuego",
     ],
   },
-];
+};
+
+const seriesItems = Object.values(seriesBySlug);
 
 export const series = seriesItems.toSorted((a, b) => (a.order ?? 99) - (b.order ?? 99));
 
 export function getSeriesBySlug(slug: string) {
-  return series.find((item) => item.slug === slug);
+  return seriesBySlug[slug];
 }

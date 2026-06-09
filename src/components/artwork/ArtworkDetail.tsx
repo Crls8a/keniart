@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Artwork } from "@/types/artwork";
-import { formatDimensions, formatPrice } from "@/lib/format";
+import { formatArtworkYear, formatDimensions, formatPrice } from "@/lib/format";
+import { routes } from "@/lib/routes";
 import { AvailabilityBadge } from "@/components/artwork/AvailabilityBadge";
 import { ArtworkImageGallery } from "@/components/artwork/ArtworkImageGallery";
 import { PageSection } from "@/components/layout/PageSection";
@@ -26,7 +27,7 @@ type ArtworkDetailContent = {
 };
 
 export function ArtworkDetail({ artwork, content }: { artwork: Artwork; content: ArtworkDetailContent }) {
-  const seriesHref = artwork.seriesSlug ? `/series/${artwork.seriesSlug}` : "/series";
+  const seriesHref = artwork.seriesSlug ? routes.series.detail(artwork.seriesSlug) : routes.series.index;
 
   return (
     <PageSection as="article" className={`grid gap-12 py-12 lg:grid-cols-[1.15fr_0.85fr] lg:py-20 ${siteHeaderContractClassName}`}>
@@ -39,7 +40,7 @@ export function ArtworkDetail({ artwork, content }: { artwork: Artwork; content:
         <p className="mt-6 text-lg leading-8 text-muted">{artwork.description}</p>
         <dl className="mt-10 divide-y divide-line border-y border-line text-sm">
           {[
-            [content.fields.year, artwork.year],
+            [content.fields.year, formatArtworkYear(artwork)],
             [content.fields.technique, artwork.technique],
             [content.fields.support, artwork.support],
             [content.fields.dimensions, formatDimensions(artwork.dimensions)],
@@ -62,13 +63,13 @@ export function ArtworkDetail({ artwork, content }: { artwork: Artwork; content:
         </aside>
         <div className="mt-10 flex flex-col gap-4 sm:flex-row">
           <Link
-            href={`/contacto?obra=${artwork.slug}`}
+            href={routes.contact.withArtwork(artwork)}
             className="rounded-full bg-foreground px-7 py-3 text-center text-sm uppercase tracking-[0.22em] text-background"
           >
             {content.actions.inquire}
           </Link>
           <Link
-            href="/obras"
+            href={routes.obras.index}
             className="rounded-full border border-foreground px-7 py-3 text-center text-sm uppercase tracking-[0.22em]"
           >
             {content.actions.backToCatalog}

@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { ArtworkDetail } from "@/components/artwork/ArtworkDetail";
 import { StructuredData } from "@/components/artwork/StructuredData";
 import { pageContent } from "@/content/pages";
-import { catalogArtworks, getCatalogArtworkBySlug } from "@/data/artworks";
+import { getCatalogArtworkBySlug, getCatalogArtworks } from "@/data/artworks";
 import { visualArtworkSchema } from "@/lib/schema";
 
 type Props = {
@@ -11,7 +11,7 @@ type Props = {
 };
 
 export function generateStaticParams() {
-  return catalogArtworks.map((artwork) => ({ slug: artwork.slug }));
+  return getCatalogArtworks().map((artwork) => ({ slug: artwork.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

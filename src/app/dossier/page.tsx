@@ -5,7 +5,7 @@ import { ArtistBio } from "@/components/artist/ArtistBio";
 import { PageSection } from "@/components/layout/PageSection";
 import { pageContent } from "@/content/pages";
 import { artist } from "@/data/artist";
-import { dossierArtworks, getCatalogArtworkHref } from "@/data/artworks";
+import { getCatalogOnlyArtworkHref, getDossierArtworks } from "@/data/artworks";
 
 export const metadata: Metadata = {
   title: pageContent.dossier.metadata.title,
@@ -13,6 +13,8 @@ export const metadata: Metadata = {
 };
 
 export default function DossierPage() {
+  const dossierArtworks = getDossierArtworks();
+
   return (
     <>
       <PageSection className="py-16 lg:py-24">
@@ -25,10 +27,10 @@ export default function DossierPage() {
           <h2 className="font-serif text-4xl tracking-[-0.04em]">{pageContent.dossier.selectedWorks.title}</h2>
           <p className="mt-4 text-muted">{pageContent.dossier.selectedWorks.description}</p>
         </div>
-        <ArtworkGrid artworks={dossierArtworks} getArtworkHref={getCatalogArtworkHref} />
+        <ArtworkGrid artworks={dossierArtworks} getArtworkHref={getCatalogOnlyArtworkHref} />
       </PageSection>
       <PageSection className="pb-20">
-        <DossierDownload content={pageContent.dossier.download} />
+        <DossierDownload content={pageContent.dossier.download} showCta={false} />
       </PageSection>
     </>
   );

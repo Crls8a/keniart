@@ -5,6 +5,7 @@ import {
   PINTO_TU_MASCOTA_ASSET_BASE_PATH,
   PINTO_TU_MASCOTA_SERIES_SLUG,
 } from "@/data/series";
+import { routes } from "@/lib/routes";
 
 type ArtworkImageInput = {
   file: string;
@@ -30,6 +31,9 @@ type CartografiasArtworkInput = {
   files: ArtworkImageInput[];
   description: string;
   year: number;
+  originalYear?: number;
+  editionYear?: number;
+  yearLabel?: string;
   technique: string;
   support: string;
   dimensions: Artwork["dimensions"];
@@ -145,6 +149,9 @@ function createCartografiasArtwork({
   files,
   description,
   year,
+  originalYear,
+  editionYear,
+  yearLabel,
   technique,
   support,
   dimensions,
@@ -168,6 +175,9 @@ function createCartografiasArtwork({
     slug,
     title,
     year,
+    originalYear,
+    editionYear,
+    yearLabel,
     seriesSlug: CARTOGRAFIAS_DEL_ALMA_SERIES_SLUG,
     technique,
     support,
@@ -417,6 +427,8 @@ const cartografiasArtworks: Artwork[] = [
     ],
     description: "Este lienzo nació de los contrastes, la luz y la calidez de La Habana en 2022. Hay lugares que no se quedan en el pasado, sino que se transforman en un latido constante. Para mí, esta obra resguarda un pedazo de mi corazón que se quedó suspendido en sus calles; es el testimonio visual de un viaje que me transformó y de una ciudad que, a través de su esencia, se volvió inolvidable.",
     year: 2026,
+    originalYear: 2022,
+    editionYear: 2026,
     technique: "Giclée",
     support: "Lienzo texturizado",
     dimensions: { heightCm: 50, widthCm: 40 },
@@ -550,7 +562,30 @@ export const artworks: Artwork[] = [...petPortraitArtworks, ...cartografiasArtwo
 
 const catalogArtworkSlugs = new Set(catalogArtworks.map((artwork) => artwork.slug));
 
-export const featuredArtwork = catalogArtworks.find((artwork) => artwork.featured) ?? catalogArtworks[0];
+function compareByRecentCatalogOrder(a: Artwork, b: Artwork) {
+  const yearDifference = b.year - a.year;
+  if (yearDifference !== 0) return yearDifference;
+
+  return (a.experience?.dossierOrder ?? 99) - (b.experience?.dossierOrder ?? 99);
+}
+
+function compareByDossierOrder(a: Artwork, b: Artwork) {
+  return (a.experience?.dossierOrder ?? 99) - (b.experience?.dossierOrder ?? 99);
+}
+
+export function getCatalogArtworks() {
+  return catalogArtworks;
+}
+
+export function getDossierArtworks() {
+  return artworks.filter((artwork) => artwork.dossierSelected).toSorted(compareByDossierOrder);
+}
+
+export function getRecentCatalogArtworks(limit: number) {
+  return getCatalogArtworks().toSorted(compareByRecentCatalogOrder).slice(0, limit);
+}
+
+export const featuredArtwork = getCatalogArtworks().find((artwork) => artwork.featured) ?? getCatalogArtworks()[0];
 
 export function getArtworkBySlug(slug: string) {
   return artworks.find((artwork) => artwork.slug === slug);
@@ -564,12 +599,31 @@ export function isCatalogArtwork(artwork: Artwork) {
   return catalogArtworkSlugs.has(artwork.slug);
 }
 
-export function getCatalogArtworkHref(artwork: Artwork) {
-  return isCatalogArtwork(artwork) ? `/obras/${artwork.slug}` : undefined;
+export function getCatalogOnlyArtworkHref(artwork: Artwork) {
+  return isCatalogArtwork(artwork) ? routes.obras.detail(artwork.slug) : undefined;
 }
 
-export function getArtworksBySeries(seriesSlug: string) {
+export const getArtworkHref = getCatalogOnlyArtworkHref;
+export const getCatalogArtworkHref = getCatalogOnlyArtworkHref;
+
+export function getSeriesArtworks(seriesSlug: string) {
   return artworks.filter((artwork) => artwork.seriesSlug === seriesSlug);
 }
 
-export const dossierArtworks = artworks.filter((artwork) => artwork.dossierSelected);
+export const getArtworksBySeries = getSeriesArtworks;
+
+export function getSeriesYearLabel(seriesSlug: string) {
+  const years = getSeriesArtworks(seriesSlug)
+    .map((artwork) => artwork.year)
+    .toSorted((a, b) => a - b);
+
+  const firstYear = years[0];
+  const lastYear = years.at(-1);
+
+  if (!firstYear || !lastYear) return undefined;
+  if (firstYear === lastYear) return firstYear.toString();
+
+  return `${firstYear}–${lastYear}`;
+}
+
+export const dossierArtworks = getDossierArtworks();

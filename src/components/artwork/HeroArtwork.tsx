@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Artwork } from "@/types/artwork";
-import { formatDimensions } from "@/lib/format";
+import { formatArtworkYear, formatDimensions } from "@/lib/format";
+import { routes } from "@/lib/routes";
 import { AvailabilityBadge } from "@/components/artwork/AvailabilityBadge";
 import { ResponsiveArtworkImage } from "@/components/artwork/ResponsiveArtworkImage";
 
@@ -15,7 +16,8 @@ type HeroArtworkContent = {
 
 export function HeroArtwork({ artwork, content }: { artwork: Artwork; content: HeroArtworkContent }) {
   const image = artwork.images.gallery?.[0];
-  const seriesHref = artwork.seriesSlug ? `/series/${artwork.seriesSlug}` : "/series";
+  const seriesHref = artwork.seriesSlug ? routes.series.detail(artwork.seriesSlug) : routes.series.index;
+  const artworkHref = routes.obras.detail(artwork.slug);
 
   return (
     <section className="grid min-h-[calc(100vh-73px)] grid-cols-1 lg:grid-cols-[0.9fr_1.1fr]">
@@ -28,7 +30,7 @@ export function HeroArtwork({ artwork, content }: { artwork: Artwork; content: H
           <p className="mt-8 text-lg leading-8 text-muted">{content.description}</p>
           <div className="mt-10 flex flex-col gap-4 sm:flex-row">
             <Link
-              href="/obras"
+              href={routes.obras.index}
               className="rounded-full bg-foreground px-7 py-3 text-center text-sm uppercase tracking-[0.22em] text-background transition hover:opacity-85 focus-visible:outline-offset-4"
             >
               {content.primaryCta}
@@ -42,7 +44,7 @@ export function HeroArtwork({ artwork, content }: { artwork: Artwork; content: H
           </div>
         </div>
       </div>
-      <Link href={`/obras/${artwork.slug}`} className="group relative min-h-[70vh] overflow-hidden bg-[#17120e] focus-visible:outline-offset-4">
+      <Link href={artworkHref} className="group relative min-h-[70vh] overflow-hidden bg-[#17120e] focus-visible:outline-offset-4">
         {image ? <ResponsiveArtworkImage image={image} alt={artwork.title} priority className={`slow-zoom object-contain p-4 ${image.orientation === "landscape" ? "sm:p-8" : "sm:p-6"}`} /> : null}
         <div className="absolute inset-x-5 bottom-5 bg-paper/90 p-5 backdrop-blur sm:inset-x-8 sm:bottom-8">
           <div className="mb-4 flex items-center justify-between gap-4">
@@ -51,7 +53,7 @@ export function HeroArtwork({ artwork, content }: { artwork: Artwork; content: H
           </div>
           <h2 className="text-2xl font-medium">{artwork.title}</h2>
           <p className="mt-2 text-sm text-muted">
-            {artwork.year} - {artwork.technique} - {formatDimensions(artwork.dimensions)}
+            {formatArtworkYear(artwork)} - {artwork.technique} - {formatDimensions(artwork.dimensions)}
           </p>
         </div>
       </Link>

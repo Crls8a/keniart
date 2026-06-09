@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Artwork } from "@/types/artwork";
-import { formatDimensions } from "@/lib/format";
+import { formatArtworkYear, formatDimensions } from "@/lib/format";
 import { AvailabilityBadge } from "@/components/artwork/AvailabilityBadge";
 import { ResponsiveArtworkImage } from "@/components/artwork/ResponsiveArtworkImage";
 
@@ -25,7 +25,7 @@ export function ArtworkCard({ artwork, href, priority = false }: ArtworkCardProp
         <div className="min-w-0">
           <h3 className="text-lg font-medium">{artwork.title}</h3>
           <p className="mt-1 text-sm text-muted">
-            {artwork.year} - {artwork.technique}
+            {formatArtworkYear(artwork)} - {artwork.technique}
           </p>
         </div>
         <p className="text-xs uppercase tracking-[0.2em] text-muted sm:shrink-0 sm:text-right">

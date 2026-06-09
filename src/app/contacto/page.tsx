@@ -3,6 +3,7 @@ import Link from "next/link";
 import { InquiryForm } from "@/components/forms/InquiryForm";
 import { PageSection } from "@/components/layout/PageSection";
 import { pageContent } from "@/content/pages";
+import { routes } from "@/lib/routes";
 import { siteConfig, whatsappUrl } from "@/lib/seo";
 
 function WhatsAppMark() {
@@ -56,7 +57,7 @@ export default async function ContactoPage({ searchParams }: Props) {
             <InstagramMark />
             {pageContent.contact.header.instagramLabel}
           </a>
-          <Link href="/dossier" className="underline focus-visible:outline-offset-4">{pageContent.contact.header.dossierLink}</Link>
+          <Link href={routes.dossier} className="underline focus-visible:outline-offset-4">{pageContent.contact.header.dossierLink}</Link>
         </div>
       </div>
       <InquiryForm selectedArtworkSlug={obra} whatsapp={siteConfig.contact.whatsapp} />

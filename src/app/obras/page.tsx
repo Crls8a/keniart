@@ -3,7 +3,7 @@ import { StructuredData } from "@/components/artwork/StructuredData";
 import { GalleryExperience } from "@/components/gallery/GalleryExperience";
 import { PageSection } from "@/components/layout/PageSection";
 import { pageContent } from "@/content/pages";
-import { catalogArtworks } from "@/data/artworks";
+import { getCatalogArtworks } from "@/data/artworks";
 import { collectionSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
@@ -12,6 +12,8 @@ export const metadata: Metadata = {
 };
 
 export default function ObrasPage() {
+  const catalogArtworks = getCatalogArtworks();
+
   return (
     <PageSection className="py-16 lg:py-24">
       <StructuredData data={collectionSchema(pageContent.artworks.collectionSchemaName, catalogArtworks)} />

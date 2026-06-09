@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArtworkMediaFrame } from "@/components/artwork/ArtworkMediaFrame";
 import { ResponsiveArtworkImage } from "@/components/artwork/ResponsiveArtworkImage";
 import { GalleryArtworkGrid } from "@/components/gallery/GalleryArtworkGrid";
+import { getCatalogOnlyArtworkHref } from "@/data/artworks";
 import type { Artwork } from "@/types/artwork";
 
 type GalleryExperienceProps = {
@@ -26,12 +27,13 @@ export function GalleryExperience({ artworks, content }: GalleryExperienceProps)
   const visibleArtworks = artworks.toSorted((a, b) => (a.experience?.dossierOrder ?? 99) - (b.experience?.dossierOrder ?? 99));
   const heroArtwork = visibleArtworks[0];
   const heroImage = heroArtwork?.images.gallery?.[0];
+  const heroHref = heroArtwork ? getCatalogOnlyArtworkHref(heroArtwork) : undefined;
 
   return (
     <section className="space-y-12" aria-labelledby="gallery-experience-title">
-      {heroArtwork ? (
+      {heroArtwork && heroHref ? (
         <article className="grid overflow-hidden rounded-[2rem] bg-[#16120e] text-[#f7efe3] shadow-[0_28px_90px_rgba(22,18,14,0.18)] lg:grid-cols-[minmax(0,1fr)_24rem]">
-          <Link href={`/obras/${heroArtwork.slug}`} className="group block focus-visible:outline-offset-4">
+          <Link href={heroHref} className="group block focus-visible:outline-offset-4">
             <ArtworkMediaFrame image={heroImage} size="hero" className="min-h-[58vh] bg-black/30 lg:min-h-[72vh]">
               {heroImage ? <ResponsiveArtworkImage image={heroImage} alt={heroArtwork.title} priority className="object-contain transition duration-1000 motion-safe:group-hover:scale-[1.015] motion-safe:group-focus-visible:scale-[1.015]" /> : null}
             </ArtworkMediaFrame>
@@ -44,7 +46,7 @@ export function GalleryExperience({ artworks, content }: GalleryExperienceProps)
             <p className="mt-6 leading-7 text-[#cfc2b1]">{content.hero.description}</p>
             <Link
               className="mt-8 inline-flex w-fit rounded-full border border-[#f7efe3]/35 px-5 py-3 text-sm uppercase tracking-[0.22em] text-[#f7efe3] transition hover:border-[#f7efe3] focus-visible:outline-offset-4"
-              href={`/obras/${heroArtwork.slug}`}
+              href={heroHref}
             >
               {content.hero.ctaPrefix} {heroArtwork.title.replace("Retrato de ", "")}
             </Link>

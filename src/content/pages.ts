@@ -80,7 +80,7 @@ export const pageContent = {
     },
     selectedWorks: {
       title: "Selección de obra",
-      description: "Pinto tu mascota reunida para revisión editorial y consulta profesional.",
+      description: "Selección curada para revisión editorial y consulta profesional.",
     },
     download: {
       eyebrow: "Dossier PDF",

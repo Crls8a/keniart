@@ -1,16 +1,17 @@
 import { artist } from "@/data/artist";
+import { routes } from "@/lib/routes";
 
 export const mainNavigation = [
-  { label: "Obras", href: "/obras" },
-  { label: "Series", href: "/series" },
-  { label: "Galerías", href: "/galerias" },
-  { label: "Artista", href: "/artista" },
-  { label: "Contacto", href: "/contacto" },
+  { label: "Obras", href: routes.obras.index },
+  { label: "Series", href: routes.series.index },
+  { label: "Galerías", href: routes.galleries },
+  { label: "Artista", href: routes.artist },
+  { label: "Contacto", href: routes.contact.index },
 ];
 
 export const footerNavigation = [
-  { label: "Consultas", href: "/contacto" },
-  { label: "Para galerías", href: "/galerias" },
+  { label: "Consultas", href: routes.contact.index },
+  { label: "Para galerías", href: routes.galleries },
 ];
 
 export const footerSocialLinks = [
