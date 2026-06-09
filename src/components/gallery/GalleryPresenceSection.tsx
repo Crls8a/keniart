@@ -23,7 +23,7 @@ function GalleryPresenceCard({ image, priority }: { image: GalleryPresenceImage;
           height={image.height}
           priority={priority}
           quality={92}
-          sizes="(min-width: 1280px) 1120px, (min-width: 1024px) calc(100vw - 8rem), calc(100vw - 2rem)"
+          sizes="(min-width: 1280px) 560px, (min-width: 1024px) 46vw, calc(100vw - 2rem)"
           src={image.src}
           width={image.width}
         />
@@ -40,24 +40,22 @@ export function GalleryPresenceSection({ images, content }: GalleryPresenceSecti
 
   return (
     <PageSection className="py-16 lg:py-24">
-      <section className="space-y-8" aria-labelledby="gallery-presence-title">
-        <div className="grid gap-8 lg:grid-cols-[minmax(0,0.7fr)_minmax(0,1fr)] lg:items-end">
-          <div>
-            <p className="text-xs uppercase tracking-[0.35em] text-muted">{content.eyebrow}</p>
-            <h2 id="gallery-presence-title" className="mt-4 font-serif text-4xl tracking-[-0.04em] sm:text-5xl">
-              {content.title}
-            </h2>
-          </div>
-          <p className="max-w-2xl text-muted lg:justify-self-end">{content.description}</p>
-        </div>
-
-        <div className="relative">
+      <section className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center" aria-labelledby="gallery-presence-title">
+        <div className="relative order-2 lg:order-1">
           <div id={scrollerId} className="flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth pb-2">
-          {images.map((image, index) => (
-            <GalleryPresenceCard key={image.id} image={image} priority={index < 2} />
-          ))}
+            {images.map((image, index) => (
+              <GalleryPresenceCard key={image.id} image={image} priority={index < 2} />
+            ))}
           </div>
           {hasMultipleImages ? <ArtworkCarouselControls scrollerId={scrollerId} /> : null}
+        </div>
+
+        <div className="order-1 lg:order-2">
+          <p className="text-xs uppercase tracking-[0.35em] text-muted">{content.eyebrow}</p>
+          <h2 id="gallery-presence-title" className="mt-4 font-serif text-4xl tracking-[-0.04em] sm:text-5xl">
+            {content.title}
+          </h2>
+          <p className="mt-6 max-w-2xl text-lg leading-8 text-muted">{content.description}</p>
         </div>
       </section>
     </PageSection>
