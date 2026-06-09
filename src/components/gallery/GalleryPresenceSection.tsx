@@ -15,20 +15,20 @@ type GalleryPresenceSectionProps = {
 
 function GalleryPresenceCard({ image, priority }: { image: GalleryPresenceImage; priority: boolean }) {
   return (
-    <figure className="group min-w-full snap-center overflow-hidden rounded-[1.75rem] border border-line bg-paper">
-      <div className="relative aspect-[4/5] overflow-hidden bg-[#17120e]">
+    <figure className="min-w-full snap-center">
+      <div className="relative aspect-[2/3] overflow-hidden bg-[#17120e]">
         <Image
           alt={image.alt}
-          className="h-full w-full object-cover transition duration-700 motion-safe:group-hover:scale-[1.025]"
+          className="h-full w-full object-cover"
           height={image.height}
           priority={priority}
           quality={92}
-          sizes="(min-width: 1280px) 520px, (min-width: 1024px) 44vw, calc(100vw - 2rem)"
+          sizes="(min-width: 1024px) 38vw, 100vw"
           src={image.src}
           width={image.width}
         />
       </div>
-      <figcaption className="px-5 py-4 text-sm text-muted">{image.caption}</figcaption>
+      <figcaption className="mt-4 text-sm leading-6 text-muted">{image.caption}</figcaption>
     </figure>
   );
 }
@@ -40,9 +40,9 @@ export function GalleryPresenceSection({ images, content }: GalleryPresenceSecti
 
   return (
     <PageSection className="py-16 lg:py-24">
-      <section className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center" aria-labelledby="gallery-presence-title">
+      <section className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center" aria-labelledby="gallery-presence-title">
         <div className="relative order-2 lg:order-1">
-          <div id={scrollerId} className="flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth pb-2">
+          <div id={scrollerId} className="flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-2">
             {images.map((image, index) => (
               <GalleryPresenceCard key={image.id} image={image} priority={index < 2} />
             ))}
