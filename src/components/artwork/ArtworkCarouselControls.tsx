@@ -9,7 +9,18 @@ export function ArtworkCarouselControls({ scrollerId }: ArtworkCarouselControlsP
     const scroller = document.getElementById(scrollerId);
     if (!scroller) return;
 
-    scroller.scrollBy({ behavior: "smooth", left: direction * scroller.clientWidth });
+    const slides = Array.from(scroller.children).filter((child): child is HTMLElement => child instanceof HTMLElement);
+    if (!slides.length) return;
+
+    const currentIndex = slides.reduce((closestIndex, slide, index) => {
+      const closestDistance = Math.abs(slides[closestIndex].offsetLeft - scroller.scrollLeft);
+      const slideDistance = Math.abs(slide.offsetLeft - scroller.scrollLeft);
+
+      return slideDistance < closestDistance ? index : closestIndex;
+    }, 0);
+    const nextIndex = Math.max(0, Math.min(slides.length - 1, currentIndex + direction));
+
+    scroller.scrollTo({ behavior: "smooth", left: slides[nextIndex].offsetLeft });
   }
 
   return (
