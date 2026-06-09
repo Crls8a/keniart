@@ -5,7 +5,7 @@ export async function POST(request: Request) {
 
   return NextResponse.json({
     ok: true,
-    message: "Inquiry endpoint placeholder. MVP communication is handled through WhatsApp.",
+    message: "Inquiry received. Communication continues through WhatsApp.",
     received: payload,
   });
 }

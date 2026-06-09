@@ -86,10 +86,9 @@ export const pageContent = {
       eyebrow: "Dossier PDF",
       title: "Press kit para galerías",
       description:
-        "Placeholder del MVP: la página interactiva está lista y el PDF final se conectará en",
-      assetPath: "public/dossier/dossier-galerias.pdf",
-      assetSuffix: "cuando existan assets definitivos.",
+        "Una versión descargable del dossier web, preparada para lectura, archivo y envío a galerías.",
       cta: "Ver dossier web",
+      downloadCta: "Descargar PDF",
     },
   },
   contact: {

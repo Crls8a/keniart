@@ -38,7 +38,7 @@ Este documento define la arquitectura base. El Documento 01 (`docs/architecture/
 - **React Hook Form + Zod** para formularios.
 - **WhatsApp click-to-chat** para contacto directo.
 - **Stripe Checkout/Payment Links** para pagos confirmados en fase 2.
-- **JSON/MDX en MVP; Sanity en fase 2** para contenido editable.
+- **JSON/MDX en la primera versión; Sanity en fase 2** para contenido editable.
 
 ## 4. Componentes
 
@@ -161,7 +161,7 @@ Orden recomendado del PDF:
 9. Inventario disponible.
 10. Contacto, redes y QR.
 
-## 9. MVP obligatorio
+## 9. Alcance obligatorio
 
 - Home editorial.
 - Catálogo de obras.
@@ -182,7 +182,7 @@ Orden recomendado del PDF:
 - Stripe Checkout o Payment Links.
 - Versión bilingüe.
 - Analytics.
-- Generador automático de dossier PDF.
+- Mejoras editoriales del generador de dossier PDF.
 
 ## 11. Fuentes técnicas
 

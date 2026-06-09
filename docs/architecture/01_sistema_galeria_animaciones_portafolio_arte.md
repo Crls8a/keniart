@@ -10,7 +10,7 @@
 
 Construir primero una galeria premium 2D con `next/image`, Motion for React, React Photo Album, PhotoSwipe y Embla Carousel. Esta combinacion cubre catalogo, detalle contemplativo, zoom de textura, presentacion curada y modo sala 2D con complejidad controlada.
 
-React Three Fiber y GSAP quedan fuera del MVP. Solo deben entrar como capa opcional cuando haya una necesidad concreta de sala 3D o narrativa de scroll altamente coreografiada.
+React Three Fiber y GSAP quedan fuera del alcance inicial. Solo deben entrar como capa opcional cuando haya una necesidad concreta de sala 3D o narrativa de scroll altamente coreografiada.
 
 ## 2. Principios de experiencia
 
@@ -26,14 +26,14 @@ La experiencia no debe competir con los lienzos. Las animaciones deben ayudar a 
 
 ## 3. Modos de experiencia
 
-| Modo | Ruta / lugar | Proposito | Alcance MVP |
+| Modo | Ruta / lugar | Proposito | Alcance inicial |
 | --- | --- | --- | --- |
 | Archivo | `/obras` | Mostrar todos los lienzos con filtros, busqueda y preview. | Obligatorio |
 | Curaduria | `/series` y bloques destacados | Agrupar obras por serie, anio, tema o cuerpo de trabajo. | Basico |
 | Sala | Detalle de obra o seccion especial | Ver una pieza en pared, escala y contexto. | 2D primero |
 | Presentacion | `/galerias` | Dossier interactivo fullscreen para galeristas. | Obligatorio |
 
-El MVP debe priorizar Archivo, Curaduria basica y Presentacion. Sala empieza como 2D con CSS, medidas reales y fondos de pared; la sala 3D queda como fase premium.
+La primera versión debe priorizar Archivo, Curaduria basica y Presentacion. Sala empieza como 2D con CSS, medidas reales y fondos de pared; la sala 3D queda como fase premium.
 
 ## 4. Journey principal
 
@@ -88,14 +88,14 @@ src/
 
 | Zona | Interaccion | Animacion | Tecnologia | Prioridad |
 | --- | --- | --- | --- | --- |
-| Catalogo | Carga inicial | Stagger con fade, blur leve y desplazamiento vertical. | Motion | MVP |
-| Catalogo | Cambio de filtro | Reacomodo fluido sin saltos bruscos. | Motion layout + React Photo Album | MVP |
-| Tarjeta | Hover / tap | Zoom 3%, overlay minimo y foco claro. | Motion + CSS | MVP |
-| Tarjeta a detalle | Abrir obra | Shared element desde tarjeta hacia detalle. | Motion `layoutId` | MVP |
+| Catalogo | Carga inicial | Stagger con fade, blur leve y desplazamiento vertical. | Motion | Inicial |
+| Catalogo | Cambio de filtro | Reacomodo fluido sin saltos bruscos. | Motion layout + React Photo Album | Inicial |
+| Tarjeta | Hover / tap | Zoom 3%, overlay minimo y foco claro. | Motion + CSS | Inicial |
+| Tarjeta a detalle | Abrir obra | Shared element desde tarjeta hacia detalle. | Motion `layoutId` | Inicial |
 | Detalle | Scroll de ficha | Parallax sutil entre imagen, texto y textura. | Motion `useScroll` / Lenis | Recomendado |
-| Textura | Abrir imagen | Lightbox con zoom, swipe y navegacion. | PhotoSwipe | MVP |
+| Textura | Abrir imagen | Lightbox con zoom, swipe y navegacion. | PhotoSwipe | Inicial |
 | Series | Scroll narrativo | Bloques con reveal suave. | Motion + Intersection Observer | Recomendado |
-| Presentacion | Flechas, teclado, swipe | Fade/slide, contador y ficha lateral. | Embla + Motion | MVP |
+| Presentacion | Flechas, teclado, swipe | Fade/slide, contador y ficha lateral. | Embla + Motion | Inicial |
 | Sala 2D | Ver en pared | Obra en pared virtual con escala aproximada. | CSS transforms + Motion | Fase 2 cercana |
 | Sala 3D | Recorrido inmersivo | Sala tridimensional bajo demanda. | React Three Fiber | Fase premium |
 
@@ -227,7 +227,7 @@ Esto evita mantener dos inventarios separados y reduce errores cuando una pieza 
 
 | Fase | Resultado | Incluye |
 | --- | --- | --- |
-| 1 | Galeria MVP premium | Masonry, filtros, hover, panel de obra, lightbox y consulta. |
+| 1 | Galeria premium inicial | Masonry, filtros, hover, panel de obra, lightbox y consulta. |
 | 2 | Presentacion para galerias | Slides fullscreen, teclado, seleccion curada, QR y PDF. |
 | 3 | Modo sala 2D | Obra en pared, escala, ambientes y CTA. |
 | 4 | Microinteracciones avanzadas | Command palette, transiciones nativas y scroll narrativo. |

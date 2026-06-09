@@ -66,7 +66,7 @@ export function InquiryForm({ selectedArtworkSlug, whatsapp }: { selectedArtwork
         <WhatsAppMark />
         Consultar por WhatsApp
       </button>
-      <p id="inquiry-form-status" className="text-xs leading-6 text-muted">El formulario abre WhatsApp con tu consulta preparada. Toda la comunicación del MVP se gestiona por ese canal.</p>
+      <p id="inquiry-form-status" className="text-xs leading-6 text-muted">El formulario abre WhatsApp con tu consulta preparada para continuar la conversación de forma directa.</p>
     </form>
   );
 }

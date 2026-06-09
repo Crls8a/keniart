@@ -20,4 +20,5 @@ export const routes = {
     },
   },
   dossier: "/dossier",
+  dossierPdf: "/dossier/dossier-galerias.pdf",
 } as const;

@@ -82,3 +82,35 @@ textarea {
     }
   }
 }
+
+@media print {
+  html {
+    background: var(--background);
+  }
+
+  body {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  section,
+  article {
+    break-inside: avoid;
+  }
+
+  img {
+    break-inside: avoid;
+  }
+
+  header,
+  footer,
+  nav,
+  [download] {
+    display: none !important;
+  }
+}

@@ -28,7 +28,7 @@ Tono visual recomendado: editorial, cálido, minimalista, con microinteracciones
 | Sala | Dentro de obra o sección especial | Ver una pieza en pared, escala y contexto. | Galería física simulada. |
 | Presentación | /galerias | Modo fullscreen para enseñar una selección curada a galeristas. | Dossier interactivo, elegante y controlado. |
 
-El MVP debe incluir Archivo, Curaduría básica y Presentación. El modo Sala puede hacerse primero en 2D con CSS y fotos de pared; el 3D puede quedar como fase premium.
+La primera versión debe incluir Archivo, Curaduría básica y Presentación. El modo Sala puede hacerse primero en 2D con CSS y fotos de pared; el 3D puede quedar como fase premium.
 
 ## 4. Journey principal de usuario
 
@@ -287,7 +287,7 @@ Render custom de tarjeta dentro de MasonryPhotoAlbum:
 
 | Fase | Resultado | Incluye |
 | --- | --- | --- |
-| Fase 1 | Galería MVP premium | Masonry, filtros, hover, panel de obra, lightbox, consulta. |
+| Fase 1 | Galería premium inicial | Masonry, filtros, hover, panel de obra, lightbox, consulta. |
 | Fase 2 | Presentación para galerías | Slides fullscreen, teclado, selección curada, QR, PDF. |
 | Fase 3 | Modo sala 2D | Obra en pared, escala, ambientes, CTA. |
 | Fase 4 | Microinteracciones avanzadas | Command palette, transiciones nativas, scroll narrativo. |

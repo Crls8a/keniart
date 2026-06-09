@@ -64,7 +64,7 @@ Usamos `--blocking none` para que sea una revisión consultiva. Si el equipo dec
 - Evitar UI que dependa solo de hover.
 - Validar navegación con teclado y touch.
 - Revisar labels, errores y estados de formularios.
-- Evitar librerías si el MVP puede resolverlo con React/Next simple.
+- Evitar librerías si el alcance inicial puede resolverlo con React/Next simple.
 - Leer la guía local de Next en `node_modules/next/dist/docs/` antes de tocar APIs de Next.
 
 ## Evidencia mínima al cerrar una tarea
