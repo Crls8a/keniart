@@ -59,6 +59,12 @@ const seriesItems: ArtworkSeries[] = [
       "venus-el-origen-suave-del-amor",
       "renacer-interestelar-orbita-8",
       "habana-cuba",
+      "aurora-boreal",
+      "el-amor-bajo-la-lluvia",
+      "guardian-del-tiempo",
+      "la-mirada-del-universo",
+      "peces-dorados",
+      "herencia-de-sol-y-fuego",
     ],
   },
 ];

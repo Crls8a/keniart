@@ -37,8 +37,10 @@ La URL pública de la serie `Cartografías del alma` es
 `public/artworks/optimized/cartografias-del-alma/{desktop,tablet,mobile,thumb}/`.
 La curaduría vigente de la serie usa carpetas fuente numeradas solo para ordenar
 la carga; ese número no debe aparecer en títulos, slugs, textos alternativos ni
-rutas públicas. La carpeta fuente `Sobre mi` contiene imágenes de artista/about
-y no forma parte del manifiesto de obras ni de esta serie.
+rutas públicas. Las imágenes internas de cada carpeta se ordenan por nombre
+numérico (`1`, `2`, `3`, etc.) y se publican como `image-01.webp`,
+`image-02.webp`, etc. La carpeta fuente `Sobre mi` contiene imágenes de
+artista/about y no forma parte del manifiesto de obras ni de esta serie.
 
 Una imagen aprobada debe declararse desde `src/data/artworks.ts`, por ejemplo:
 
