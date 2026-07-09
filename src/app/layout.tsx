@@ -21,22 +21,6 @@ export const metadata: Metadata = {
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
-  alternates: {
-    canonical: "/",
-  },
-  openGraph: {
-    title: `${siteConfig.name} | Portafolio de arte contemporáneo`,
-    description: siteConfig.openGraphDescription,
-    url: "/",
-    siteName: siteConfig.name,
-    locale: siteConfig.locale,
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: `${siteConfig.name} | Portafolio de arte contemporáneo`,
-    description: siteConfig.openGraphDescription,
-  },
 };
 
 export default function RootLayout({

@@ -13,9 +13,9 @@ export const seriesBySlug: Record<string, ArtworkSeries> = {
     slug: PINTO_TU_MASCOTA_SERIES_SLUG,
     internalKey: "lomitos-assets",
     title: "Pinto tu mascota",
-    subtitle: "Retratos de compañía, gesto y presencia",
+    subtitle: "Retratos de mascotas al óleo por encargo",
     description:
-      "Serie de pintura dedicada a animales de compañía: óleos sobre lienzo pintado, cercanos y afectivos, construidos desde la mirada singular de cada mascota.",
+      "Retratos de mascotas al óleo por encargo sobre lienzo pintado, cercanos y afectivos, construidos desde la mirada singular de cada animal.",
     assetBasePath: PINTO_TU_MASCOTA_ASSET_BASE_PATH,
     coverImage: kooperCoverImage,
     coverImageVariants: {

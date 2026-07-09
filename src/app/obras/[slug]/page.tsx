@@ -4,7 +4,9 @@ import { ArtworkDetail } from "@/components/artwork/ArtworkDetail";
 import { StructuredData } from "@/components/artwork/StructuredData";
 import { pageContent } from "@/content/pages";
 import { getCatalogArtworkBySlug, getCatalogArtworks } from "@/data/artworks";
+import { routes } from "@/lib/routes";
 import { visualArtworkSchema } from "@/lib/schema";
+import { createPageMetadata } from "@/lib/seo";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -19,15 +21,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const artwork = getCatalogArtworkBySlug(slug);
   if (!artwork) return { title: "Obra no encontrada" };
 
-  return {
+  return createPageMetadata({
     title: artwork.title,
     description: artwork.description,
-    openGraph: {
-      title: artwork.title,
-      description: artwork.description,
-      images: [artwork.images.main],
-    },
-  };
+    path: routes.obras.detail(artwork.slug),
+    image: artwork.images.main,
+    imageAlt: artwork.title,
+  });
 }
 
 export default async function ArtworkPage({ params }: Props) {

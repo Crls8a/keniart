@@ -1,7 +1,7 @@
 export const pageContent = {
   home: {
     metadata: {
-      title: "Inicio",
+      title: "Keniart | Portafolio de arte contemporáneo",
       openGraphTitle: "Keniart | Portafolio de arte contemporáneo",
     },
     hero: {
@@ -44,8 +44,8 @@ export const pageContent = {
   },
   galleries: {
     metadata: {
-      title: "Para galerías",
-      description: "Selección fullscreen curada para galerías y propuestas curatoriales.",
+      title: "Presencia en galerías",
+      description: "Registro de Keniart en espacios de galería, encuentros y contexto expositivo.",
     },
   },
   galleryExperience: {

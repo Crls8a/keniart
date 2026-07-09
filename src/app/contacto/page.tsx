@@ -3,8 +3,9 @@ import Link from "next/link";
 import { InquiryForm } from "@/components/forms/InquiryForm";
 import { PageSection } from "@/components/layout/PageSection";
 import { pageContent } from "@/content/pages";
+import { featuredArtwork } from "@/data/artworks";
 import { routes } from "@/lib/routes";
-import { siteConfig, whatsappUrl } from "@/lib/seo";
+import { createPageMetadata, siteConfig, whatsappUrl } from "@/lib/seo";
 
 function WhatsAppMark() {
   return (
@@ -29,10 +30,13 @@ function InstagramMark() {
   );
 }
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: pageContent.contact.metadata.title,
   description: pageContent.contact.metadata.description,
-};
+  path: routes.contact.index,
+  image: featuredArtwork.images.main,
+  imageAlt: featuredArtwork.title,
+});
 
 type Props = {
   searchParams: Promise<{ obra?: string }>;

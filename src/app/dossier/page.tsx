@@ -5,12 +5,17 @@ import { ArtistBio } from "@/components/artist/ArtistBio";
 import { PageSection } from "@/components/layout/PageSection";
 import { pageContent } from "@/content/pages";
 import { artist } from "@/data/artist";
-import { getCatalogOnlyArtworkHref, getDossierArtworks } from "@/data/artworks";
+import { featuredArtwork, getCatalogOnlyArtworkHref, getDossierArtworks } from "@/data/artworks";
+import { routes } from "@/lib/routes";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: pageContent.dossier.metadata.title,
   description: pageContent.dossier.metadata.description,
-};
+  path: routes.dossier,
+  image: featuredArtwork.images.main,
+  imageAlt: featuredArtwork.title,
+});
 
 export default function DossierPage() {
   const dossierArtworks = getDossierArtworks();
@@ -21,7 +26,7 @@ export default function DossierPage() {
         <p className="text-xs uppercase tracking-[0.35em] text-muted">{pageContent.dossier.hero.eyebrow}</p>
         <h1 className="mt-5 max-w-4xl font-serif text-5xl tracking-[-0.04em] sm:text-7xl">{pageContent.dossier.hero.title}</h1>
       </PageSection>
-      <ArtistBio artist={artist} content={pageContent.artist.bio} />
+      <ArtistBio artist={artist} content={pageContent.artist.bio} headingLevel="h2" />
       <PageSection className="py-16">
         <div className="mb-10">
           <h2 className="font-serif text-4xl tracking-[-0.04em]">{pageContent.dossier.selectedWorks.title}</h2>

@@ -7,32 +7,36 @@ import { DossierDownload } from "@/components/dossier/DossierDownload";
 import { PageContainer } from "@/components/layout/PageContainer";
 import { PageSection } from "@/components/layout/PageSection";
 import { pageContent } from "@/content/pages";
-import { featuredArtwork, getCatalogArtworks, getRecentCatalogArtworks, getSeriesYearLabel } from "@/data/artworks";
+import { featuredArtwork, getRecentCatalogArtworks, getSeriesYearLabel } from "@/data/artworks";
 import { series } from "@/data/series";
 import { routes } from "@/lib/routes";
-import { collectionSchema } from "@/lib/schema";
-import { siteConfig } from "@/lib/seo";
+import { homePageSchema } from "@/lib/schema";
+import { createPageMetadata, siteConfig } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: pageContent.home.metadata.title,
   description: siteConfig.description,
-  alternates: {
-    canonical: "/",
-  },
-  openGraph: {
-    title: pageContent.home.metadata.openGraphTitle,
-    description: siteConfig.openGraphDescription,
-    url: "/",
-  },
-};
+  path: routes.home,
+  image: featuredArtwork.images.main,
+  imageAlt: featuredArtwork.title,
+  openGraphTitle: pageContent.home.metadata.openGraphTitle,
+});
 
 export default function Home() {
-  const catalogArtworks = getCatalogArtworks();
   const recentCatalogArtworks = getRecentCatalogArtworks(3);
+  const visibleArtworkSelection = [featuredArtwork, ...recentCatalogArtworks].filter(
+    (artwork, index, selection) => selection.findIndex((item) => item.slug === artwork.slug) === index,
+  );
 
   return (
     <>
-      <StructuredData data={collectionSchema("Keniart - selección destacada", catalogArtworks)} />
+      <StructuredData
+        data={homePageSchema({
+          name: "Keniart - selección destacada",
+          description: siteConfig.description,
+          artworks: visibleArtworkSelection,
+        })}
+      />
       <HeroArtwork artwork={featuredArtwork} content={pageContent.home.hero} />
       <PageSection className="py-20">
         <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
