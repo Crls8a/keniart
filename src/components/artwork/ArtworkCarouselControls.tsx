@@ -20,7 +20,8 @@ export function ArtworkCarouselControls({ scrollerId }: ArtworkCarouselControlsP
     }, 0);
     const nextIndex = Math.max(0, Math.min(slides.length - 1, currentIndex + direction));
 
-    scroller.scrollTo({ behavior: "smooth", left: slides[nextIndex].offsetLeft });
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    scroller.scrollTo({ behavior: prefersReducedMotion ? "auto" : "smooth", left: slides[nextIndex].offsetLeft });
   }
 
   return (

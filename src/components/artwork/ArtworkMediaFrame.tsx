@@ -13,7 +13,7 @@ type ArtworkMediaFrameProps = {
 const sizeClassNames: Record<ArtworkMediaFrameSize, string> = {
   card: "aspect-[4/5]",
   hero: "min-h-[70vh]",
-  detail: "aspect-[4/5] min-w-full sm:aspect-[5/6] lg:aspect-[4/5]",
+  detail: "aspect-[4/5] w-full sm:aspect-[5/6] lg:aspect-[4/5]",
   thumbnail: "h-20 w-20 shrink-0",
 };
 

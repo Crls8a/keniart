@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArtworkMediaFrame } from "@/components/artwork/ArtworkMediaFrame";
-import { ResponsiveArtworkImage } from "@/components/artwork/ResponsiveArtworkImage";
+import { artworkImageSizes, ResponsiveArtworkImage } from "@/components/artwork/ResponsiveArtworkImage";
 import { GalleryArtworkGrid } from "@/components/gallery/GalleryArtworkGrid";
 import { getCatalogOnlyArtworkHref } from "@/data/artworks";
 import type { Artwork } from "@/types/artwork";
@@ -35,7 +35,7 @@ export function GalleryExperience({ artworks, content }: GalleryExperienceProps)
         <article className="grid overflow-hidden rounded-[2rem] bg-[#16120e] text-[#f7efe3] shadow-[0_28px_90px_rgba(22,18,14,0.18)] lg:grid-cols-[minmax(0,1fr)_24rem]">
           <Link href={heroHref} className="group block focus-visible:outline-offset-4">
             <ArtworkMediaFrame image={heroImage} size="hero" className="min-h-[58vh] bg-black/30 lg:min-h-[72vh]">
-              {heroImage ? <ResponsiveArtworkImage image={heroImage} alt={heroArtwork.title} priority className="object-contain transition duration-1000 motion-safe:group-hover:scale-[1.015] motion-safe:group-focus-visible:scale-[1.015]" /> : null}
+              {heroImage ? <ResponsiveArtworkImage image={heroImage} alt={heroArtwork.title} priority sizes={artworkImageSizes.galleryHero} className="object-contain transition duration-1000 motion-safe:group-hover:scale-[1.015] motion-safe:group-focus-visible:scale-[1.015]" /> : null}
             </ArtworkMediaFrame>
           </Link>
           <div className="flex flex-col justify-end p-8 lg:p-10">

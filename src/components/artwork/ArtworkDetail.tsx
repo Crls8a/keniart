@@ -30,11 +30,11 @@ export function ArtworkDetail({ artwork, content }: { artwork: Artwork; content:
   const seriesHref = artwork.seriesSlug ? routes.series.detail(artwork.seriesSlug) : routes.series.index;
 
   return (
-    <PageSection as="article" className={`grid gap-12 py-12 lg:grid-cols-[1.15fr_0.85fr] lg:py-20 ${siteHeaderContractClassName}`}>
-      <div className={`lg:sticky ${siteHeaderStickyOffsetClassName}`}>
+    <PageSection as="article" className={`grid min-w-0 gap-12 py-12 lg:grid-cols-[1.15fr_0.85fr] lg:py-20 ${siteHeaderContractClassName}`}>
+      <div className={`min-w-0 max-w-full overflow-x-hidden lg:sticky ${siteHeaderStickyOffsetClassName}`}>
         <ArtworkImageGallery artwork={artwork} />
       </div>
-      <div className="self-start">
+      <div className="min-w-0 self-start">
         <AvailabilityBadge status={artwork.status} />
         <h1 className="mt-6 font-serif text-5xl tracking-[-0.04em] sm:text-6xl">{artwork.title}</h1>
         <p className="mt-6 text-lg leading-8 text-muted">{artwork.description}</p>

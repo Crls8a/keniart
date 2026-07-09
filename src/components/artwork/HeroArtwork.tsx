@@ -3,7 +3,7 @@ import type { Artwork } from "@/types/artwork";
 import { formatArtworkYear, formatDimensions } from "@/lib/format";
 import { routes } from "@/lib/routes";
 import { AvailabilityBadge } from "@/components/artwork/AvailabilityBadge";
-import { ResponsiveArtworkImage } from "@/components/artwork/ResponsiveArtworkImage";
+import { artworkImageSizes, ResponsiveArtworkImage } from "@/components/artwork/ResponsiveArtworkImage";
 
 type HeroArtworkContent = {
   eyebrow: string;
@@ -45,7 +45,7 @@ export function HeroArtwork({ artwork, content }: { artwork: Artwork; content: H
         </div>
       </div>
       <Link href={artworkHref} className="group relative min-h-[70vh] overflow-hidden bg-[#17120e] focus-visible:outline-offset-4">
-        {image ? <ResponsiveArtworkImage image={image} alt={artwork.title} priority className={`slow-zoom object-contain p-4 ${image.orientation === "landscape" ? "sm:p-8" : "sm:p-6"}`} /> : null}
+        {image ? <ResponsiveArtworkImage image={image} alt={artwork.title} priority sizes={artworkImageSizes.homeHero} className={`slow-zoom object-contain p-4 ${image.orientation === "landscape" ? "sm:p-8" : "sm:p-6"}`} /> : null}
         <div className="absolute inset-x-5 bottom-5 bg-paper/90 p-5 backdrop-blur sm:inset-x-8 sm:bottom-8">
           <div className="mb-4 flex items-center justify-between gap-4">
             <AvailabilityBadge status={artwork.status} />

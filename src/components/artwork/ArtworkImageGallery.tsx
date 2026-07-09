@@ -1,6 +1,6 @@
 import { ArtworkCarouselControls } from "@/components/artwork/ArtworkCarouselControls";
 import { ArtworkMediaFrame } from "@/components/artwork/ArtworkMediaFrame";
-import { ResponsiveArtworkImage } from "@/components/artwork/ResponsiveArtworkImage";
+import { artworkImageSizes, ResponsiveArtworkImage } from "@/components/artwork/ResponsiveArtworkImage";
 import type { Artwork, ArtworkImageAsset } from "@/types/artwork";
 
 function fallbackImage(artwork: Artwork): ArtworkImageAsset {
@@ -23,16 +23,16 @@ export function ArtworkImageGallery({ artwork }: { artwork: Artwork }) {
   const scrollerId = `artwork-gallery-${artwork.slug}`;
 
   return (
-    <section aria-label={`Galería de imágenes de ${artwork.title}`} className="space-y-4">
-      <div className="relative">
-        <div id={scrollerId} className="flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-2">
+    <section aria-label={`Galería de imágenes de ${artwork.title}`} className="min-w-0 max-w-full space-y-4 overflow-x-hidden">
+      <div className="relative min-w-0 max-w-full overflow-x-hidden">
+        <div id={scrollerId} className="flex w-full max-w-full snap-x snap-mandatory gap-4 overflow-x-auto pb-2 motion-safe:scroll-smooth motion-reduce:scroll-auto">
           {images.map((image, index) => {
             const imageId = `${scrollerId}-image-${index + 1}`;
 
             return (
-              <figure key={image.src} id={imageId} className="min-w-full snap-center scroll-mt-[calc(var(--site-header-height)+1rem)]">
+              <figure key={image.src} id={imageId} className="min-w-full max-w-full snap-center scroll-mt-[calc(var(--site-header-height)+1rem)]">
                 <ArtworkMediaFrame image={image} size="detail">
-                  <ResponsiveArtworkImage image={image} alt={image.alt} priority={index === 0} className="object-contain" />
+                  <ResponsiveArtworkImage image={image} alt={image.alt} priority={index === 0} sizes={artworkImageSizes.detail} className="object-contain" />
                 </ArtworkMediaFrame>
                 <figcaption className="sr-only">
                   Imagen {index + 1} de {images.length}
@@ -50,7 +50,7 @@ export function ArtworkImageGallery({ artwork }: { artwork: Artwork }) {
           <p className="text-xs uppercase tracking-[0.22em] text-muted">
             Deslizá para ver {images.length} imágenes
           </p>
-          <ul className="flex gap-3 overflow-x-auto pb-1" aria-label="Seleccionar imagen">
+          <ul className="flex max-w-full gap-3 overflow-x-auto pb-1 motion-safe:scroll-smooth motion-reduce:scroll-auto" aria-label="Seleccionar imagen">
             {images.map((image, index) => {
               const imageId = `${scrollerId}-image-${index + 1}`;
 
@@ -62,7 +62,7 @@ export function ArtworkImageGallery({ artwork }: { artwork: Artwork }) {
                     href={`#${imageId}`}
                   >
                     <ArtworkMediaFrame image={image} size="thumbnail" className="[&>picture>img]:!p-1">
-                      <ResponsiveArtworkImage image={image} alt="" className="object-contain" />
+                      <ResponsiveArtworkImage image={image} alt="" sizes={artworkImageSizes.thumbnail} className="object-contain" />
                     </ArtworkMediaFrame>
                   </a>
                 </li>
