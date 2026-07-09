@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ConversionTracker } from "@/components/analytics/ConversionTracker";
 import { FloatingWhatsAppCta } from "@/components/layout/FloatingWhatsAppCta";
 import { FooterSocialLinks } from "@/components/layout/FooterSocialLinks";
 import { PageContainer } from "@/components/layout/PageContainer";
@@ -8,6 +9,7 @@ import { footerContent, footerNavigation } from "@/content/navigation";
 export function AppShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <ConversionTracker />
       <SiteHeader />
       <main>{children}</main>
       <FloatingWhatsAppCta />

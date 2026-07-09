@@ -1,6 +1,7 @@
 "use client";
 
 import type { FormEvent } from "react";
+import { trackConversion } from "@/components/analytics/ConversionTracker";
 import { artworks } from "@/data/artworks";
 
 function WhatsAppMark() {
@@ -31,8 +32,10 @@ export function InquiryForm({ selectedArtworkSlug, whatsapp }: { selectedArtwork
     ]
       .filter(Boolean)
       .join("\n");
+    const whatsappUrl = `https://wa.me/${whatsapp}?text=${encodeURIComponent(text)}`;
 
-    window.open(`https://wa.me/${whatsapp}?text=${encodeURIComponent(text)}`, "_blank", "noopener,noreferrer");
+    trackConversion(new URL(whatsappUrl), "inquiry-form");
+    window.open(whatsappUrl, "_blank", "noopener,noreferrer");
   }
 
   return (
