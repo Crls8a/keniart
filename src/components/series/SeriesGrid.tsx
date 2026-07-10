@@ -7,7 +7,7 @@ type SeriesGridProps = {
   items: ArtworkSeries[];
 };
 
-function SeriesCard({ item }: { item: ArtworkSeries }) {
+function SeriesCard({ item, eager = false }: { item: ArtworkSeries; eager?: boolean }) {
   return (
     <Link key={item.slug} href={routes.series.detail(item.slug)} className="group block focus-visible:outline-offset-4">
       <div className="relative aspect-[5/4] overflow-hidden bg-[#17120e]">
@@ -15,6 +15,8 @@ function SeriesCard({ item }: { item: ArtworkSeries }) {
           src={item.coverImage}
           alt={item.title}
           fill
+          fetchPriority={eager ? "high" : "auto"}
+          loading={eager ? "eager" : "lazy"}
           sizes="(min-width: 1024px) 45vw, 100vw"
           className="object-contain p-4 transition duration-700 motion-safe:group-hover:scale-[1.03] motion-safe:group-focus-visible:scale-[1.03]"
         />
@@ -29,8 +31,8 @@ function SeriesCard({ item }: { item: ArtworkSeries }) {
 export function SeriesGrid({ items }: SeriesGridProps) {
   return (
     <div className="grid gap-10 lg:grid-cols-2">
-      {items.map((item) => (
-        <SeriesCard key={item.slug} item={item} />
+      {items.map((item, index) => (
+        <SeriesCard key={item.slug} item={item} eager={index === 0} />
       ))}
     </div>
   );

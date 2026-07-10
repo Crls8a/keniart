@@ -1,15 +1,51 @@
 import Link from "next/link";
-import { ConversionTracker } from "@/components/analytics/ConversionTracker";
 import { FloatingWhatsAppCta } from "@/components/layout/FloatingWhatsAppCta";
 import { FooterSocialLinks } from "@/components/layout/FooterSocialLinks";
 import { PageContainer } from "@/components/layout/PageContainer";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { footerContent, footerNavigation } from "@/content/navigation";
+import { routes } from "@/lib/routes";
+
+const conversionTrackerScript = `(() => {
+  const dossierPath = ${JSON.stringify(routes.dossierPdf)};
+  const safeContextPattern = /^[a-z0-9_-]{1,48}$/;
+
+  document.addEventListener("click", (event) => {
+    const target = event.target;
+    if (!(target instanceof Element)) return;
+
+    const link = target.closest("a[href]");
+    if (!(link instanceof HTMLAnchorElement)) return;
+
+    const url = new URL(link.href, window.location.href);
+    const hostname = url.hostname.toLowerCase();
+    let eventName = null;
+
+    if (hostname === "wa.me") eventName = "lead_whatsapp_click";
+    else if (hostname === "instagram.com" || hostname.endsWith(".instagram.com")) eventName = "instagram_click";
+    else if (url.origin === window.location.origin && url.pathname === dossierPath) eventName = "dossier_download";
+
+    if (!eventName) return;
+
+    const context = link.dataset.analyticsContext;
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: eventName,
+      page_path: window.location.pathname,
+      link_host: hostname,
+      link_path: eventName === "lead_whatsapp_click" ? "/contact" : url.pathname,
+      context: context && safeContextPattern.test(context) ? context : "site",
+    });
+  });
+})();`;
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <ConversionTracker />
+      <script
+        id="keniart-conversion-tracker"
+        dangerouslySetInnerHTML={{ __html: conversionTrackerScript }}
+      />
       <SiteHeader />
       <main>{children}</main>
       <FloatingWhatsAppCta />

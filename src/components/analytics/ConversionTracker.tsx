@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect } from "react";
 import { routes } from "@/lib/routes";
 
 type ConversionEventName = "lead_whatsapp_click" | "instagram_click" | "dossier_download";
@@ -51,24 +50,4 @@ export function trackConversion(url: URL, context?: string) {
   const analyticsWindow = window as AnalyticsWindow;
   analyticsWindow.dataLayer = analyticsWindow.dataLayer ?? [];
   analyticsWindow.dataLayer.push(conversionEvent);
-}
-
-export function ConversionTracker() {
-  useEffect(() => {
-    function handleClick(event: MouseEvent) {
-      const target = event.target;
-      if (!(target instanceof Element)) return;
-
-      const link = target.closest("a[href]");
-      if (!(link instanceof HTMLAnchorElement)) return;
-
-      const url = new URL(link.href, window.location.href);
-      trackConversion(url, link.dataset.analyticsContext);
-    }
-
-    document.addEventListener("click", handleClick);
-    return () => document.removeEventListener("click", handleClick);
-  }, []);
-
-  return null;
 }
