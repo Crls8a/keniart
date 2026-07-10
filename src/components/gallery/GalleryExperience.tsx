@@ -19,6 +19,19 @@ type GalleryExperienceProps = {
       title: string;
       description: string;
       cardCta: string;
+      sections: {
+        available: {
+          eyebrow: string;
+          title: string;
+          description: string;
+        };
+        sold: {
+          eyebrow: string;
+          title: string;
+          description: string;
+          empty: string;
+        };
+      };
     };
   };
 };
@@ -28,6 +41,8 @@ export function GalleryExperience({ artworks, content }: GalleryExperienceProps)
   const heroArtwork = visibleArtworks[0];
   const heroImage = heroArtwork?.images.gallery?.[0];
   const heroHref = heroArtwork ? getCatalogOnlyArtworkHref(heroArtwork) : undefined;
+  const availableArtworks = visibleArtworks.filter((artwork) => artwork.status === "available");
+  const soldArtworks = visibleArtworks.filter((artwork) => artwork.status === "sold");
 
   return (
     <section className="space-y-12" aria-labelledby="gallery-experience-title">
@@ -60,7 +75,33 @@ export function GalleryExperience({ artworks, content }: GalleryExperienceProps)
         <p className="mt-5 text-muted">{content.list.description}</p>
       </div>
 
-      <GalleryArtworkGrid artworks={visibleArtworks} cardCta={content.list.cardCta} />
+      <section className="space-y-8" aria-labelledby="available-artworks-title">
+        <div className="max-w-3xl">
+          <p className="text-xs uppercase tracking-[0.35em] text-muted">{content.list.sections.available.eyebrow}</p>
+          <h3 id="available-artworks-title" className="mt-4 font-serif text-3xl tracking-[-0.04em] sm:text-4xl">
+            {content.list.sections.available.title}
+          </h3>
+          <p className="mt-4 text-muted">{content.list.sections.available.description}</p>
+        </div>
+        <GalleryArtworkGrid artworks={availableArtworks} cardCta={content.list.cardCta} />
+      </section>
+
+      <section className="space-y-8 border-t border-line pt-12" aria-labelledby="sold-artworks-title">
+        <div className="max-w-3xl">
+          <p className="text-xs uppercase tracking-[0.35em] text-muted">{content.list.sections.sold.eyebrow}</p>
+          <h3 id="sold-artworks-title" className="mt-4 font-serif text-3xl tracking-[-0.04em] sm:text-4xl">
+            {content.list.sections.sold.title}
+          </h3>
+          <p className="mt-4 text-muted">{content.list.sections.sold.description}</p>
+        </div>
+        {soldArtworks.length ? (
+          <GalleryArtworkGrid artworks={soldArtworks} cardCta={content.list.cardCta} />
+        ) : (
+          <p className="rounded-[1.75rem] border border-line bg-paper px-6 py-10 text-sm leading-6 text-muted">
+            {content.list.sections.sold.empty}
+          </p>
+        )}
+      </section>
     </section>
   );
 }

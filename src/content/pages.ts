@@ -61,6 +61,19 @@ export const pageContent = {
       title: "La serie completa queda a la vista.",
       description: "Abrí cada obra para ver su ficha y, cuando existan, sus imágenes adicionales.",
       cardCta: "Ver ficha",
+      sections: {
+        available: {
+          eyebrow: "Disponibilidad",
+          title: "Obras disponibles",
+          description: "Obras disponibles para consulta y adquisición.",
+        },
+        sold: {
+          eyebrow: "Colecciones privadas",
+          title: "Obras vendidas",
+          description: "Obras que ya forman parte de otras colecciones.",
+          empty: "Por el momento no hay obras vendidas en esta sección.",
+        },
+      },
     },
   },
   galleryPresence: {
