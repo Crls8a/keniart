@@ -98,12 +98,29 @@ textarea {
   }
 
   section,
-  article {
+  article,
+  .artwork-card {
     break-inside: avoid;
+    page-break-inside: avoid;
   }
 
   img {
     break-inside: avoid;
+  }
+
+  .artist-bio-media,
+  .artist-bio-figure {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .artist-bio-image {
+    aspect-ratio: 16 / 9;
+  }
+
+  .artist-bio-figure:not(:first-child),
+  .print-hidden {
+    display: none !important;
   }
 
   header,

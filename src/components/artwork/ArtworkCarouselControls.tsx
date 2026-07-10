@@ -25,7 +25,7 @@ export function ArtworkCarouselControls({ scrollerId }: ArtworkCarouselControlsP
   }
 
   return (
-    <div className="pointer-events-none absolute inset-x-3 top-1/2 z-20 flex -translate-y-1/2 justify-between gap-3 sm:inset-x-5">
+    <div className="print-hidden pointer-events-none absolute inset-x-3 top-1/2 z-20 flex -translate-y-1/2 justify-between gap-3 sm:inset-x-5">
       <button
         type="button"
         onClick={() => scrollByImage(-1)}

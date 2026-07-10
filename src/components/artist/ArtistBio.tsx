@@ -32,11 +32,11 @@ export function ArtistBio({ artist, content, headingLevel = "h1" }: ArtistBioPro
 
   return (
     <PageSection className="grid gap-10 py-16 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:py-24">
-      <div className="relative order-2 min-w-0 max-w-full lg:order-1">
+      <div className="artist-bio-media relative order-2 min-w-0 max-w-full lg:order-1">
         <div id={scrollerId} className="flex w-full max-w-full snap-x snap-mandatory gap-4 overflow-x-auto pb-2 motion-safe:scroll-smooth motion-reduce:scroll-auto">
           {artist.aboutMedia.images.map((image) => (
-            <figure key={image.id} className="min-w-full snap-center">
-              <div className="relative aspect-[2/3] overflow-hidden bg-[#17120e]">
+            <figure key={image.id} className="artist-bio-figure min-w-full snap-center">
+              <div className="artist-bio-image relative aspect-[2/3] overflow-hidden bg-[#17120e]">
                 <Image
                   src={image.src}
                   alt={image.alt}

@@ -25,7 +25,7 @@ export function FloatingWhatsAppCta() {
   return (
     <a
       aria-label={whatsappLabel}
-      className="fixed right-5 bottom-5 z-40 inline-flex size-12 items-center justify-center rounded-full border border-foreground/15 bg-foreground text-background shadow-lg shadow-foreground/10 transition hover:-translate-y-0.5 hover:bg-foreground/90 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-foreground sm:right-8 sm:bottom-8"
+      className="print-hidden fixed right-5 bottom-5 z-40 inline-flex size-12 items-center justify-center rounded-full border border-foreground/15 bg-foreground text-background shadow-lg shadow-foreground/10 transition hover:-translate-y-0.5 hover:bg-foreground/90 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-foreground sm:right-8 sm:bottom-8"
       href={whatsappUrl(whatsappMessage)}
       rel="noreferrer"
       target="_blank"

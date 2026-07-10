@@ -35,11 +35,11 @@ export function ArtworkCard({ artwork, href }: ArtworkCardProps) {
   );
 
   if (!href) {
-    return <article className="group flex h-full flex-col">{cardContent}</article>;
+    return <article className="artwork-card group flex h-full flex-col">{cardContent}</article>;
   }
 
   return (
-    <Link href={href} className="group flex h-full flex-col focus-visible:outline-offset-4">
+    <Link href={href} className="artwork-card group flex h-full flex-col focus-visible:outline-offset-4">
       {cardContent}
     </Link>
   );

@@ -61,7 +61,7 @@ Generate the downloadable dossier from the live web page:
 pnpm generate:dossier-pdf
 ```
 
-By default the script reads `http://localhost:3800/dossier` and writes `public/dossier/dossier-galerias.pdf`. Override the source with `DOSSIER_URL` or pass a URL as the first argument.
+By default the script reads `http://localhost:3800/dossier` and writes `public/dossier/dossier-galerias.pdf`. Override the source with `DOSSIER_URL` or pass a URL as the first argument. When the source is local, set `NEXT_PUBLIC_SITE_URL` or `DOSSIER_LINK_ORIGIN` to the public origin so every internal PDF link targets production. Generation fails if any image is missing or the final link origin is local.
 
 ## Notes
 

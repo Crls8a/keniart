@@ -5,6 +5,38 @@ import { chromium } from "playwright";
 const dossierUrl = process.env.DOSSIER_URL ?? process.argv[2] ?? "http://localhost:3800/dossier";
 const outputPath = path.resolve(process.cwd(), "public/dossier/dossier-galerias.pdf");
 
+function normalizeOrigin(value) {
+  const candidate = value.includes("://") ? value : `https://${value}`;
+  const url = new URL(candidate);
+
+  if (url.protocol !== "http:" && url.protocol !== "https:") {
+    throw new Error(`Unsupported dossier link protocol: ${url.protocol}`);
+  }
+
+  return url.origin;
+}
+
+function isLocalHostname(hostname) {
+  return hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1" || hostname.endsWith(".localhost");
+}
+
+const sourceUrl = new URL(dossierUrl);
+const configuredLinkOrigin =
+  process.env.DOSSIER_LINK_ORIGIN ??
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  process.env.VERCEL_PROJECT_PRODUCTION_URL;
+const linkOrigin = configuredLinkOrigin
+  ? normalizeOrigin(configuredLinkOrigin)
+  : isLocalHostname(sourceUrl.hostname)
+    ? undefined
+    : sourceUrl.origin;
+
+if (!linkOrigin || isLocalHostname(new URL(linkOrigin).hostname)) {
+  throw new Error(
+    "A public dossier link origin is required. Set DOSSIER_LINK_ORIGIN or NEXT_PUBLIC_SITE_URL before generating from localhost.",
+  );
+}
+
 async function waitForImages(page) {
   await page.evaluate(async () => {
     const scrollStep = window.innerHeight * 0.8;
@@ -15,7 +47,7 @@ async function waitForImages(page) {
     window.scrollTo(0, 0);
   });
 
-  await page.evaluate(async () => {
+  const images = await page.evaluate(async () => {
     const images = Array.from(document.images);
     const imagePromises = images.map((image) => {
       if (image.complete && image.naturalWidth > 0) {
@@ -30,7 +62,42 @@ async function waitForImages(page) {
     const timeout = new Promise((resolve) => window.setTimeout(resolve, 10_000));
 
     await Promise.race([Promise.all(imagePromises), timeout]);
+
+    return images.map((image) => ({
+      src: image.currentSrc || image.src,
+      complete: image.complete,
+      naturalWidth: image.naturalWidth,
+      naturalHeight: image.naturalHeight,
+    }));
   });
+
+  const brokenImages = images.filter((image) => !image.complete || image.naturalWidth === 0 || image.naturalHeight === 0);
+
+  if (images.length === 0 || brokenImages.length > 0) {
+    const brokenSources = brokenImages.map((image) => image.src).join(", ");
+    throw new Error(`Dossier image validation failed. Found ${images.length} image(s); broken: ${brokenSources || "none"}.`);
+  }
+
+  return images.length;
+}
+
+async function rewriteInternalLinks(page) {
+  return page.evaluate(
+    ({ sourceOrigin, targetOrigin }) => {
+      let rewrittenLinks = 0;
+
+      for (const anchor of document.querySelectorAll("a[href]")) {
+        const currentUrl = new URL(anchor.href);
+        if (currentUrl.origin !== sourceOrigin) continue;
+
+        anchor.href = new URL(`${currentUrl.pathname}${currentUrl.search}${currentUrl.hash}`, targetOrigin).href;
+        rewrittenLinks += 1;
+      }
+
+      return rewrittenLinks;
+    },
+    { sourceOrigin: sourceUrl.origin, targetOrigin: linkOrigin },
+  );
 }
 
 async function main() {
@@ -43,7 +110,8 @@ async function main() {
     await page.goto(dossierUrl, { waitUntil: "networkidle", timeout: 120_000 });
     await page.emulateMedia({ media: "print" });
     await page.evaluate(() => document.fonts.ready);
-    await waitForImages(page);
+    const imageCount = await waitForImages(page);
+    const rewrittenLinkCount = await rewriteInternalLinks(page);
 
     await page.pdf({
       path: outputPath,
@@ -56,6 +124,10 @@ async function main() {
         left: "12mm",
       },
     });
+
+    console.log(
+      `Validated ${imageCount} image(s) and rewrote ${rewrittenLinkCount} internal link(s) to ${linkOrigin}.`,
+    );
   } finally {
     await browser.close();
   }
