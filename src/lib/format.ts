@@ -1,0 +1,42 @@
+import type { Artwork } from "@/types/artwork";
+
+const priceFormatters: Record<NonNullable<Artwork["price"]>["currency"], Intl.NumberFormat> = {
+  EUR: new Intl.NumberFormat("es-MX", {
+    style: "currency",
+    currency: "EUR",
+    maximumFractionDigits: 0,
+  }),
+  MXN: new Intl.NumberFormat("es-MX", {
+    style: "currency",
+    currency: "MXN",
+    maximumFractionDigits: 0,
+  }),
+  USD: new Intl.NumberFormat("es-MX", {
+    style: "currency",
+    currency: "USD",
+    maximumFractionDigits: 0,
+  }),
+};
+
+export function formatDimensions(dimensions: Artwork["dimensions"]) {
+  if (dimensions.kind === "unknown") return dimensions.label ?? "Medidas a confirmar";
+
+  const depth = dimensions.depthCm ? ` x ${dimensions.depthCm}` : "";
+  return `${dimensions.heightCm} x ${dimensions.widthCm}${depth} cm`;
+}
+
+export function formatArtworkYear(artwork: Artwork) {
+  if (artwork.yearLabel) return artwork.yearLabel;
+
+  if (artwork.originalYear && artwork.editionYear && artwork.originalYear !== artwork.editionYear) {
+    return `${artwork.editionYear} (original de ${artwork.originalYear})`;
+  }
+
+  return artwork.year.toString();
+}
+
+export function formatPrice(price: Artwork["price"]) {
+  if (!price || price.visibility !== "public") return "Precio a consulta";
+
+  return priceFormatters[price.currency].format(price.amount);
+}

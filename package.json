@@ -1,0 +1,36 @@
+{
+  "name": "keniart",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@10.12.1",
+  "scripts": {
+    "dev": "next dev -p 3800",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "doctor": "react-doctor",
+    "doctor:react": "react-doctor",
+    "clean:next": "node scripts/clean_next_cache.cjs",
+    "dev:fresh": "pnpm clean:next && pnpm dev",
+    "optimize:images": "python scripts/optimize_images.py",
+    "validate:artworks": "node scripts/validate_artwork_images.cjs",
+    "generate:dossier-pdf": "node scripts/generate_dossier_pdf.mjs"
+  },
+  "dependencies": {
+    "next": "16.2.7",
+    "react": "19.2.4",
+    "react-dom": "19.2.4"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.7",
+    "playwright": "^1.60.0",
+    "react-doctor": "0.4.2",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}
