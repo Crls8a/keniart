@@ -1,2 +1,5 @@
 minimumReleaseAge: 10080
 trustPolicy: no-downgrade
+overrides:
+  "@opentelemetry/core": ^2.12.0
+  toml: ^5.0.1
